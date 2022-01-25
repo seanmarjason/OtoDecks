@@ -20,6 +20,8 @@ MainComponent::MainComponent()
         setAudioChannels (2, 2);
     }
     
+    addAndMakeVisible(playButton);
+    addAndMakeVisible(volSlider);
 }
 
 MainComponent::~MainComponent()
@@ -74,4 +76,8 @@ void MainComponent::resized()
     // If you add any child components, this is where you should
     // update their positions.
     
+    double rowH = getHeight() / 5;
+    
+    playButton.setBounds(0, 0, getWidth(), rowH);
+    volSlider.setBounds(0, rowH, getWidth(), rowH);
 }
