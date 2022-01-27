@@ -38,24 +38,30 @@ MainComponent::~MainComponent()
 //==============================================================================
 void MainComponent::prepareToPlay (int samplesPerBlockExpected, double sampleRate)
 {
-    // This function will be called when the audio device is started, or when
-    // its settings (i.e. sample rate, block size, etc) are changed.
-
-    // You can use this function to initialise any resources you might need,
-    // but be careful - it will be called on the audio thread, not the GUI thread.
-
-    // For more details, see the help for AudioProcessor::prepareToPlay()
+    phase = 0.0;
+    dphase = 0.0001;
 }
 
 void MainComponent::getNextAudioBlock (const juce::AudioSourceChannelInfo& bufferToFill)
 {
-    // Your audio-processing code goes here!
-
-    // For more details, see the help for AudioProcessor::getNextAudioBlock()
+    /** Generate sound output */
+    auto* leftChan = bufferToFill.buffer->getWritePointer(0, bufferToFill.startSample);
+    auto* rightChan = bufferToFill.buffer->getWritePointer(0, bufferToFill.startSample);
+    
+    for (auto i=0; i < bufferToFill.numSamples; ++i)
+    {
+//        double sample = rand.nextDouble() * 0.25; // white noise
+//        double sample = fmod(phase, 0.2); // sawtooth wave
+        double sample = sin(phase) * 0.1; // sine wave
+        leftChan[i] = sample;
+        rightChan[i] = sample;
+        
+        phase += dphase;
+    }
 
     // Right now we are not producing any data, in which case we need to clear the buffer
     // (to prevent the output of random noise)
-    bufferToFill.clearActiveBufferRegion();
+//    bufferToFill.clearActiveBufferRegion();
 }
 
 void MainComponent::releaseResources()
@@ -104,6 +110,8 @@ void MainComponent::sliderValueChanged (juce::Slider *slider)
 {
     if (slider == &volSlider)
     {
-        std::cout << "volSlider moved " << slider->getValue() << std::endl;
+//        std::cout << "volSlider moved " << slider->getValue() << std::endl;
+//        dphase = volSlider.getValue() * 0.001; // attach slider to sawtooth phaser
+        dphase = volSlider.getValue() * 0.01; // attach slider to sine phaser
     }
 }
