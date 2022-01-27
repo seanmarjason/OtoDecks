@@ -21,7 +21,12 @@ MainComponent::MainComponent()
     }
     
     addAndMakeVisible(playButton);
+    addAndMakeVisible(stopButton);
     addAndMakeVisible(volSlider);
+    
+    playButton.addListener(this);
+    stopButton.addListener(this);
+    volSlider.addListener(this);
 }
 
 MainComponent::~MainComponent()
@@ -79,5 +84,26 @@ void MainComponent::resized()
     double rowH = getHeight() / 5;
     
     playButton.setBounds(0, 0, getWidth(), rowH);
-    volSlider.setBounds(0, rowH, getWidth(), rowH);
+    stopButton.setBounds(0, rowH, getWidth(), rowH);
+    volSlider.setBounds(0, rowH * 2, getWidth(), rowH);
+}
+
+void MainComponent::buttonClicked(juce::Button* button)
+{
+    if (button == &playButton)
+    {
+        std::cout << "Play button was clicked" << std::endl;
+    }
+    if (button == &stopButton)
+    {
+        std::cout << "Stop button was clicked" << std::endl;
+    }
+}
+
+void MainComponent::sliderValueChanged (juce::Slider *slider)
+{
+    if (slider == &volSlider)
+    {
+        std::cout << "volSlider moved " << slider->getValue() << std::endl;
+    }
 }
