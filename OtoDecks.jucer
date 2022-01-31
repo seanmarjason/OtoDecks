@@ -5,6 +5,9 @@
               defines="JUCE_MODAL_LOOPS_PERMITTED=1">
   <MAINGROUP id="hMFM76" name="OtoDecks">
     <GROUP id="{1316FCDC-0191-B456-B672-BC565043967C}" name="Source">
+      <FILE id="AHQEl2" name="DJAudioPlayer.cpp" compile="1" resource="0"
+            file="Source/DJAudioPlayer.cpp"/>
+      <FILE id="eI17zQ" name="DJAudioPlayer.h" compile="0" resource="0" file="Source/DJAudioPlayer.h"/>
       <FILE id="c26DGj" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
       <FILE id="ttgPBD" name="MainComponent.h" compile="0" resource="0" file="Source/MainComponent.h"/>
       <FILE id="uVbICK" name="MainComponent.cpp" compile="1" resource="0"
