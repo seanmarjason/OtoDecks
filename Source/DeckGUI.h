@@ -18,7 +18,8 @@
 */
 class DeckGUI  :    public juce::Component,
                     public juce::Button::Listener,
-                    public juce::Slider::Listener
+                    public juce::Slider::Listener,
+                    public juce::FileDragAndDropTarget
 
 {
 public:
@@ -35,8 +36,8 @@ public:
     void sliderValueChanged (juce::Slider *slider) override;
     
     /** Implement drag and drop */
-
-    
+    bool isInterestedInFileDrag(const juce::StringArray &files) override;
+    void filesDropped (const juce::StringArray &files, int x, int y) override;
 
 private:
     juce::TextButton playButton{"PLAY"};
