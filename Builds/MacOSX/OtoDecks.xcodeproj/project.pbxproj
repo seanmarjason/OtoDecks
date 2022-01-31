@@ -21,6 +21,7 @@
 		4E2B0D15C491D18D4D8C6568 /* include_juce_gui_basics.mm */ = {isa = PBXBuildFile; fileRef = BB7533FCCCA389C4844792D8; };
 		52FEFF0BEFB29C2D10A34517 /* Main.cpp */ = {isa = PBXBuildFile; fileRef = 4638BE9554F9D70E956F0CFD; };
 		564AB682441D8FE24D2ECF91 /* include_juce_audio_utils.mm */ = {isa = PBXBuildFile; fileRef = EBA767DB679857CCE2D98A61; };
+		56E04FF7F01FB1516D89C507 /* DeckGUI.cpp */ = {isa = PBXBuildFile; fileRef = 3D53E27FEE04A6E9634F84D7; };
 		5A55FBFCA1DCC850754C7A98 /* CoreAudio.framework */ = {isa = PBXBuildFile; fileRef = 433C02BD2FC1F72543BC1F08; };
 		5CE6DBF7E58757337296913F /* include_juce_audio_formats.mm */ = {isa = PBXBuildFile; fileRef = CA587EBA501629D1FCF3B22F; };
 		642E5649B221510416088388 /* Cocoa.framework */ = {isa = PBXBuildFile; fileRef = 45CE4DB65374FBAE354B37CD; };
@@ -46,6 +47,7 @@
 		30EB5C9C8130DD71B5CED5DB /* AudioToolbox.framework */ /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		3440A8651E0F4A1AFD9A322F /* CoreMIDI.framework */ /* CoreMIDI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMIDI.framework; path = System/Library/Frameworks/CoreMIDI.framework; sourceTree = SDKROOT; };
 		39C6594F2D8BB939BC315767 /* CoreAudioKit.framework */ /* CoreAudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudioKit.framework; path = System/Library/Frameworks/CoreAudioKit.framework; sourceTree = SDKROOT; };
+		3D53E27FEE04A6E9634F84D7 /* DeckGUI.cpp */ /* DeckGUI.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = DeckGUI.cpp; path = ../../Source/DeckGUI.cpp; sourceTree = SOURCE_ROOT; };
 		433C02BD2FC1F72543BC1F08 /* CoreAudio.framework */ /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
 		45CE4DB65374FBAE354B37CD /* Cocoa.framework */ /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		4638BE9554F9D70E956F0CFD /* Main.cpp */ /* Main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = Main.cpp; path = ../../Source/Main.cpp; sourceTree = SOURCE_ROOT; };
@@ -71,6 +73,7 @@
 		C47D1520C3AAA9F37FD4BE72 /* MainComponent.cpp */ /* MainComponent.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = MainComponent.cpp; path = ../../Source/MainComponent.cpp; sourceTree = SOURCE_ROOT; };
 		C5A52C284FB5FEDCD7B48445 /* Accelerate.framework */ /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		C6BF80039CA78AD968D45370 /* WebKit.framework */ /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		C7D2269A86A900E6B91CB049 /* DeckGUI.h */ /* DeckGUI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = DeckGUI.h; path = ../../Source/DeckGUI.h; sourceTree = SOURCE_ROOT; };
 		C86FA5066B7EE25905982E4F /* include_juce_audio_processors.mm */ /* include_juce_audio_processors.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = include_juce_audio_processors.mm; path = ../../JuceLibraryCode/include_juce_audio_processors.mm; sourceTree = SOURCE_ROOT; };
 		CA587EBA501629D1FCF3B22F /* include_juce_audio_formats.mm */ /* include_juce_audio_formats.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = include_juce_audio_formats.mm; path = ../../JuceLibraryCode/include_juce_audio_formats.mm; sourceTree = SOURCE_ROOT; };
 		D2295138ACF9BA7DABEF4D66 /* App */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OtoDecks.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -131,6 +134,8 @@
 		7EED0BA839301273B7D5C224 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				3D53E27FEE04A6E9634F84D7,
+				C7D2269A86A900E6B91CB049,
 				9A912815CFCFAA877B50DFB4,
 				BFE4C837EDA11F1EA5891A3F,
 				4638BE9554F9D70E956F0CFD,
@@ -297,6 +302,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				56E04FF7F01FB1516D89C507,
 				A43C3F2772C41998620BEE6D,
 				52FEFF0BEFB29C2D10A34517,
 				9EEBAA24E25C2E985850FEA2,
