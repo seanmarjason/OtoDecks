@@ -58,7 +58,6 @@ void MainComponent::releaseResources()
     // restarted due to a setting change.
     player1.releaseResources();
     player2.releaseResources();
-//    mixerSource.removeAllInputs();
     mixerSource.releaseResources();
 }
 

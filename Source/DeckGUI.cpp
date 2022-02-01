@@ -13,8 +13,8 @@
 
 //==============================================================================
 DeckGUI::DeckGUI(DJAudioPlayer* _player,
-                 juce::AudioFormatManager& formatManagerToUse,
-                 juce::AudioThumbnailCache& cacheToUse
+                 juce::AudioFormatManager & formatManagerToUse,
+                 juce::AudioThumbnailCache & cacheToUse
                  ) : player(_player), waveformDisplay(formatManagerToUse, cacheToUse) // initialisation list
 {
     addAndMakeVisible(playButton);
@@ -38,16 +38,26 @@ DeckGUI::DeckGUI(DJAudioPlayer* _player,
     volSlider.setRange(0.0, 1.0);
     speedSlider.setRange(0.0, 100.0);
     posSlider.setRange(0.0, 1.0);
+    
+    startTimer(500);
 }
 
 DeckGUI::~DeckGUI()
 {
+    stopTimer();
 }
 
 void DeckGUI::paint (juce::Graphics& g)
 {
     g.fillAll (getLookAndFeel().findColour (juce::ResizableWindow::backgroundColourId));   // clear the background
 
+    g.setColour (juce::Colours::grey);
+    g.drawRect (getLocalBounds(), 1);   // draw an outline around the component
+
+    g.setColour (juce::Colours::white);
+    g.setFont (14.0f);
+    g.drawText ("DeckGUI", getLocalBounds(),
+                juce::Justification::centred, true);   // draw some placeholder text
 }
 
 void DeckGUI::resized()
@@ -113,4 +123,8 @@ void DeckGUI::filesDropped (const juce::StringArray &files, int x, int y){
     if (files.size() == 1) {
         player->loadURL(juce::URL{juce::File{files[0]}});
     }
+}
+
+void DeckGUI::timerCallback() {
+    waveformDisplay.setPositionRelative(player->getPositionRelative());
 }
