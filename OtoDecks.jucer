@@ -19,6 +19,10 @@
       <FILE id="uVbICK" name="MainComponent.cpp" compile="1" resource="0"
             file="Source/MainComponent.cpp"/>
     </GROUP>
+    <FILE id="u467Cs" name="PlaylistComponent.cpp" compile="1" resource="0"
+          file="Source/PlaylistComponent.cpp"/>
+    <FILE id="gQJe4V" name="PlaylistComponent.h" compile="0" resource="0"
+          file="Source/PlaylistComponent.h"/>
   </MAINGROUP>
   <JUCEOPTIONS JUCE_STRICT_REFCOUNTEDPOINTER="1"/>
   <EXPORTFORMATS>
