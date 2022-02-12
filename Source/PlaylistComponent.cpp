@@ -17,13 +17,6 @@ PlaylistComponent::PlaylistComponent()
     trackTitles.push_back("Track 1");
     trackTitles.push_back("Track 2");
     trackTitles.push_back("Track 3");
-    trackTitles.push_back("Track 4");
-    trackTitles.push_back("Track 5");
-    trackTitles.push_back("Track 6");
-    trackTitles.push_back("Track 7");
-    trackTitles.push_back("Track 8");
-    trackTitles.push_back("Track 9");
-    trackTitles.push_back("Track 10");
 
     tableComponent.getHeader().addColumn("Track title", 1, 475);
     tableComponent.getHeader().addColumn("", 2, 150);
@@ -33,6 +26,10 @@ PlaylistComponent::PlaylistComponent()
     tableComponent.setModel(this);
     
     addAndMakeVisible(tableComponent);
+    
+    loadButton.addListener(this);
+    addAndMakeVisible(loadButton);
+
 }
 
 PlaylistComponent::~PlaylistComponent()
@@ -61,7 +58,9 @@ void PlaylistComponent::paint (juce::Graphics& g)
 
 void PlaylistComponent::resized()
 {
-    tableComponent.setBounds(0, 0, getWidth(), getHeight());
+    double rowH = getHeight() / 10;
+    tableComponent.setBounds(0, 0, getWidth(), rowH * 9);
+    loadButton.setBounds(0, rowH * 9, getWidth(), rowH);
 }
 
 int PlaylistComponent::getNumRows(){
@@ -107,6 +106,22 @@ juce::Component* PlaylistComponent::refreshComponentForCell ( int rowNumber, int
 
 
 void PlaylistComponent::buttonClicked(juce::Button* button){
-    int id = std::stoi(button->getComponentID().toStdString());
-    std::cout << "PlaylistComponent::buttonClicked " << trackTitles[id] << std::endl;
+    if (button == &loadButton) {
+        std::cout << "Load button was clicked" << std::endl;
+        
+        juce::FileChooser chooser{"Select a file..."};
+        if (chooser.browseForFileToOpen()){
+            addTrack(juce::URL{chooser.getResult()}.getFileName());
+        }
+    }
+    else {
+        int id = std::stoi(button->getComponentID().toStdString());
+        std::cout << "PlaylistComponent::buttonClicked " << trackTitles[id] << std::endl;
+    }
+}
+
+void PlaylistComponent::addTrack(juce::String trackName) {
+    trackTitles.push_back(trackName.toStdString());
+    tableComponent.updateContent();
+    repaint();
 }

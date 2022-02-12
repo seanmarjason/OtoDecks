@@ -39,11 +39,15 @@ public:
                                              ) override;
     
     void buttonClicked(juce::Button* button) override;
+    
+    void addTrack(juce::String trackName);
 
 private:
     
     juce::TableListBox tableComponent;
     std::vector<std::string> trackTitles;
+    
+    juce::TextButton loadButton{"Add Track"};
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PlaylistComponent)
 };
