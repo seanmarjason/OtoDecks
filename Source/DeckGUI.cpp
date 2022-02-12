@@ -17,6 +17,12 @@ DeckGUI::DeckGUI(DJAudioPlayer* _player,
                  juce::AudioThumbnailCache & cacheToUse
                  ) : player(_player), waveformDisplay(formatManagerToUse, cacheToUse) // initialisation list
 {
+    
+    trackTitle.setText("---", juce::dontSendNotification);
+    trackTitle.setColour (juce::Label::textColourId, juce::Colours::lightgreen);
+    trackTitle.setJustificationType (juce::Justification::centred);
+
+    
     addAndMakeVisible(playButton);
     addAndMakeVisible(stopButton);
     addAndMakeVisible(loadButton);
@@ -24,6 +30,8 @@ DeckGUI::DeckGUI(DJAudioPlayer* _player,
     addAndMakeVisible(volSlider);
     addAndMakeVisible(speedSlider);
     addAndMakeVisible(posSlider);
+    
+    addAndMakeVisible(trackTitle);
     
     addAndMakeVisible(waveformDisplay);
     
@@ -56,21 +64,20 @@ void DeckGUI::paint (juce::Graphics& g)
 
     g.setColour (juce::Colours::white);
     g.setFont (14.0f);
-    g.drawText ("DeckGUI", getLocalBounds(),
-                juce::Justification::centred, true);   // draw some placeholder text
 }
 
 void DeckGUI::resized()
 {
-    double rowH = getHeight() / 8;
+    double rowH = getHeight() / 10;
     
-    playButton.setBounds(0, 0, getWidth(), rowH);
-    stopButton.setBounds(0, rowH, getWidth(), rowH);
+    playButton.setBounds(0, rowH * 0, getWidth(), rowH);
+    stopButton.setBounds(0, rowH * 1, getWidth(), rowH);
     volSlider.setBounds(0, rowH * 2, getWidth(), rowH);
     speedSlider.setBounds(0, rowH * 3, getWidth(), rowH);
     posSlider.setBounds(0, rowH * 4, getWidth(), rowH);
-    waveformDisplay.setBounds(0, rowH * 5, getWidth(), rowH * 2);
-    loadButton.setBounds(0, rowH * 7, getWidth(), rowH);
+    waveformDisplay.setBounds(0, rowH * 5, getWidth(), rowH * 3);
+    trackTitle.setBounds(0, rowH * 8, getWidth(), rowH);
+    loadButton.setBounds(0, rowH * 9, getWidth(), rowH);
 }
 
 void DeckGUI::buttonClicked(juce::Button* button)
@@ -92,7 +99,7 @@ void DeckGUI::buttonClicked(juce::Button* button)
         {
             player->loadURL(juce::URL{chooser.getResult()});
             waveformDisplay.loadURL(juce::URL{chooser.getResult()});
-            
+            trackTitle.setText(juce::URL{chooser.getResult()}.getFileName(), juce::dontSendNotification);
         }
     }
 }

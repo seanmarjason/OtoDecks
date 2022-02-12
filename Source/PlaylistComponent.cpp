@@ -24,9 +24,11 @@ PlaylistComponent::PlaylistComponent()
     trackTitles.push_back("Track 8");
     trackTitles.push_back("Track 9");
     trackTitles.push_back("Track 10");
+
+    tableComponent.getHeader().addColumn("Track title", 1, 475);
+    tableComponent.getHeader().addColumn("", 2, 150);
+    tableComponent.getHeader().addColumn("", 3, 150);
     
-    tableComponent.getHeader().addColumn("Track title", 1, 600);
-    tableComponent.getHeader().addColumn("", 2, 200);
     
     tableComponent.setModel(this);
     
@@ -84,7 +86,16 @@ juce::Component* PlaylistComponent::refreshComponentForCell ( int rowNumber, int
                                                              juce::Component *existingComponentToUpdate) {
     if (columnId == 2) {
         if (existingComponentToUpdate == nullptr) {
-            juce::TextButton* btn = new juce::TextButton{"play"};
+            juce::TextButton* btn = new juce::TextButton{"Load Disk 1"};
+            juce::String id{std::to_string(rowNumber)};
+            btn->setComponentID(id);
+            btn->addListener(this);
+            existingComponentToUpdate = btn;
+        }
+    }
+    if (columnId == 3) {
+        if (existingComponentToUpdate == nullptr) {
+            juce::TextButton* btn = new juce::TextButton{"Load Disk 2"};
             juce::String id{std::to_string(rowNumber)};
             btn->setComponentID(id);
             btn->addListener(this);

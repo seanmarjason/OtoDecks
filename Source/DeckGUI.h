@@ -55,6 +55,8 @@ private:
     juce::Slider speedSlider;
     juce::Slider posSlider;
     
+    juce::Label trackTitle;
+    
     DJAudioPlayer* player;
     
     WaveformDisplay waveformDisplay;
