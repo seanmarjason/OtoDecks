@@ -40,12 +40,12 @@ public:
     
     void buttonClicked(juce::Button* button) override;
     
-    void addTrack(juce::String trackName);
+    void addTrack(juce::String trackName, juce::URL trackURL);
 
 private:
     
     juce::TableListBox tableComponent;
-    std::vector<std::string> trackTitles;
+    std::vector<std::pair<std::string, juce::URL>> trackTitles;
     
     juce::TextButton loadButton{"Add Track"};
     

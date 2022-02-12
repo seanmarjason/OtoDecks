@@ -14,14 +14,9 @@
 //==============================================================================
 PlaylistComponent::PlaylistComponent()
 {
-    trackTitles.push_back("Track 1");
-    trackTitles.push_back("Track 2");
-    trackTitles.push_back("Track 3");
-
     tableComponent.getHeader().addColumn("Track title", 1, 475);
     tableComponent.getHeader().addColumn("", 2, 150);
     tableComponent.getHeader().addColumn("", 3, 150);
-    
     
     tableComponent.setModel(this);
     
@@ -38,13 +33,6 @@ PlaylistComponent::~PlaylistComponent()
 
 void PlaylistComponent::paint (juce::Graphics& g)
 {
-    /* This demo code just fills the component's background and
-       draws some placeholder text to get you started.
-
-       You should replace everything in this method with your own
-       drawing code..
-    */
-
     g.fillAll (getLookAndFeel().findColour (juce::ResizableWindow::backgroundColourId));   // clear the background
 
     g.setColour (juce::Colours::grey);
@@ -77,7 +65,7 @@ void PlaylistComponent::paintRowBackground(juce::Graphics & g, int rowNumber, in
 }
 
 void PlaylistComponent::paintCell(juce::Graphics & g, int rowNumber, int columnId, int width, int height, bool rowIsSelected) {
-    g.drawText(trackTitles[rowNumber], 2, 0, width-4, height, juce::Justification::centredLeft, true);
+    g.drawText(trackTitles[rowNumber].first, 2, 0, width-4, height, juce::Justification::centredLeft, true);
 }
 
 
@@ -111,17 +99,19 @@ void PlaylistComponent::buttonClicked(juce::Button* button){
         
         juce::FileChooser chooser{"Select a file..."};
         if (chooser.browseForFileToOpen()){
-            addTrack(juce::URL{chooser.getResult()}.getFileName());
+            addTrack(juce::URL{chooser.getResult()}.getFileName(), juce::URL{chooser.getResult()});
         }
     }
     else {
         int id = std::stoi(button->getComponentID().toStdString());
-        std::cout << "PlaylistComponent::buttonClicked " << trackTitles[id] << std::endl;
+        std::string trackName = trackTitles[id].first;
+        std::string trackURL = trackTitles[id].second.toString(false).toStdString();
+        std::cout << "PlaylistComponent::buttonClicked " << trackName << " : " << trackURL << std::endl;
     }
 }
 
-void PlaylistComponent::addTrack(juce::String trackName) {
-    trackTitles.push_back(trackName.toStdString());
+void PlaylistComponent::addTrack(juce::String trackName, juce::URL trackURL) {
+    trackTitles.push_back({trackName.toStdString(), trackURL});
     tableComponent.updateContent();
     repaint();
 }
