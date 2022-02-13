@@ -26,25 +26,25 @@ DeckGUI::DeckGUI(DJAudioPlayer* _player,
     addAndMakeVisible(playButton);
     addAndMakeVisible(stopButton);
     addAndMakeVisible(loadButton);
-    
     addAndMakeVisible(volSlider);
     addAndMakeVisible(speedSlider);
     addAndMakeVisible(posSlider);
-    
     addAndMakeVisible(trackTitle);
-    
     addAndMakeVisible(waveformDisplay);
     
     playButton.addListener(this);
     stopButton.addListener(this);
     loadButton.addListener(this);
-    
     volSlider.addListener(this);
     speedSlider.addListener(this);
     posSlider.addListener(this);
     
-    volSlider.setRange(0.0, 1.0);
-    speedSlider.setRange(0.0, 100.0);
+    volSlider.setRange(0.0, 2.0);
+    volSlider.setValue(1.0);
+    
+    speedSlider.setRange(0.0, 2.0);
+    speedSlider.setValue(1.0);
+    
     posSlider.setRange(0.0, 1.0);
     
     startTimer(500);

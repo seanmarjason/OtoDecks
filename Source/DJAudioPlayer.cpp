@@ -45,8 +45,8 @@ void DJAudioPlayer::loadURL(juce::URL audioURL) {
 }
 
 void DJAudioPlayer::setGain(double gain) {
-    if (gain < 0.1 || gain > 1.0) {
-        std::cout << "DJAudioPlayer::setGain gain should be between 0 and 1" << std::endl;
+    if (gain < 0.1 || gain > 2.0) {
+        std::cout << "DJAudioPlayer::setGain gain should be between 0 and 2" << std::endl;
     }
     else {
         transportSource.setGain(gain);
@@ -54,11 +54,12 @@ void DJAudioPlayer::setGain(double gain) {
 }
 
 void DJAudioPlayer::setSpeed(double ratio) {
-    if (ratio < 0.1 || ratio > 100.0) {
-        std::cout << "DJAudioPlayer::setSpeed ratio should be between 0 and 100" << std::endl;
+    if (ratio < 0.1 || ratio > 2.0) {
+        std::cout << "DJAudioPlayer::setSpeed ratio should be between 0 and 10" << std::endl;
     }
     else {
-        resampleSource.setResamplingRatio(ratio);
+        double rate = ratio; // TODO: scale rate to have greater influence on speed
+        resampleSource.setResamplingRatio(rate);
     }
 }
 
