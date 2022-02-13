@@ -13,6 +13,7 @@
 #include <JuceHeader.h>
 #include <vector>
 #include <string>
+#include "DeckGUI.h"
 
 //==============================================================================
 /*
@@ -22,7 +23,7 @@ class PlaylistComponent  :  public juce::Component,
                             public juce::Button::Listener
 {
 public:
-    PlaylistComponent();
+    PlaylistComponent(DeckGUI* deckGUI1, DeckGUI* deckGUI2);
     ~PlaylistComponent() override;
 
     void paint (juce::Graphics&) override;
@@ -49,5 +50,8 @@ private:
     
     juce::TextButton loadButton{"Add Track"};
     
+    DeckGUI* deckGUI1;
+    DeckGUI* deckGUI2;
+
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PlaylistComponent)
 };

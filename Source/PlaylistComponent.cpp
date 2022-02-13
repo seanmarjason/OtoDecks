@@ -12,7 +12,9 @@
 #include "PlaylistComponent.h"
 
 //==============================================================================
-PlaylistComponent::PlaylistComponent()
+PlaylistComponent::PlaylistComponent(   DeckGUI* _deckGUI1,
+                                        DeckGUI* _deckGUI2
+                                     ) : deckGUI1(_deckGUI1), deckGUI2(_deckGUI2)
 {
     tableComponent.getHeader().addColumn("Track title", 1, 475);
     tableComponent.getHeader().addColumn("", 2, 150);
@@ -104,9 +106,20 @@ void PlaylistComponent::buttonClicked(juce::Button* button){
     }
     else {
         int id = std::stoi(button->getComponentID().toStdString());
+        std::string action = button->getName().toStdString();
         std::string trackName = trackTitles[id].first;
-        std::string trackURL = trackTitles[id].second.toString(false).toStdString();
-        std::cout << "PlaylistComponent::buttonClicked " << trackName << " : " << trackURL << std::endl;
+        juce::URL trackURL = trackTitles[id].second;
+        if (action == "Load Disk 1") {
+            std::cout << "Load to track 1: " << trackName << " : " << trackURL.toString(false).toStdString() << std::endl;
+            deckGUI1->loadTrack(trackURL);
+        }
+        else if (action == "Load Disk 2") {
+            std::cout << "Load to track 2: " << trackName << " : " << trackURL.toString(false).toStdString() << std::endl;
+            deckGUI2->loadTrack(trackURL);
+        }
+        else {
+            std::cout << "buttonClicked: '" << action << "' but no action." << std::endl;
+        }
     }
 }
 

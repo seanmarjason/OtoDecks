@@ -45,11 +45,13 @@ public:
     void filesDropped (const juce::StringArray &files, int x, int y) override;
     
     void timerCallback() override;
+    
+    void loadTrack(juce::URL trackURL);
 
 private:
     juce::TextButton playButton{"PLAY"};
     juce::TextButton stopButton{"STOP"};
-    juce::TextButton loadButton{"LOAD"};
+    juce::TextButton loadButton{"LOAD DIRECTLY"};
     
     juce::Slider volSlider;
     juce::Slider speedSlider;

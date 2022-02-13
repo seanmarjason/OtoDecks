@@ -97,11 +97,15 @@ void DeckGUI::buttonClicked(juce::Button* button)
         juce::FileChooser chooser{"Select a file..."};
         if (chooser.browseForFileToOpen())
         {
-            player->loadURL(juce::URL{chooser.getResult()});
-            waveformDisplay.loadURL(juce::URL{chooser.getResult()});
-            trackTitle.setText(juce::URL{chooser.getResult()}.getFileName(), juce::dontSendNotification);
+            loadTrack(juce::URL{chooser.getResult()});
         }
     }
+}
+
+void DeckGUI::loadTrack(juce::URL trackURL){
+    player->loadURL(trackURL);
+    waveformDisplay.loadURL(trackURL);
+    trackTitle.setText(trackURL.getFileName(), juce::dontSendNotification);
 }
 
 void DeckGUI::sliderValueChanged (juce::Slider *slider)
