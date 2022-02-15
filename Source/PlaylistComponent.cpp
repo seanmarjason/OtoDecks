@@ -9,6 +9,7 @@
 */
 
 #include <JuceHeader.h>
+#include <regex>
 #include "PlaylistComponent.h"
 
 //==============================================================================
@@ -101,7 +102,9 @@ void PlaylistComponent::buttonClicked(juce::Button* button){
         
         juce::FileChooser chooser{"Select a file..."};
         if (chooser.browseForFileToOpen()){
-            addTrack(juce::URL{chooser.getResult()}.getFileName(), juce::URL{chooser.getResult()});
+            juce::String trackName = juce::URL{chooser.getResult()}.getFileName();
+            juce::URL trackURL = juce::URL{chooser.getResult()};
+            addTrack(trackName, trackURL);
         }
     }
     else {
@@ -124,7 +127,20 @@ void PlaylistComponent::buttonClicked(juce::Button* button){
 }
 
 void PlaylistComponent::addTrack(juce::String trackName, juce::URL trackURL) {
-    trackTitles.push_back({trackName.toStdString(), trackURL});
+    juce::String trackIdentifier = std::regex_replace(trackName.toStdString(), std::regex("\%20"),"_");
+    juce::String trackDisplayName = std::regex_replace(trackName.toStdString(), std::regex("\%20")," ");
+    juce::String trackUrlString = trackURL.toString(false).toStdString();
+    
+//  As vector
+    trackTitles.push_back({trackDisplayName.toStdString(), trackURL});
+    
+    juce::XmlElement* newTrack = new juce::XmlElement (trackIdentifier);
+    newTrack->setAttribute("name", trackDisplayName);
+    newTrack->setAttribute("url", trackUrlString);
+    tracks.addChildElement(newTrack);
+    
+    std::cout << tracks.toString() << std::endl;
+        
     tableComponent.updateContent();
     repaint();
 }

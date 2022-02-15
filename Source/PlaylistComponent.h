@@ -48,6 +48,8 @@ private:
     juce::TableListBox tableComponent;
     std::vector<std::pair<std::string, juce::URL>> trackTitles;
     
+    juce::XmlElement tracks{"Tracks"};
+    
     juce::TextButton loadButton{"Add Track"};
     
     DeckGUI* deckGUI1;
