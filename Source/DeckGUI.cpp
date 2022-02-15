@@ -25,7 +25,6 @@ DeckGUI::DeckGUI(DJAudioPlayer* _player,
     
     addAndMakeVisible(playButton);
     addAndMakeVisible(stopButton);
-    addAndMakeVisible(loadButton);
     addAndMakeVisible(volSlider);
     addAndMakeVisible(speedSlider);
     addAndMakeVisible(posSlider);
@@ -34,7 +33,6 @@ DeckGUI::DeckGUI(DJAudioPlayer* _player,
     
     playButton.addListener(this);
     stopButton.addListener(this);
-    loadButton.addListener(this);
     volSlider.addListener(this);
     speedSlider.addListener(this);
     posSlider.addListener(this);
@@ -75,9 +73,8 @@ void DeckGUI::resized()
     volSlider.setBounds(0, rowH * 2, getWidth(), rowH);
     speedSlider.setBounds(0, rowH * 3, getWidth(), rowH);
     posSlider.setBounds(0, rowH * 4, getWidth(), rowH);
-    waveformDisplay.setBounds(0, rowH * 5, getWidth(), rowH * 3);
-    trackTitle.setBounds(0, rowH * 8, getWidth(), rowH);
-    loadButton.setBounds(0, rowH * 9, getWidth(), rowH);
+    waveformDisplay.setBounds(0, rowH * 5, getWidth(), rowH * 4);
+    trackTitle.setBounds(0, rowH * 9, getWidth(), rowH);
 }
 
 void DeckGUI::buttonClicked(juce::Button* button)
@@ -92,20 +89,12 @@ void DeckGUI::buttonClicked(juce::Button* button)
         std::cout << "Stop button was clicked" << std::endl;
         player->stop();
     }
-    if (button == &loadButton)
-    {
-        juce::FileChooser chooser{"Select a file..."};
-        if (chooser.browseForFileToOpen())
-        {
-            loadTrack(juce::URL{chooser.getResult()});
-        }
-    }
 }
 
-void DeckGUI::loadTrack(juce::URL trackURL){
+void DeckGUI::loadTrack(juce::String trackName, juce::URL trackURL){
     player->loadURL(trackURL);
     waveformDisplay.loadURL(trackURL);
-    trackTitle.setText(trackURL.getFileName(), juce::dontSendNotification);
+    trackTitle.setText(trackName, juce::dontSendNotification);
 }
 
 void DeckGUI::sliderValueChanged (juce::Slider *slider)
@@ -132,7 +121,8 @@ bool DeckGUI::isInterestedInFileDrag(const juce::StringArray &files){
 void DeckGUI::filesDropped (const juce::StringArray &files, int x, int y){
     std::cout << "DeckGUI::filesDropped" << std::endl;
     if (files.size() == 1) {
-        player->loadURL(juce::URL{juce::File{files[0]}});
+        juce::URL file = juce::URL{juce::File{files[0]}};
+        loadTrack(file.getFileName(), file);
     }
 }
 

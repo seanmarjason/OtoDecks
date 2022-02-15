@@ -46,7 +46,6 @@ public:
 private:
     
     juce::TableListBox tableComponent;
-    std::vector<std::pair<std::string, juce::URL>> trackTitles;
     
     juce::XmlElement tracks{"Tracks"};
     

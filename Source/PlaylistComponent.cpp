@@ -55,7 +55,7 @@ void PlaylistComponent::resized()
 }
 
 int PlaylistComponent::getNumRows(){
-    return trackTitles.size();
+    return tracks.getNumChildElements();
 };
 
 void PlaylistComponent::paintRowBackground(juce::Graphics & g, int rowNumber, int width, int height, bool rowIsSelected){
@@ -68,7 +68,7 @@ void PlaylistComponent::paintRowBackground(juce::Graphics & g, int rowNumber, in
 }
 
 void PlaylistComponent::paintCell(juce::Graphics & g, int rowNumber, int columnId, int width, int height, bool rowIsSelected) {
-    g.drawText(trackTitles[rowNumber].first, 2, 0, width-4, height, juce::Justification::centredLeft, true);
+    g.drawText(tracks.getChildElement(rowNumber)->getStringAttribute("name"), 2, 0, width-4, height, juce::Justification::centredLeft, true);
 }
 
 
@@ -110,15 +110,15 @@ void PlaylistComponent::buttonClicked(juce::Button* button){
     else {
         int id = std::stoi(button->getComponentID().toStdString());
         std::string action = button->getName().toStdString();
-        std::string trackName = trackTitles[id].first;
-        juce::URL trackURL = trackTitles[id].second;
+        juce::String trackName = tracks.getChildElement(id)->getStringAttribute("name");
+        juce::URL trackURL = tracks.getChildElement(id)->getStringAttribute("url");
         if (action == "Load Disk 1") {
             std::cout << "Load to track 1: " << trackName << " : " << trackURL.toString(false).toStdString() << std::endl;
-            deckGUI1->loadTrack(trackURL);
+            deckGUI1->loadTrack(trackName, trackURL);
         }
         else if (action == "Load Disk 2") {
             std::cout << "Load to track 2: " << trackName << " : " << trackURL.toString(false).toStdString() << std::endl;
-            deckGUI2->loadTrack(trackURL);
+            deckGUI2->loadTrack(trackName, trackURL);
         }
         else {
             std::cout << "buttonClicked: '" << action << "' but no action." << std::endl;
@@ -130,9 +130,6 @@ void PlaylistComponent::addTrack(juce::String trackName, juce::URL trackURL) {
     juce::String trackIdentifier = std::regex_replace(trackName.toStdString(), std::regex("\%20"),"_");
     juce::String trackDisplayName = std::regex_replace(trackName.toStdString(), std::regex("\%20")," ");
     juce::String trackUrlString = trackURL.toString(false).toStdString();
-    
-//  As vector
-    trackTitles.push_back({trackDisplayName.toStdString(), trackURL});
     
     juce::XmlElement* newTrack = new juce::XmlElement (trackIdentifier);
     newTrack->setAttribute("name", trackDisplayName);

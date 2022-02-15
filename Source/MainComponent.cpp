@@ -76,7 +76,7 @@ void MainComponent::resized()
     // This is called when the MainContentComponent is resized.
     double rowH = getHeight() / 3;
     
-    deckGUI1.setBounds(0, 0, getWidth() / 2,rowH * 2);
+    deckGUI1.setBounds(0, 0, getWidth() / 2, rowH * 2);
     deckGUI2.setBounds(getWidth() / 2, 0, getWidth() / 2, rowH * 2);
     playlistComponent.setBounds(0, rowH * 2, getWidth(), rowH);
 }
