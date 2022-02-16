@@ -137,6 +137,15 @@ void PlaylistComponent::addTrack(juce::String trackName, juce::URL trackURL) {
     tracks.addChildElement(newTrack);
     
     std::cout << tracks.toString() << std::endl;
+    
+    juce::File directory = juce::File::getSpecialLocation(juce::File::userMusicDirectory);
+    juce::File tracksFile = directory.getChildFile("tracks.xml");
+    
+    if (!tracksFile.existsAsFile()) {
+        tracksFile.create();
+    }
+        
+    tracks.writeTo(tracksFile);
         
     tableComponent.updateContent();
     repaint();
