@@ -24,11 +24,18 @@ PlaylistComponent::PlaylistComponent(   DeckGUI* _deckGUI1,
     tableComponent.setModel(this);
     
     addAndMakeVisible(tableComponent);
+    addAndMakeVisible(loadButton);
+    addAndMakeVisible(searchBar);
     
     loadButton.addListener(this);
     addAndMakeVisible(loadButton);
     
     tracks = loadTrackPlaylist();
+    filteredTracks = tracks;
+    
+    searchBar.setJustification(juce::Justification::centred);
+    searchBar.setTextToShowWhenEmpty("Search for track", juce::Colours::lightgrey);
+    searchBar.addListener(this);
 
 }
 
@@ -52,12 +59,14 @@ void PlaylistComponent::paint (juce::Graphics& g)
 void PlaylistComponent::resized()
 {
     double rowH = getHeight() / 10;
-    tableComponent.setBounds(0, 0, getWidth(), rowH * 9);
+    
+    searchBar.setBounds(0, rowH * 0, getWidth(), rowH * 2);
+    tableComponent.setBounds(0, rowH * 2, getWidth(), rowH * 7);
     loadButton.setBounds(0, rowH * 9, getWidth(), rowH);
 }
 
 int PlaylistComponent::getNumRows(){
-    return tracks.getNumChildElements();
+    return filteredTracks.getNumChildElements();
 };
 
 void PlaylistComponent::paintRowBackground(juce::Graphics & g, int rowNumber, int width, int height, bool rowIsSelected){
@@ -70,7 +79,7 @@ void PlaylistComponent::paintRowBackground(juce::Graphics & g, int rowNumber, in
 }
 
 void PlaylistComponent::paintCell(juce::Graphics & g, int rowNumber, int columnId, int width, int height, bool rowIsSelected) {
-    g.drawText(tracks.getChildElement(rowNumber)->getStringAttribute("name"), 2, 0, width-4, height, juce::Justification::centredLeft, true);
+    g.drawText(filteredTracks.getChildElement(rowNumber)->getStringAttribute("name"), 2, 0, width-4, height, juce::Justification::centredLeft, true);
 }
 
 
@@ -168,3 +177,26 @@ juce::XmlElement PlaylistComponent::loadTrackPlaylist() {
         return playlist;
     }
 }
+
+void PlaylistComponent::textEditorTextChanged(juce::TextEditor& searchBar) {
+    juce::String searchValue = searchBar.getText();
+    filterTable(searchValue);
+};
+
+void PlaylistComponent::filterTable(juce::String& searchValue) {
+    if (searchValue != "") {
+        filteredTracks.deleteAllChildElements();
+                
+        for (auto* element : tracks.getChildIterator()) {
+            if (element->getStringAttribute("name").containsIgnoreCase(searchValue)) {
+                juce::XmlElement* newElement = new juce::XmlElement(*element);
+                filteredTracks.addChildElement(newElement);
+            }
+        }
+    }
+    else {
+        filteredTracks = tracks;
+    }
+    tableComponent.updateContent();
+    repaint();
+};
