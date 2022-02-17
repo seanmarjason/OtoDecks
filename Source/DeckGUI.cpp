@@ -28,8 +28,9 @@ DeckGUI::DeckGUI(DJAudioPlayer* _player,
     addAndMakeVisible(volSlider);
     addAndMakeVisible(speedSlider);
     addAndMakeVisible(posSlider);
-    addAndMakeVisible(trackTitle);
+    addAndMakeVisible(loopingComponent);
     addAndMakeVisible(waveformDisplay);
+    addAndMakeVisible(trackTitle);
     
     playButton.addListener(this);
     stopButton.addListener(this);
@@ -73,7 +74,8 @@ void DeckGUI::resized()
     volSlider.setBounds(0, rowH * 2, getWidth(), rowH);
     speedSlider.setBounds(0, rowH * 3, getWidth(), rowH);
     posSlider.setBounds(0, rowH * 4, getWidth(), rowH);
-    waveformDisplay.setBounds(0, rowH * 5, getWidth(), rowH * 4);
+    loopingComponent.setBounds(0, rowH * 5, getWidth(), rowH);
+    waveformDisplay.setBounds(0, rowH * 6, getWidth(), rowH * 3);
     trackTitle.setBounds(0, rowH * 9, getWidth(), rowH);
 }
 
