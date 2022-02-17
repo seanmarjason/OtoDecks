@@ -20,7 +20,8 @@
 */
 class PlaylistComponent  :  public juce::Component,
                             public juce::TableListBoxModel,
-                            public juce::Button::Listener
+                            public juce::Button::Listener,
+                            public juce::TextEditor::Listener
 {
 public:
     PlaylistComponent(DeckGUI* deckGUI1, DeckGUI* deckGUI2);
@@ -54,6 +55,12 @@ private:
     
     DeckGUI* deckGUI1;
     DeckGUI* deckGUI2;
+    
+    juce::TextEditor searchBar;
+    
+    void textEditorTextChanged(juce::TextEditor& searchBar) override;
+
+    void filterTable(std::vector<std::pair<std::string, juce::URL>>& tableValues, std::string& searchValue);
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PlaylistComponent)
 };

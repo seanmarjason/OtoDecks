@@ -24,11 +24,17 @@ PlaylistComponent::PlaylistComponent(   DeckGUI* _deckGUI1,
     tableComponent.setModel(this);
     
     addAndMakeVisible(tableComponent);
+    addAndMakeVisible(loadButton);
+    addAndMakeVisible(searchBar);
     
     loadButton.addListener(this);
     addAndMakeVisible(loadButton);
     
     tracks = loadTrackPlaylist();
+    
+    searchBar.setJustification(juce::Justification::centred);
+    searchBar.setTextToShowWhenEmpty("Search for track", juce::Colours::lightgrey);
+    searchBar.addListener(this);
 
 }
 
@@ -52,7 +58,9 @@ void PlaylistComponent::paint (juce::Graphics& g)
 void PlaylistComponent::resized()
 {
     double rowH = getHeight() / 10;
-    tableComponent.setBounds(0, 0, getWidth(), rowH * 9);
+    
+    searchBar.setBounds(0, rowH * 0, getWidth(), rowH * 2);
+    tableComponent.setBounds(0, rowH * 2, getWidth(), rowH * 7);
     loadButton.setBounds(0, rowH * 9, getWidth(), rowH);
 }
 
@@ -167,4 +175,13 @@ juce::XmlElement PlaylistComponent::loadTrackPlaylist() {
         juce::XmlElement playlist = *savedPlaylist;
         return playlist;
     }
+    
 }
+
+void PlaylistComponent::textEditorTextChanged(juce::TextEditor& searchBar){
+    std::cout << "Text changed to: " << searchBar.getText() << std::endl;
+};
+
+void filterTable(std::vector<std::pair<std::string, juce::URL>>& tableValues, std::string& searchValue) {
+    
+};
