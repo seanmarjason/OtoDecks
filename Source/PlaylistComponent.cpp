@@ -27,6 +27,8 @@ PlaylistComponent::PlaylistComponent(   DeckGUI* _deckGUI1,
     
     loadButton.addListener(this);
     addAndMakeVisible(loadButton);
+    
+    tracks = loadTrackPlaylist();
 
 }
 
@@ -149,4 +151,20 @@ void PlaylistComponent::addTrack(juce::String trackName, juce::URL trackURL) {
         
     tableComponent.updateContent();
     repaint();
+}
+
+juce::XmlElement PlaylistComponent::loadTrackPlaylist() {
+    juce::File directory = juce::File::getSpecialLocation(juce::File::userMusicDirectory);
+    juce::File tracksFile = directory.getChildFile("tracks.xml");
+
+    if (!tracksFile.existsAsFile()) {
+        tracksFile.create();
+        juce::XmlElement newTrackList{"Tracks"};
+        return newTrackList;
+    }
+    else {
+        std::unique_ptr<juce::XmlElement> savedPlaylist = juce::parseXML(tracksFile);
+        juce::XmlElement playlist = *savedPlaylist;
+        return playlist;
+    }
 }

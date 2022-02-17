@@ -48,7 +48,8 @@ private:
     juce::TableListBox tableComponent;
     
     juce::XmlElement tracks{"Tracks"};
-    
+    juce::XmlElement loadTrackPlaylist();
+
     juce::TextButton loadButton{"Add Track"};
     
     DeckGUI* deckGUI1;
