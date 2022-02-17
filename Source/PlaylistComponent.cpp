@@ -158,6 +158,7 @@ void PlaylistComponent::addTrack(juce::String trackName, juce::URL trackURL) {
         
     tracks.writeTo(tracksFile);
         
+    filteredTracks = tracks;
     tableComponent.updateContent();
     repaint();
 }
