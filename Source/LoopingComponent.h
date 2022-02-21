@@ -11,18 +11,24 @@
 #pragma once
 
 #include <JuceHeader.h>
+#include "DJAudioPlayer.h"
 
 //==============================================================================
 /*
 */
-class LoopingComponent  : public juce::Component
+class LoopingComponent  :   public juce::Component,
+                            public juce::Button::Listener
 {
 public:
-    LoopingComponent();
+    LoopingComponent(DJAudioPlayer* player);
+    
     ~LoopingComponent() override;
 
     void paint (juce::Graphics&) override;
     void resized() override;
+    
+    /** Implement juce::Button::Listener */
+    void buttonClicked (juce::Button *) override;
 
 private:
     juce::TextButton loop2{"2"};
@@ -30,7 +36,11 @@ private:
     juce::TextButton loop8{"8"};
     juce::TextButton loop16{"16"};
     juce::TextButton loopManual{"M"};
-
+    
+    DJAudioPlayer* player;
+    
+    double manualLoopStart;
+    double manualLoopEnd;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (LoopingComponent)
 };

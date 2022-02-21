@@ -12,7 +12,7 @@
 #include "LoopingComponent.h"
 
 //==============================================================================
-LoopingComponent::LoopingComponent()
+LoopingComponent::LoopingComponent(DJAudioPlayer* _player) : player(_player)
 {
     addAndMakeVisible(loop2);
     addAndMakeVisible(loop4);
@@ -20,11 +20,17 @@ LoopingComponent::LoopingComponent()
     addAndMakeVisible(loop16);
     addAndMakeVisible(loopManual);
     
-    loop2.setClickingTogglesState(true);
-    loop4.setClickingTogglesState(true);
-    loop8.setClickingTogglesState(true);
-    loop16.setClickingTogglesState(true);
+//    loop2.setClickingTogglesState(true);
+//    loop4.setClickingTogglesState(true);
+//    loop8.setClickingTogglesState(true);
+//    loop16.setClickingTogglesState(true);
     loopManual.setClickingTogglesState(true);
+    
+    loop2.addListener(this);
+    loop4.addListener(this);
+    loop8.addListener(this);
+    loop16.addListener(this);
+    loopManual.addListener(this);
 
 }
 
@@ -54,4 +60,39 @@ void LoopingComponent::resized()
     loop8.setBounds(colW * 2, 0, colW, getHeight());
     loop16.setBounds(colW * 3, 0, colW, getHeight());
     loopManual.setBounds(colW * 4, 0, colW, getHeight());
+}
+
+void LoopingComponent::buttonClicked(juce::Button* button)
+{
+    double currentPosition = player->getCurrentPosition();
+
+    if (button == &loop2) {
+        player->startAudioLoop(currentPosition - 2.0, currentPosition);
+        
+//        if (loop2.getToggleState() == true) {
+//            player->startAudioLoop(currentPosition - 2.0, currentPosition);
+//        }
+//        else {
+//            player->stopAudioLoop();
+//        }
+        
+    }
+    if (button == &loop4) {
+        player->startAudioLoop(currentPosition - 4.0, currentPosition);
+    }
+    if (button == &loop8) {
+        player->startAudioLoop(currentPosition - 8.0, currentPosition);
+    }
+    if (button == &loop16) {
+        player->startAudioLoop(currentPosition - 16.0, currentPosition);
+    }
+    if (button == &loopManual) {
+        if (loopManual.getToggleState() == true) {
+            manualLoopStart = currentPosition;
+        }
+        else {
+            manualLoopEnd = currentPosition;
+        }
+        player->startAudioLoop(manualLoopStart, manualLoopEnd);
+    }
 }

@@ -32,10 +32,18 @@ class DJAudioPlayer : public juce::AudioSource {
         /** get relative position of playhead */
         double getPositionRelative();
     
+        double getCurrentPosition();
+    
+        void startAudioLoop(double startPos, double endPos);
+        void stopAudioLoop();
+    
+    
     private:
         juce::AudioFormatManager& formatManager;
         std::unique_ptr<juce::AudioFormatReaderSource> readerSource;
         juce::AudioTransportSource transportSource;
         juce::ResamplingAudioSource resampleSource{&transportSource, false, 2};
+    
+        bool looping;
 
 };
