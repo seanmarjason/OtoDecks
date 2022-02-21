@@ -17,10 +17,11 @@ PlaylistComponent::PlaylistComponent(   DeckGUI* _deckGUI1,
                                         DeckGUI* _deckGUI2
                                      ) : deckGUI1(_deckGUI1), deckGUI2(_deckGUI2)
 {
-    tableComponent.getHeader().addColumn("Track title", 1, 475);
-    tableComponent.getHeader().addColumn("", 2, 150);
-    tableComponent.getHeader().addColumn("", 3, 150);
-    
+    tableComponent.getHeader().addColumn("Track title", 1, 400);
+    tableComponent.getHeader().addColumn("", 2, 100);
+    tableComponent.getHeader().addColumn("", 3, 100);
+    tableComponent.getHeader().setStretchToFitActive(true);
+
     tableComponent.setModel(this);
     
     addAndMakeVisible(tableComponent);
