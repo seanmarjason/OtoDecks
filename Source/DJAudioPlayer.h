@@ -35,7 +35,6 @@ class DJAudioPlayer : public juce::AudioSource {
         double getCurrentPosition();
     
         void startAudioLoop(double startPos, double endPos);
-        void stopAudioLoop();
     
     
     private:
@@ -44,6 +43,4 @@ class DJAudioPlayer : public juce::AudioSource {
         juce::AudioTransportSource transportSource;
         juce::ResamplingAudioSource resampleSource{&transportSource, false, 2};
     
-        bool looping;
-
 };

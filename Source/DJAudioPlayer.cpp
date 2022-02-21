@@ -13,7 +13,6 @@
 DJAudioPlayer::DJAudioPlayer(juce::AudioFormatManager& _formatManager
                              ) : formatManager(_formatManager)
 {
-    looping = false;
     
 }
 
@@ -100,17 +99,5 @@ double DJAudioPlayer::getCurrentPosition(){
 }
 
 void DJAudioPlayer::startAudioLoop(double startPos, double endPos) {
-    looping = true;
-    
     transportSource.setPosition(startPos);
-    
-//    while (looping == true) {
-        if (transportSource.getCurrentPosition() > endPos) {
-            transportSource.setPosition(startPos);
-        }
-//    }
-}
-
-void DJAudioPlayer::stopAudioLoop() {
-    looping = false;
 }

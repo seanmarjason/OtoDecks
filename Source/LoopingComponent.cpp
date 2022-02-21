@@ -20,10 +20,6 @@ LoopingComponent::LoopingComponent(DJAudioPlayer* _player) : player(_player)
     addAndMakeVisible(loop16);
     addAndMakeVisible(loopManual);
     
-//    loop2.setClickingTogglesState(true);
-//    loop4.setClickingTogglesState(true);
-//    loop8.setClickingTogglesState(true);
-//    loop16.setClickingTogglesState(true);
     loopManual.setClickingTogglesState(true);
     
     loop2.addListener(this);
@@ -68,14 +64,6 @@ void LoopingComponent::buttonClicked(juce::Button* button)
 
     if (button == &loop2) {
         player->startAudioLoop(currentPosition - 2.0, currentPosition);
-        
-//        if (loop2.getToggleState() == true) {
-//            player->startAudioLoop(currentPosition - 2.0, currentPosition);
-//        }
-//        else {
-//            player->stopAudioLoop();
-//        }
-        
     }
     if (button == &loop4) {
         player->startAudioLoop(currentPosition - 4.0, currentPosition);
