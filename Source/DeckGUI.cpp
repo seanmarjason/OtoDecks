@@ -67,16 +67,20 @@ void DeckGUI::paint (juce::Graphics& g)
 
 void DeckGUI::resized()
 {
-    double rowH = getHeight() / 10;
+    double rowH = getHeight();
+    double colW = getWidth() / 10;
     
-    playButton.setBounds(0, rowH * 0, getWidth(), rowH);
-    stopButton.setBounds(0, rowH * 1, getWidth(), rowH);
-    volSlider.setBounds(0, rowH * 2, getWidth(), rowH);
-    speedSlider.setBounds(0, rowH * 3, getWidth(), rowH);
-    posSlider.setBounds(0, rowH * 4, getWidth(), rowH);
-    loopingComponent.setBounds(0, rowH * 5, getWidth(), rowH);
-    waveformDisplay.setBounds(0, rowH * 6, getWidth(), rowH * 3);
-    trackTitle.setBounds(0, rowH * 9, getWidth(), rowH);
+    trackTitle.setBounds(   colW * 0, 0, colW * 2, rowH   );
+    
+    volSlider.setBounds(    colW * 2, rowH / 3 * 0, colW * 2, rowH / 3);
+    speedSlider.setBounds(  colW * 2, rowH / 3 * 1, colW * 2, rowH / 3);
+    posSlider.setBounds(    colW * 2, rowH / 3 * 2, colW * 2, rowH / 3);
+    
+    waveformDisplay.setBounds(colW * 4, rowH * 0, colW * 4, rowH);
+    
+    playButton.setBounds(       colW * 8, rowH / 3 * 0, colW * 1, rowH / 3);
+    stopButton.setBounds(       colW * 9, rowH / 3 * 0, colW * 1, rowH / 3);
+    loopingComponent.setBounds( colW * 8, rowH / 3 * 1, colW * 2, rowH / 3);
 }
 
 void DeckGUI::buttonClicked(juce::Button* button)

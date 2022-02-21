@@ -24,7 +24,7 @@ class PlaylistComponent  :  public juce::Component,
                             public juce::TextEditor::Listener
 {
 public:
-    PlaylistComponent(DeckGUI* deckGUI1, DeckGUI* deckGUI2);
+    PlaylistComponent(DeckGUI* deckGUI1, DeckGUI* deckGUI2, DeckGUI* deckGUI3, DeckGUI* deckGUI4);
     ~PlaylistComponent() override;
 
     void paint (juce::Graphics&) override;
@@ -56,6 +56,8 @@ private:
     
     DeckGUI* deckGUI1;
     DeckGUI* deckGUI2;
+    DeckGUI* deckGUI3;
+    DeckGUI* deckGUI4;
     
     juce::TextEditor searchBar;
     
