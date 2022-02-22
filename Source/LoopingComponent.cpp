@@ -9,6 +9,7 @@
 */
 
 #include <JuceHeader.h>
+#include "ColourScheme.h"
 #include "LoopingComponent.h"
 
 //==============================================================================
@@ -34,15 +35,14 @@ LoopingComponent::~LoopingComponent()
 
 void LoopingComponent::paint (juce::Graphics& g)
 {
-
-    g.fillAll (getLookAndFeel().findColour (juce::ResizableWindow::backgroundColourId));   // clear the background
-
-    g.setColour (juce::Colours::grey);
-    g.drawRect (getLocalBounds(), 1);   // draw an outline around the component
-
+    g.fillAll(ColourScheme::backgroundColour);
     g.setColour (juce::Colours::white);
     g.setFont (14.0f);
     
+    loop2.setColour(juce::TextButton::buttonColourId, ColourScheme::secondaryColour);
+    loop4.setColour(juce::TextButton::buttonColourId, ColourScheme::secondaryColour);
+    loop8.setColour(juce::TextButton::buttonColourId, ColourScheme::secondaryColour);
+    loopManual.setColour(juce::TextButton::buttonColourId, ColourScheme::secondaryColour);
 }
 
 void LoopingComponent::resized()

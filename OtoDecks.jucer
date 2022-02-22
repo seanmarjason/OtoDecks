@@ -5,6 +5,9 @@
               defines="JUCE_MODAL_LOOPS_PERMITTED=1">
   <MAINGROUP id="hMFM76" name="OtoDecks">
     <GROUP id="{1316FCDC-0191-B456-B672-BC565043967C}" name="Source">
+      <FILE id="unvg7k" name="ColourScheme.cpp" compile="1" resource="0"
+            file="Source/ColourScheme.cpp"/>
+      <FILE id="lJYiQZ" name="ColourScheme.h" compile="0" resource="0" file="Source/ColourScheme.h"/>
       <FILE id="u467Cs" name="PlaylistComponent.cpp" compile="1" resource="0"
             file="Source/PlaylistComponent.cpp"/>
       <FILE id="gQJe4V" name="PlaylistComponent.h" compile="0" resource="0"

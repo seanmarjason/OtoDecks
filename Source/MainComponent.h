@@ -1,6 +1,7 @@
 #pragma once
 
 #include <JuceHeader.h>
+#include "ColourScheme.h"
 #include "DJAudioPlayer.h"
 #include "DeckGUI.h"
 #include "PlaylistComponent.h"

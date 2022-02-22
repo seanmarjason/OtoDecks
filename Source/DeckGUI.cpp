@@ -9,6 +9,7 @@
 */
 
 #include <JuceHeader.h>
+#include "ColourScheme.h"
 #include "DeckGUI.h"
 
 //==============================================================================
@@ -38,10 +39,10 @@ DeckGUI::DeckGUI(DJAudioPlayer* _player,
     speedSlider.addListener(this);
     posSlider.addListener(this);
     
-    volSlider.setRange(0.0, 2.0);
+    volSlider.setRange(0.0, 2.0, 0.01);
     volSlider.setValue(1.0);
     
-    speedSlider.setRange(0.0, 2.0);
+    speedSlider.setRange(0.0, 2.0, 0.01);
     speedSlider.setValue(1.0);
     
     posSlider.setRange(0.0, 1.0);
@@ -57,13 +58,28 @@ DeckGUI::~DeckGUI()
 
 void DeckGUI::paint (juce::Graphics& g)
 {
-    g.fillAll (getLookAndFeel().findColour (juce::ResizableWindow::backgroundColourId));   // clear the background
-
-    g.setColour (juce::Colours::grey);
+    g.fillAll(ColourScheme::backgroundColour);
+    g.setColour (ColourScheme::borderColour);
     g.drawRect (getLocalBounds(), 1);   // draw an outline around the component
 
     g.setColour (juce::Colours::white);
     g.setFont (14.0f);
+    
+    stopButton.setColour(juce::TextButton::buttonColourId, ColourScheme::redAscent);
+    playButton.setColour(juce::TextButton::buttonColourId, ColourScheme::greenAscent);
+    
+    volSlider.setColour(juce::Slider::backgroundColourId, ColourScheme::greyAscent);
+    speedSlider.setColour(juce::Slider::backgroundColourId, ColourScheme::greyAscent);
+    posSlider.setColour(juce::Slider::backgroundColourId, ColourScheme::greyAscent);
+    
+    volSlider.setColour(juce::Slider::trackColourId, ColourScheme::primaryAscent);
+    speedSlider.setColour(juce::Slider::trackColourId, ColourScheme::primaryAscent);
+    posSlider.setColour(juce::Slider::trackColourId, ColourScheme::primaryAscent);
+    
+    volSlider.setColour(juce::Slider::textBoxOutlineColourId, ColourScheme::backgroundColour);
+    speedSlider.setColour(juce::Slider::textBoxOutlineColourId, ColourScheme::backgroundColour);
+    posSlider.setColour(juce::Slider::textBoxOutlineColourId, ColourScheme::backgroundColour);
+    
 }
 
 void DeckGUI::resized()

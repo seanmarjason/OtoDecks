@@ -7,6 +7,7 @@
 */
 
 #include <JuceHeader.h>
+#include "ColourScheme.h"
 #include "MainComponent.h"
 
 //==============================================================================

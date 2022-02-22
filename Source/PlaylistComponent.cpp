@@ -10,6 +10,7 @@
 
 #include <JuceHeader.h>
 #include <regex>
+#include "ColourScheme.h"
 #include "PlaylistComponent.h"
 
 //==============================================================================
@@ -53,15 +54,12 @@ PlaylistComponent::~PlaylistComponent()
 
 void PlaylistComponent::paint (juce::Graphics& g)
 {
-    g.fillAll (getLookAndFeel().findColour (juce::ResizableWindow::backgroundColourId));   // clear the background
-
-    g.setColour (juce::Colours::grey);
-    g.drawRect (getLocalBounds(), 1);   // draw an outline around the component
-
-    g.setColour (juce::Colours::white);
-    g.setFont (14.0f);
-    g.drawText ("PlaylistComponent", getLocalBounds(),
-                juce::Justification::centred, true);   // draw some placeholder text
+    g.fillAll(ColourScheme::backgroundColour);
+    tableComponent.setColour(juce::ListBox::backgroundColourId, ColourScheme::backgroundColour);
+    searchBar.setColour(juce::TextEditor::backgroundColourId, ColourScheme::secondaryColour);
+    loadButton.setColour(juce::TextButton::buttonColourId, ColourScheme::secondaryColour);
+    tableComponent.getHeader().setColour(juce::TableHeaderComponent::backgroundColourId, ColourScheme::backgroundColour);
+    tableComponent.getHeader().setColour(juce::TableHeaderComponent::textColourId , ColourScheme::primaryAscent);
 }
 
 void PlaylistComponent::resized()
@@ -82,11 +80,12 @@ void PlaylistComponent::paintRowBackground(juce::Graphics & g, int rowNumber, in
         g.fillAll(juce::Colours::orange);
     }
     else {
-        g.fillAll(juce::Colours::darkgrey);
+        g.fillAll(ColourScheme::backgroundColour);
     }
 }
 
 void PlaylistComponent::paintCell(juce::Graphics & g, int rowNumber, int columnId, int width, int height, bool rowIsSelected) {
+    g.setColour (juce::Colours::white);
     g.drawText(filteredTracks.getChildElement(rowNumber)->getStringAttribute("name"), 2, 0, width-4, height, juce::Justification::centredLeft, true);
 }
 
@@ -97,6 +96,7 @@ juce::Component* PlaylistComponent::refreshComponentForCell ( int rowNumber, int
         if (existingComponentToUpdate == nullptr) {
             juce::TextButton* btn = new juce::TextButton{"1"};
             juce::String id{std::to_string(rowNumber)};
+            btn->setColour(juce::TextButton::buttonColourId, ColourScheme::secondaryColour);
             btn->setComponentID(id);
             btn->addListener(this);
             existingComponentToUpdate = btn;
@@ -106,6 +106,7 @@ juce::Component* PlaylistComponent::refreshComponentForCell ( int rowNumber, int
         if (existingComponentToUpdate == nullptr) {
             juce::TextButton* btn = new juce::TextButton{"2"};
             juce::String id{std::to_string(rowNumber)};
+            btn->setColour(juce::TextButton::buttonColourId, ColourScheme::secondaryColour);
             btn->setComponentID(id);
             btn->addListener(this);
             existingComponentToUpdate = btn;
@@ -115,6 +116,7 @@ juce::Component* PlaylistComponent::refreshComponentForCell ( int rowNumber, int
         if (existingComponentToUpdate == nullptr) {
             juce::TextButton* btn = new juce::TextButton{"3"};
             juce::String id{std::to_string(rowNumber)};
+            btn->setColour(juce::TextButton::buttonColourId, ColourScheme::secondaryColour);
             btn->setComponentID(id);
             btn->addListener(this);
             existingComponentToUpdate = btn;
@@ -124,6 +126,7 @@ juce::Component* PlaylistComponent::refreshComponentForCell ( int rowNumber, int
         if (existingComponentToUpdate == nullptr) {
             juce::TextButton* btn = new juce::TextButton{"4"};
             juce::String id{std::to_string(rowNumber)};
+            btn->setColour(juce::TextButton::buttonColourId, ColourScheme::secondaryColour);
             btn->setComponentID(id);
             btn->addListener(this);
             existingComponentToUpdate = btn;
