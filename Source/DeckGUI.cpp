@@ -78,9 +78,9 @@ void DeckGUI::resized()
     waveformDisplay.setBounds(  colW * 3, rowH / 4 * 0, colW * 5, rowH / 4 * 3);
     posSlider.setBounds(        colW * 3, rowH / 4 * 3, colW * 5, rowH / 4 * 1);
     
-    playButton.setBounds(       colW * 8, rowH / 3 * 0, colW * 1, rowH / 3);
-    stopButton.setBounds(       colW * 9, rowH / 3 * 0, colW * 1, rowH / 3);
-    loopingComponent.setBounds( colW * 8, rowH / 3 * 1, colW * 2, rowH / 3);
+    playButton.setBounds(       colW * 8, rowH / 4 * 0, colW * 1, rowH / 4 * 2);
+    stopButton.setBounds(       colW * 9, rowH / 4 * 0, colW * 1, rowH / 4 * 2);
+    loopingComponent.setBounds( colW * 8, rowH / 4 * 2, colW * 2, rowH / 4 * 1);
 }
 
 void DeckGUI::buttonClicked(juce::Button* button)

@@ -21,11 +21,12 @@ PlaylistComponent::PlaylistComponent(   DeckGUI* _deckGUI1,
                                          deckGUI3(_deckGUI3), deckGUI4(_deckGUI4)
 {
     tableComponent.setRowHeight(50);
-    tableComponent.getHeader().addColumn("Track title", 1, 400);
-    tableComponent.getHeader().addColumn("", 2, 50);
+    tableComponent.getHeader().addColumn("Track title", 1, 300);
+    tableComponent.getHeader().addColumn("Length", 2, 100);
     tableComponent.getHeader().addColumn("", 3, 50);
     tableComponent.getHeader().addColumn("", 4, 50);
     tableComponent.getHeader().addColumn("", 5, 50);
+    tableComponent.getHeader().addColumn("", 6, 50);
     tableComponent.getHeader().setStretchToFitActive(true);
 
     tableComponent.setModel(this);
@@ -92,7 +93,7 @@ void PlaylistComponent::paintCell(juce::Graphics & g, int rowNumber, int columnI
 
 juce::Component* PlaylistComponent::refreshComponentForCell ( int rowNumber, int columnId, bool isRowSelected,
                                                              juce::Component *existingComponentToUpdate) {
-    if (columnId == 2) {
+    if (columnId == 3) {
         if (existingComponentToUpdate == nullptr) {
             juce::TextButton* btn = new juce::TextButton{"1"};
             juce::String id{std::to_string(rowNumber)};
@@ -101,7 +102,7 @@ juce::Component* PlaylistComponent::refreshComponentForCell ( int rowNumber, int
             existingComponentToUpdate = btn;
         }
     }
-    if (columnId == 3) {
+    if (columnId == 4) {
         if (existingComponentToUpdate == nullptr) {
             juce::TextButton* btn = new juce::TextButton{"2"};
             juce::String id{std::to_string(rowNumber)};
@@ -110,7 +111,7 @@ juce::Component* PlaylistComponent::refreshComponentForCell ( int rowNumber, int
             existingComponentToUpdate = btn;
         }
     }
-    if (columnId == 4) {
+    if (columnId == 5) {
         if (existingComponentToUpdate == nullptr) {
             juce::TextButton* btn = new juce::TextButton{"3"};
             juce::String id{std::to_string(rowNumber)};
@@ -119,7 +120,7 @@ juce::Component* PlaylistComponent::refreshComponentForCell ( int rowNumber, int
             existingComponentToUpdate = btn;
         }
     }
-    if (columnId == 5) {
+    if (columnId == 6) {
         if (existingComponentToUpdate == nullptr) {
             juce::TextButton* btn = new juce::TextButton{"4"};
             juce::String id{std::to_string(rowNumber)};
@@ -148,20 +149,17 @@ void PlaylistComponent::buttonClicked(juce::Button* button){
         std::string action = button->getName().toStdString();
         juce::String trackName = tracks.getChildElement(id)->getStringAttribute("name");
         juce::URL trackURL = tracks.getChildElement(id)->getStringAttribute("url");
+        
         if (action == "1") {
-            std::cout << "Load to track 1: " << trackName << " : " << trackURL.toString(false).toStdString() << std::endl;
             deckGUI1->loadTrack(trackName, trackURL);
         }
         else if (action == "2") {
-            std::cout << "Load to track 2: " << trackName << " : " << trackURL.toString(false).toStdString() << std::endl;
             deckGUI2->loadTrack(trackName, trackURL);
         }
         else if (action == "3") {
-            std::cout << "Load to track 3: " << trackName << " : " << trackURL.toString(false).toStdString() << std::endl;
             deckGUI3->loadTrack(trackName, trackURL);
         }
         else if (action == "4") {
-            std::cout << "Load to track 4: " << trackName << " : " << trackURL.toString(false).toStdString() << std::endl;
             deckGUI4->loadTrack(trackName, trackURL);
         }
         else {

@@ -81,15 +81,15 @@ void MainComponent::paint (juce::Graphics& g)
 void MainComponent::resized()
 {
     // This is called when the MainContentComponent is resized.
-    double colW = getWidth() / 4;
+    double colW = getWidth() / 10;
     double rowH = getHeight() / 4;
     
-    playlistComponent.setBounds(0, 0, colW * 1, getHeight());
+    playlistComponent.setBounds(0, 0, colW * 3, getHeight());
     
-    deckGUI1.setBounds(colW * 1, rowH * 0, colW * 3, rowH * 1);
-    deckGUI2.setBounds(colW * 1, rowH * 1, colW * 3, rowH * 1);
-    deckGUI3.setBounds(colW * 1, rowH * 2, colW * 3, rowH * 1);
-    deckGUI4.setBounds(colW * 1, rowH * 3, colW * 3, rowH * 1);
+    deckGUI1.setBounds(colW * 3, rowH * 0, colW * 7, rowH * 1);
+    deckGUI2.setBounds(colW * 3, rowH * 1, colW * 7, rowH * 1);
+    deckGUI3.setBounds(colW * 3, rowH * 2, colW * 7, rowH * 1);
+    deckGUI4.setBounds(colW * 3, rowH * 3, colW * 7, rowH * 1);
 }
 
 void MainComponent::buttonClicked(juce::Button* button)
