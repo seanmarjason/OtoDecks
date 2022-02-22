@@ -34,7 +34,6 @@ private:
     juce::TextButton loop2{"-2s"};
     juce::TextButton loop4{"-4s"};
     juce::TextButton loop8{"-8s"};
-    juce::TextButton loop16{"-16s"};
     juce::TextButton loopManual{"M"};
     
     DJAudioPlayer* player;

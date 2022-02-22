@@ -17,7 +17,6 @@ LoopingComponent::LoopingComponent(DJAudioPlayer* _player) : player(_player)
     addAndMakeVisible(loop2);
     addAndMakeVisible(loop4);
     addAndMakeVisible(loop8);
-    addAndMakeVisible(loop16);
     addAndMakeVisible(loopManual);
     
     loopManual.setClickingTogglesState(true);
@@ -25,7 +24,6 @@ LoopingComponent::LoopingComponent(DJAudioPlayer* _player) : player(_player)
     loop2.addListener(this);
     loop4.addListener(this);
     loop8.addListener(this);
-    loop16.addListener(this);
     loopManual.addListener(this);
 
 }
@@ -49,13 +47,12 @@ void LoopingComponent::paint (juce::Graphics& g)
 
 void LoopingComponent::resized()
 {
-    double colW = getWidth() / 5;
+    double colW = getWidth() / 4;
     
     loop2.setBounds(colW * 0, 0, colW, getHeight());
     loop4.setBounds(colW * 1, 0, colW, getHeight());
     loop8.setBounds(colW * 2, 0, colW, getHeight());
-    loop16.setBounds(colW * 3, 0, colW, getHeight());
-    loopManual.setBounds(colW * 4, 0, colW, getHeight());
+    loopManual.setBounds(colW * 3, 0, colW, getHeight());
 }
 
 void LoopingComponent::buttonClicked(juce::Button* button)
@@ -70,9 +67,6 @@ void LoopingComponent::buttonClicked(juce::Button* button)
     }
     if (button == &loop8) {
         player->startAudioLoop(currentPosition - 8.0, currentPosition);
-    }
-    if (button == &loop16) {
-        player->startAudioLoop(currentPosition - 16.0, currentPosition);
     }
     if (button == &loopManual) {
         if (loopManual.getToggleState() == true) {
