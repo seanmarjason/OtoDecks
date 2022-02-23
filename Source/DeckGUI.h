@@ -23,7 +23,6 @@
 */
 class DeckGUI  :    public juce::Component,
                     public juce::Button::Listener,
-                    public juce::Slider::Listener,
                     public juce::FileDragAndDropTarget,
                     public juce::Timer
 
@@ -40,9 +39,6 @@ public:
     
     /** Implement juce::Button::Listener */
     void buttonClicked (juce::Button *) override;
-    
-    /** Implement juce::Slider::Listener */
-    void sliderValueChanged (juce::Slider *slider) override;
     
     /** Implement drag and drop */
     bool isInterestedInFileDrag(const juce::StringArray &files) override;

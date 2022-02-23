@@ -93,10 +93,6 @@ void DeckGUI::loadTrack(juce::String trackName, juce::URL trackURL){
     trackTitle.setText(trackName, juce::dontSendNotification);
 }
 
-void DeckGUI::sliderValueChanged (juce::Slider *slider)
-{
-}
-
 bool DeckGUI::isInterestedInFileDrag(const juce::StringArray &files){
     return true;
 }
