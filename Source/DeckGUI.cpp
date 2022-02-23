@@ -32,7 +32,6 @@ DeckGUI::DeckGUI(DJAudioPlayer* _player,
     addAndMakeVisible(waveformDisplay);
     addAndMakeVisible(trackTitle);
     
-    playButton.addListener(this);
     stopButton.addListener(this);
     
     startTimer(500);
@@ -53,7 +52,6 @@ void DeckGUI::paint (juce::Graphics& g)
     g.setFont (14.0f);
     
     stopButton.setColour(juce::TextButton::buttonColourId, ColourScheme::redAscent);
-    playButton.setColour(juce::TextButton::buttonColourId, ColourScheme::greenAscent);
     
 }
 
@@ -77,10 +75,6 @@ void DeckGUI::resized()
 
 void DeckGUI::buttonClicked(juce::Button* button)
 {
-    if (button == &playButton)
-    {
-        player->start();
-    }
     if (button == &stopButton)
     {
         player->stop();
