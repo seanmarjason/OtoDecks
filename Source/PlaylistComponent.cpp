@@ -57,9 +57,13 @@ void PlaylistComponent::paint (juce::Graphics& g)
     g.fillAll(ColourScheme::backgroundColour);
     tableComponent.setColour(juce::ListBox::backgroundColourId, ColourScheme::backgroundColour);
     searchBar.setColour(juce::TextEditor::backgroundColourId, ColourScheme::secondaryColour);
+    searchBar.setColour(juce::TextEditor::outlineColourId, ColourScheme::secondaryColour);
     loadButton.setColour(juce::TextButton::buttonColourId, ColourScheme::secondaryColour);
+    loadButton.setColour(juce::ComboBox::outlineColourId, ColourScheme::backgroundColour);
     tableComponent.getHeader().setColour(juce::TableHeaderComponent::backgroundColourId, ColourScheme::backgroundColour);
+    tableComponent.getHeader().setColour(juce::TableHeaderComponent::outlineColourId , ColourScheme::backgroundColour);
     tableComponent.getHeader().setColour(juce::TableHeaderComponent::textColourId , ColourScheme::primaryAscent);
+
 }
 
 void PlaylistComponent::resized()
@@ -77,7 +81,7 @@ int PlaylistComponent::getNumRows(){
 
 void PlaylistComponent::paintRowBackground(juce::Graphics & g, int rowNumber, int width, int height, bool rowIsSelected){
     if (rowIsSelected) {
-        g.fillAll(juce::Colours::orange);
+        g.fillAll(ColourScheme::primaryAscent);
     }
     else {
         g.fillAll(ColourScheme::backgroundColour);
@@ -97,6 +101,7 @@ juce::Component* PlaylistComponent::refreshComponentForCell ( int rowNumber, int
             juce::TextButton* btn = new juce::TextButton{"1"};
             juce::String id{std::to_string(rowNumber)};
             btn->setColour(juce::TextButton::buttonColourId, ColourScheme::secondaryColour);
+            btn->setColour(juce::ComboBox::outlineColourId, ColourScheme::backgroundColour);
             btn->setComponentID(id);
             btn->addListener(this);
             existingComponentToUpdate = btn;
@@ -107,6 +112,7 @@ juce::Component* PlaylistComponent::refreshComponentForCell ( int rowNumber, int
             juce::TextButton* btn = new juce::TextButton{"2"};
             juce::String id{std::to_string(rowNumber)};
             btn->setColour(juce::TextButton::buttonColourId, ColourScheme::secondaryColour);
+            btn->setColour(juce::ComboBox::outlineColourId, ColourScheme::backgroundColour);
             btn->setComponentID(id);
             btn->addListener(this);
             existingComponentToUpdate = btn;
@@ -117,6 +123,7 @@ juce::Component* PlaylistComponent::refreshComponentForCell ( int rowNumber, int
             juce::TextButton* btn = new juce::TextButton{"3"};
             juce::String id{std::to_string(rowNumber)};
             btn->setColour(juce::TextButton::buttonColourId, ColourScheme::secondaryColour);
+            btn->setColour(juce::ComboBox::outlineColourId, ColourScheme::backgroundColour);
             btn->setComponentID(id);
             btn->addListener(this);
             existingComponentToUpdate = btn;
@@ -127,6 +134,7 @@ juce::Component* PlaylistComponent::refreshComponentForCell ( int rowNumber, int
             juce::TextButton* btn = new juce::TextButton{"4"};
             juce::String id{std::to_string(rowNumber)};
             btn->setColour(juce::TextButton::buttonColourId, ColourScheme::secondaryColour);
+            btn->setColour(juce::ComboBox::outlineColourId, ColourScheme::backgroundColour);
             btn->setComponentID(id);
             btn->addListener(this);
             existingComponentToUpdate = btn;

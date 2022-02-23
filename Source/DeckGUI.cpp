@@ -141,8 +141,6 @@ void DeckGUI::sliderValueChanged (juce::Slider *slider)
     }
     if (slider == &posSlider)
     {
-        std::string positionValue = juce::String(slider->getValue(), 2).toStdString();
-        std::cout << "positionValue: " << positionValue << std::endl;
         player->setPositionRelative(slider->getValue());
     }
 }

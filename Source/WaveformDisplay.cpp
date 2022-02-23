@@ -32,7 +32,7 @@ void WaveformDisplay::paint (juce::Graphics& g)
 {
     g.fillAll(ColourScheme::backgroundColour);
 
-    g.setColour (juce::Colours::orange);
+    g.setColour (ColourScheme::primaryAscent);
     
     if (fileLoaded) {
         audioThumb.drawChannel(g, getLocalBounds(), 0, audioThumb.getTotalLength(), 0, 1.0f);

@@ -50,7 +50,7 @@ private:
     DeckGUI deckGUI1{&player1, formatManager, thumbCache};
     DeckGUI deckGUI2{&player2, formatManager, thumbCache};
     DeckGUI deckGUI3{&player3, formatManager, thumbCache};
-    DeckGUI deckGUI4{&player3, formatManager, thumbCache};
+    DeckGUI deckGUI4{&player4, formatManager, thumbCache};
     
     juce::MixerAudioSource mixerSource;
     
