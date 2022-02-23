@@ -12,6 +12,7 @@
 
 #include <JuceHeader.h>
 #include "DJAudioPlayer.h"
+#include "VolumeAdjuster.h"
 #include "WaveformDisplay.h"
 #include "LoopingComponent.h"
 
@@ -50,16 +51,17 @@ public:
     void loadTrack(juce::String trackName, juce::URL trackURL);
 
 private:
+    DJAudioPlayer* player;
+    
     juce::TextButton playButton{"PLAY"};
     juce::TextButton stopButton{"STOP"};
     
-    juce::Slider volSlider;
+//    juce::Slider volSlider;
+    VolumeAdjuster volSlider{player};
     juce::Slider speedSlider;
     juce::Slider posSlider;
     
     juce::Label trackTitle;
-    
-    DJAudioPlayer* player;
     
     WaveformDisplay waveformDisplay;
     

@@ -35,16 +35,8 @@ DeckGUI::DeckGUI(DJAudioPlayer* _player,
     
     playButton.addListener(this);
     stopButton.addListener(this);
-    volSlider.addListener(this);
     speedSlider.addListener(this);
     posSlider.addListener(this);
-    
-    volSlider.setRange(0.0, 2.0, 0.01);
-    volSlider.setValue(1.0);
-    volSlider.setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalDrag);
-    volSlider.setTextBoxStyle(juce::Slider::TextEntryBoxPosition::TextBoxBelow, false, 50, 25);
-    volSlider.setDoubleClickReturnValue(true, 1.0);
-    volSlider.setTextValueSuffix(" v");
     
     speedSlider.setRange(0.0, 2.0, 0.01);
     speedSlider.setValue(1.0);
@@ -75,10 +67,6 @@ void DeckGUI::paint (juce::Graphics& g)
     
     stopButton.setColour(juce::TextButton::buttonColourId, ColourScheme::redAscent);
     playButton.setColour(juce::TextButton::buttonColourId, ColourScheme::greenAscent);
-    
-    volSlider.setColour(juce::Slider::rotarySliderOutlineColourId, ColourScheme::greyAscent);
-    volSlider.setColour(juce::Slider::rotarySliderFillColourId, ColourScheme::primaryAscent);
-    volSlider.setColour(juce::Slider::textBoxOutlineColourId, ColourScheme::backgroundColour);
     
     speedSlider.setColour(juce::Slider::rotarySliderOutlineColourId, ColourScheme::greyAscent);
     speedSlider.setColour(juce::Slider::rotarySliderFillColourId, ColourScheme::primaryAscent);
@@ -113,12 +101,10 @@ void DeckGUI::buttonClicked(juce::Button* button)
 {
     if (button == &playButton)
     {
-        std::cout << "Play button was clicked" << std::endl;
         player->start();
     }
     if (button == &stopButton)
     {
-        std::cout << "Stop button was clicked" << std::endl;
         player->stop();
     }
 }
@@ -131,10 +117,6 @@ void DeckGUI::loadTrack(juce::String trackName, juce::URL trackURL){
 
 void DeckGUI::sliderValueChanged (juce::Slider *slider)
 {
-    if (slider == &volSlider)
-    {
-        player->setGain(slider->getValue());
-    }
     if (slider == &speedSlider)
     {
         player->setSpeed(slider->getValue());
@@ -146,12 +128,10 @@ void DeckGUI::sliderValueChanged (juce::Slider *slider)
 }
 
 bool DeckGUI::isInterestedInFileDrag(const juce::StringArray &files){
-    std::cout << "DeckGUI::isInterestedInFileDrag" << std::endl;
     return true;
 }
 
 void DeckGUI::filesDropped (const juce::StringArray &files, int x, int y){
-    std::cout << "DeckGUI::filesDropped" << std::endl;
     if (files.size() == 1) {
         juce::URL file = juce::URL{juce::File{files[0]}};
         loadTrack(file.getFileName(), file);
