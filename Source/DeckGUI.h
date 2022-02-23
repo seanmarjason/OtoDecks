@@ -17,6 +17,7 @@
 #include "TempoAdjuster.h"
 #include "TrackNavigator.h"
 #include "PlayButton.h"
+#include "StopButton.h"
 
 #include "WaveformDisplay.h"
 #include "LoopingComponent.h"
@@ -25,7 +26,6 @@
 /*
 */
 class DeckGUI  :    public juce::Component,
-                    public juce::Button::Listener,
                     public juce::FileDragAndDropTarget,
                     public juce::Timer
 
@@ -40,9 +40,6 @@ public:
     void paint (juce::Graphics&) override;
     void resized() override;
     
-    /** Implement juce::Button::Listener */
-    void buttonClicked (juce::Button *) override;
-    
     /** Implement drag and drop */
     bool isInterestedInFileDrag(const juce::StringArray &files) override;
     void filesDropped (const juce::StringArray &files, int x, int y) override;
@@ -55,7 +52,7 @@ private:
     DJAudioPlayer* player;
     
     PlayButton playButton{player};
-    juce::TextButton stopButton{"STOP"};
+    StopButton stopButton{player};
     
     VolumeAdjuster volSlider{player};
     TempoAdjuster tempoSlider{player};

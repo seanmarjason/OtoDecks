@@ -31,9 +31,7 @@ DeckGUI::DeckGUI(DJAudioPlayer* _player,
     addAndMakeVisible(loopingComponent);
     addAndMakeVisible(waveformDisplay);
     addAndMakeVisible(trackTitle);
-    
-    stopButton.addListener(this);
-    
+        
     startTimer(500);
 }
 
@@ -50,9 +48,7 @@ void DeckGUI::paint (juce::Graphics& g)
 
     g.setColour (juce::Colours::white);
     g.setFont (14.0f);
-    
-    stopButton.setColour(juce::TextButton::buttonColourId, ColourScheme::redAscent);
-    
+        
 }
 
 void DeckGUI::resized()
@@ -71,14 +67,6 @@ void DeckGUI::resized()
     playButton.setBounds(       colW * 8, rowH / 4 * 0, colW * 1, rowH / 4 * 2);
     stopButton.setBounds(       colW * 9, rowH / 4 * 0, colW * 1, rowH / 4 * 2);
     loopingComponent.setBounds( colW * 8, rowH / 4 * 2, colW * 2, rowH / 4 * 1);
-}
-
-void DeckGUI::buttonClicked(juce::Button* button)
-{
-    if (button == &stopButton)
-    {
-        player->stop();
-    }
 }
 
 void DeckGUI::loadTrack(juce::String trackName, juce::URL trackURL){
