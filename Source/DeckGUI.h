@@ -13,6 +13,7 @@
 #include <JuceHeader.h>
 #include "DJAudioPlayer.h"
 #include "VolumeAdjuster.h"
+#include "TempoAdjuster.h"
 #include "WaveformDisplay.h"
 #include "LoopingComponent.h"
 
@@ -56,9 +57,9 @@ private:
     juce::TextButton playButton{"PLAY"};
     juce::TextButton stopButton{"STOP"};
     
-//    juce::Slider volSlider;
     VolumeAdjuster volSlider{player};
-    juce::Slider speedSlider;
+    TempoAdjuster tempoSlider{player};
+    
     juce::Slider posSlider;
     
     juce::Label trackTitle;

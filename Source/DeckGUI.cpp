@@ -22,12 +22,11 @@ DeckGUI::DeckGUI(DJAudioPlayer* _player,
     trackTitle.setText("---", juce::dontSendNotification);
     trackTitle.setColour (juce::Label::textColourId, juce::Colours::lightgreen);
     trackTitle.setJustificationType (juce::Justification::centred);
-
     
     addAndMakeVisible(playButton);
     addAndMakeVisible(stopButton);
     addAndMakeVisible(volSlider);
-    addAndMakeVisible(speedSlider);
+    addAndMakeVisible(tempoSlider);
     addAndMakeVisible(posSlider);
     addAndMakeVisible(loopingComponent);
     addAndMakeVisible(waveformDisplay);
@@ -35,16 +34,8 @@ DeckGUI::DeckGUI(DJAudioPlayer* _player,
     
     playButton.addListener(this);
     stopButton.addListener(this);
-    speedSlider.addListener(this);
     posSlider.addListener(this);
     
-    speedSlider.setRange(0.0, 2.0, 0.01);
-    speedSlider.setValue(1.0);
-    speedSlider.setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalDrag);
-    speedSlider.setTextBoxStyle(juce::Slider::TextEntryBoxPosition::TextBoxBelow, false, 50, 25);
-    speedSlider.setDoubleClickReturnValue(true, 1.0);
-    speedSlider.setTextValueSuffix("x");
-
     posSlider.setRange(0.0, 1.0);
     posSlider.setTextBoxStyle(juce::Slider::TextEntryBoxPosition::NoTextBox, false, 0, 0);
     
@@ -67,11 +58,7 @@ void DeckGUI::paint (juce::Graphics& g)
     
     stopButton.setColour(juce::TextButton::buttonColourId, ColourScheme::redAscent);
     playButton.setColour(juce::TextButton::buttonColourId, ColourScheme::greenAscent);
-    
-    speedSlider.setColour(juce::Slider::rotarySliderOutlineColourId, ColourScheme::greyAscent);
-    speedSlider.setColour(juce::Slider::rotarySliderFillColourId, ColourScheme::primaryAscent);
-    speedSlider.setColour(juce::Slider::textBoxOutlineColourId, ColourScheme::backgroundColour);
-    
+        
     posSlider.setColour(juce::Slider::backgroundColourId, ColourScheme::greyAscent);
     posSlider.setColour(juce::Slider::trackColourId , ColourScheme::greenAscent);
     posSlider.setColour(juce::Slider::thumbColourId , ColourScheme::greenAscent);
@@ -87,7 +74,7 @@ void DeckGUI::resized()
     trackTitle.setBounds(   colW * 0, rowH / 4 * 0, colW * 3, rowH / 4 * 2);
     
     volSlider.setBounds(    colW * 3 / 2 * 0, rowH / 4 * 2, colW * 3 / 2 * 1, rowH / 4 * 2);
-    speedSlider.setBounds(  colW * 3 / 2 * 1, rowH / 4 * 2, colW * 3 / 2 * 1, rowH / 4 * 2);
+    tempoSlider.setBounds(  colW * 3 / 2 * 1, rowH / 4 * 2, colW * 3 / 2 * 1, rowH / 4 * 2);
 
     waveformDisplay.setBounds(  colW * 3, rowH / 4 * 0, colW * 5, rowH / 4 * 3);
     posSlider.setBounds(        colW * 3, rowH / 4 * 3, colW * 5, rowH / 4 * 1);
@@ -117,10 +104,6 @@ void DeckGUI::loadTrack(juce::String trackName, juce::URL trackURL){
 
 void DeckGUI::sliderValueChanged (juce::Slider *slider)
 {
-    if (slider == &speedSlider)
-    {
-        player->setSpeed(slider->getValue());
-    }
     if (slider == &posSlider)
     {
         player->setPositionRelative(slider->getValue());
