@@ -27,17 +27,13 @@ DeckGUI::DeckGUI(DJAudioPlayer* _player,
     addAndMakeVisible(stopButton);
     addAndMakeVisible(volSlider);
     addAndMakeVisible(tempoSlider);
-    addAndMakeVisible(posSlider);
+    addAndMakeVisible(trackNavigator);
     addAndMakeVisible(loopingComponent);
     addAndMakeVisible(waveformDisplay);
     addAndMakeVisible(trackTitle);
     
     playButton.addListener(this);
     stopButton.addListener(this);
-    posSlider.addListener(this);
-    
-    posSlider.setRange(0.0, 1.0);
-    posSlider.setTextBoxStyle(juce::Slider::TextEntryBoxPosition::NoTextBox, false, 0, 0);
     
     startTimer(500);
 }
@@ -58,11 +54,6 @@ void DeckGUI::paint (juce::Graphics& g)
     
     stopButton.setColour(juce::TextButton::buttonColourId, ColourScheme::redAscent);
     playButton.setColour(juce::TextButton::buttonColourId, ColourScheme::greenAscent);
-        
-    posSlider.setColour(juce::Slider::backgroundColourId, ColourScheme::greyAscent);
-    posSlider.setColour(juce::Slider::trackColourId , ColourScheme::greenAscent);
-    posSlider.setColour(juce::Slider::thumbColourId , ColourScheme::greenAscent);
-    posSlider.setColour(juce::Slider::textBoxOutlineColourId, ColourScheme::backgroundColour);
     
 }
 
@@ -77,7 +68,7 @@ void DeckGUI::resized()
     tempoSlider.setBounds(  colW * 3 / 2 * 1, rowH / 4 * 2, colW * 3 / 2 * 1, rowH / 4 * 2);
 
     waveformDisplay.setBounds(  colW * 3, rowH / 4 * 0, colW * 5, rowH / 4 * 3);
-    posSlider.setBounds(        colW * 3, rowH / 4 * 3, colW * 5, rowH / 4 * 1);
+    trackNavigator.setBounds(        colW * 3, rowH / 4 * 3, colW * 5, rowH / 4 * 1);
     
     playButton.setBounds(       colW * 8, rowH / 4 * 0, colW * 1, rowH / 4 * 2);
     stopButton.setBounds(       colW * 9, rowH / 4 * 0, colW * 1, rowH / 4 * 2);
@@ -104,10 +95,6 @@ void DeckGUI::loadTrack(juce::String trackName, juce::URL trackURL){
 
 void DeckGUI::sliderValueChanged (juce::Slider *slider)
 {
-    if (slider == &posSlider)
-    {
-        player->setPositionRelative(slider->getValue());
-    }
 }
 
 bool DeckGUI::isInterestedInFileDrag(const juce::StringArray &files){
@@ -123,5 +110,5 @@ void DeckGUI::filesDropped (const juce::StringArray &files, int x, int y){
 
 void DeckGUI::timerCallback() {
     waveformDisplay.setPositionRelative(player->getPositionRelative());
-    posSlider.setValue(player->getPositionRelative());
+    trackNavigator.setValue(player->getPositionRelative());
 }

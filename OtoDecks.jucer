@@ -5,6 +5,10 @@
               defines="JUCE_MODAL_LOOPS_PERMITTED=1">
   <MAINGROUP id="hMFM76" name="OtoDecks">
     <GROUP id="{1316FCDC-0191-B456-B672-BC565043967C}" name="Source">
+      <FILE id="SPuZl5" name="TrackNavigator.cpp" compile="1" resource="0"
+            file="Source/TrackNavigator.cpp"/>
+      <FILE id="yvAyJU" name="TrackNavigator.h" compile="0" resource="0"
+            file="Source/TrackNavigator.h"/>
       <FILE id="cuoa5C" name="TempoAdjuster.cpp" compile="1" resource="0"
             file="Source/TempoAdjuster.cpp"/>
       <FILE id="mzZyCh" name="TempoAdjuster.h" compile="0" resource="0" file="Source/TempoAdjuster.h"/>

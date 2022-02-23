@@ -14,6 +14,7 @@
 #include "DJAudioPlayer.h"
 #include "VolumeAdjuster.h"
 #include "TempoAdjuster.h"
+#include "TrackNavigator.h"
 #include "WaveformDisplay.h"
 #include "LoopingComponent.h"
 
@@ -60,7 +61,7 @@ private:
     VolumeAdjuster volSlider{player};
     TempoAdjuster tempoSlider{player};
     
-    juce::Slider posSlider;
+    TrackNavigator trackNavigator{player};
     
     juce::Label trackTitle;
     
