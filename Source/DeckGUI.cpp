@@ -43,12 +43,14 @@ DeckGUI::DeckGUI(DJAudioPlayer* _player,
     volSlider.setValue(1.0);
     volSlider.setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalDrag);
     volSlider.setTextBoxStyle(juce::Slider::TextEntryBoxPosition::TextBoxBelow, false, 50, 25);
+    volSlider.setDoubleClickReturnValue(true, 1.0);
     volSlider.setTextValueSuffix(" v");
     
     speedSlider.setRange(0.0, 2.0, 0.01);
     speedSlider.setValue(1.0);
     speedSlider.setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalDrag);
     speedSlider.setTextBoxStyle(juce::Slider::TextEntryBoxPosition::TextBoxBelow, false, 50, 25);
+    speedSlider.setDoubleClickReturnValue(true, 1.0);
     speedSlider.setTextValueSuffix("x");
 
     posSlider.setRange(0.0, 1.0);
