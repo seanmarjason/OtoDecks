@@ -41,10 +41,16 @@ DeckGUI::DeckGUI(DJAudioPlayer* _player,
     
     volSlider.setRange(0.0, 2.0, 0.01);
     volSlider.setValue(1.0);
+    volSlider.setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalDrag);
+    volSlider.setTextBoxStyle(juce::Slider::TextEntryBoxPosition::TextBoxBelow, false, 50, 25);
+    volSlider.setTextValueSuffix(" v");
     
     speedSlider.setRange(0.0, 2.0, 0.01);
     speedSlider.setValue(1.0);
-    
+    speedSlider.setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalDrag);
+    speedSlider.setTextBoxStyle(juce::Slider::TextEntryBoxPosition::TextBoxBelow, false, 50, 25);
+    speedSlider.setTextValueSuffix("x");
+
     posSlider.setRange(0.0, 1.0);
     posSlider.setTextBoxStyle(juce::Slider::TextEntryBoxPosition::NoTextBox, false, 0, 0);
     
@@ -68,16 +74,17 @@ void DeckGUI::paint (juce::Graphics& g)
     stopButton.setColour(juce::TextButton::buttonColourId, ColourScheme::redAscent);
     playButton.setColour(juce::TextButton::buttonColourId, ColourScheme::greenAscent);
     
-    volSlider.setColour(juce::Slider::backgroundColourId, ColourScheme::greyAscent);
-    speedSlider.setColour(juce::Slider::backgroundColourId, ColourScheme::greyAscent);
-    posSlider.setColour(juce::Slider::backgroundColourId, ColourScheme::greyAscent);
-    
-    volSlider.setColour(juce::Slider::trackColourId, ColourScheme::primaryAscent);
-    speedSlider.setColour(juce::Slider::trackColourId, ColourScheme::primaryAscent);
-    posSlider.setColour(juce::Slider::trackColourId, ColourScheme::primaryAscent);
-    
+    volSlider.setColour(juce::Slider::rotarySliderOutlineColourId, ColourScheme::greyAscent);
+    volSlider.setColour(juce::Slider::rotarySliderFillColourId, ColourScheme::primaryAscent);
     volSlider.setColour(juce::Slider::textBoxOutlineColourId, ColourScheme::backgroundColour);
+    
+    speedSlider.setColour(juce::Slider::rotarySliderOutlineColourId, ColourScheme::greyAscent);
+    speedSlider.setColour(juce::Slider::rotarySliderFillColourId, ColourScheme::primaryAscent);
     speedSlider.setColour(juce::Slider::textBoxOutlineColourId, ColourScheme::backgroundColour);
+    
+    posSlider.setColour(juce::Slider::backgroundColourId, ColourScheme::greyAscent);
+    posSlider.setColour(juce::Slider::trackColourId , ColourScheme::greenAscent);
+    posSlider.setColour(juce::Slider::thumbColourId , ColourScheme::greenAscent);
     posSlider.setColour(juce::Slider::textBoxOutlineColourId, ColourScheme::backgroundColour);
     
 }
@@ -88,8 +95,9 @@ void DeckGUI::resized()
     double colW = getWidth() / 10;
     
     trackTitle.setBounds(   colW * 0, rowH / 4 * 0, colW * 3, rowH / 4 * 2);
-    volSlider.setBounds(    colW * 0, rowH / 4 * 2, colW * 3, rowH / 4 * 1);
-    speedSlider.setBounds(  colW * 0, rowH / 4 * 3, colW * 3, rowH / 4 * 1);
+    
+    volSlider.setBounds(    colW * 3 / 2 * 0, rowH / 4 * 2, colW * 3 / 2 * 1, rowH / 4 * 2);
+    speedSlider.setBounds(  colW * 3 / 2 * 1, rowH / 4 * 2, colW * 3 / 2 * 1, rowH / 4 * 2);
 
     waveformDisplay.setBounds(  colW * 3, rowH / 4 * 0, colW * 5, rowH / 4 * 3);
     posSlider.setBounds(        colW * 3, rowH / 4 * 3, colW * 5, rowH / 4 * 1);
@@ -131,6 +139,8 @@ void DeckGUI::sliderValueChanged (juce::Slider *slider)
     }
     if (slider == &posSlider)
     {
+        std::string positionValue = juce::String(slider->getValue(), 2).toStdString();
+        std::cout << "positionValue: " << positionValue << std::endl;
         player->setPositionRelative(slider->getValue());
     }
 }
@@ -150,4 +160,5 @@ void DeckGUI::filesDropped (const juce::StringArray &files, int x, int y){
 
 void DeckGUI::timerCallback() {
     waveformDisplay.setPositionRelative(player->getPositionRelative());
+    posSlider.setValue(player->getPositionRelative());
 }
