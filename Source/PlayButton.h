@@ -23,10 +23,18 @@ public:
     PlayButton(DJAudioPlayer* player);
     ~PlayButton() override;
 
+    /** Callback called by the operating system to render component on screen
+     * @param g graphics context used for drawing a component or image
+    */
     void paint (juce::Graphics&) override;
+    
+    /** Callback called when this component's size has been changed
+     */
     void resized() override;
     
-    /** Implement juce::Button::Listener */
+    /** Callback when the play button is clicked
+     * @param button pointer to the button that was clicked
+     */
     void buttonClicked (juce::Button *) override;
     
 private:

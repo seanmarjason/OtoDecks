@@ -54,16 +54,13 @@ void WaveformDisplay::resized()
 }
 
 void WaveformDisplay::loadURL(juce::URL audioURL) {
-    std::cout << "WFD::loadURL" << std::endl;
-    
     audioThumb.clear();
     fileLoaded = audioThumb.setSource(new juce::URLInputSource(audioURL));
     if (fileLoaded) {
-        std::cout << "WFD::loadURL loaded!" << std::endl;
         repaint();
     }
     else {
-        std::cout << "WFD::loadURL not loaded..." << std::endl;
+        std::cout << "Error: WFD::loadURL not loaded" << std::endl;
     }
 }
 

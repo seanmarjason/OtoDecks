@@ -13,9 +13,6 @@
 #include <JuceHeader.h>
 #include "DJAudioPlayer.h"
 
-//==============================================================================
-/*
-*/
 class VolumeAdjuster  : public juce::Component,
                         public juce::Slider::Listener
 
@@ -24,10 +21,18 @@ public:
     VolumeAdjuster(DJAudioPlayer* player);
     ~VolumeAdjuster() override;
 
+    /** Callback called by the operating system to render component on screen
+     * @param g graphics context used for drawing a component or image
+    */
     void paint (juce::Graphics&) override;
+    
+    /** Callback called when this component's size has been changed
+     */
     void resized() override;
     
-    /** Implement juce::Slider::Listener */
+    /** Callback when the volume slider is changed
+     * @param slider pointer to the slider that was changed
+     */
     void sliderValueChanged (juce::Slider *slider) override;
 
 

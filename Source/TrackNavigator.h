@@ -24,10 +24,18 @@ public:
     TrackNavigator(DJAudioPlayer* player);
     ~TrackNavigator() override;
 
+    /** Callback called by the operating system to render component on screen
+     * @param g graphics context used for drawing a component or image
+    */
     void paint (juce::Graphics&) override;
+    
+    /** Callback called when this component's size has been changed
+     */
     void resized() override;
     
-    /** Implement juce::Slider::Listener */
+    /** Callback when the track nvaigation slider is changed
+     * @param slider pointer to the slider that was changed
+     */
     void sliderValueChanged (juce::Slider *slider) override;
     
     void setValue(double value);
