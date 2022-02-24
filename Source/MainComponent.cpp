@@ -3,20 +3,20 @@
 //==============================================================================
 MainComponent::MainComponent()
 {
-    // Make sure you set the size of the component after
-    // you add any child components.
+    // Set the size of the component
     setSize (1280, 800);
 
-    // Some platforms require permissions to open input channels so request that here
+    // Request permissions to open input channels
+    // (some platforms require permissions)
     if (juce::RuntimePermissions::isRequired (juce::RuntimePermissions::recordAudio)
         && ! juce::RuntimePermissions::isGranted (juce::RuntimePermissions::recordAudio))
     {
         juce::RuntimePermissions::request (juce::RuntimePermissions::recordAudio,
-                                           [&] (bool granted) { setAudioChannels (granted ? 2 : 0, 2); });
+                                           [&] (bool granted) { setAudioChannels (granted ? 2 : 0, 8); });
     }
     else
     {
-        // Specify the number of input and output channels that we want to open
+        // Specify number of input and output channels to open
         setAudioChannels (0, 8);
     }
     
@@ -32,14 +32,12 @@ MainComponent::MainComponent()
 
 MainComponent::~MainComponent()
 {
-    // This shuts down the audio device and clears the audio source.
     shutdownAudio();
 }
 
 //==============================================================================
 void MainComponent::prepareToPlay (int samplesPerBlockExpected, double sampleRate)
 {
-    /** Handle audio file reading */
     player1.prepareToPlay(samplesPerBlockExpected, sampleRate);
     player2.prepareToPlay(samplesPerBlockExpected, sampleRate);
     player3.prepareToPlay(samplesPerBlockExpected, sampleRate);
@@ -49,19 +47,15 @@ void MainComponent::prepareToPlay (int samplesPerBlockExpected, double sampleRat
     mixerSource.addInputSource(&player2, false);
     mixerSource.addInputSource(&player3, false);
     mixerSource.addInputSource(&player4, false);
-
 }
 
 void MainComponent::getNextAudioBlock (const juce::AudioSourceChannelInfo& bufferToFill)
 {
-    /** Handle Audio File Input */
     mixerSource.getNextAudioBlock(bufferToFill);
 }
 
 void MainComponent::releaseResources()
 {
-    // This will be called when the audio device stops, or when it is being
-    // restarted due to a setting change.
     player1.releaseResources();
     player2.releaseResources();
     player3.releaseResources();
@@ -78,7 +72,6 @@ void MainComponent::paint (juce::Graphics& g)
 
 void MainComponent::resized()
 {
-    // This is called when the MainContentComponent is resized.
     double colW = getWidth() / 10;
     double rowH = getHeight() / 4;
     
@@ -88,14 +81,4 @@ void MainComponent::resized()
     deckGUI2.setBounds(colW * 3, rowH * 1, colW * 7, rowH * 1);
     deckGUI3.setBounds(colW * 3, rowH * 2, colW * 7, rowH * 1);
     deckGUI4.setBounds(colW * 3, rowH * 3, colW * 7, rowH * 1);
-}
-
-void MainComponent::buttonClicked(juce::Button* button)
-{
-
-}
-
-void MainComponent::sliderValueChanged (juce::Slider *slider)
-{
-
 }

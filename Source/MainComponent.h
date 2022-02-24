@@ -7,38 +7,42 @@
 #include "PlaylistComponent.h"
 
 //==============================================================================
-/*
-    This component lives inside our window, and this is where you should put all
-    your controls and content.
-*/
-class MainComponent  :  public juce::AudioAppComponent,
-                        public juce::Button::Listener,
-                        public juce::Slider::Listener
+class MainComponent  :  public juce::AudioAppComponent
 {
 public:
-    //==============================================================================
     MainComponent();
     ~MainComponent() override;
-
-    //==============================================================================
+    
+    
+    /** Prepare the audio app component for playback
+     * @param samplesPerBlockExpected number of samples source will supply for each audio block
+     * @param sampleRate sample rate for output
+    */
     void prepareToPlay (int samplesPerBlockExpected, double sampleRate) override;
+    
+    
+    /** Called repeatedly to fetch subsequent blocks of audio data
+     * @param bufferToFill The destination buffer to fill with audio data
+    */
     void getNextAudioBlock (const juce::AudioSourceChannelInfo& bufferToFill) override;
+    
+    /** Allows the source to release anything it no longer needs after playback has stopped
+    */
     void releaseResources() override;
 
-    //==============================================================================
+    
+    /** Callback called by the operating system to render component on screen
+     * @param g graphics context used for drawing a component or image
+    */
     void paint (juce::Graphics& g) override;
+    
+    
+    /** Callback called when this component's size has been changed
+     */
     void resized() override;
     
-    /** Implement juce::Button::Listener */
-    void buttonClicked (juce::Button *) override;
-    
-    /** Implement juce::Slider::Listener */
-    void sliderValueChanged (juce::Slider *slider) override;
 
 private:
-    //==============================================================================
-    // Your private member variables go here...
-    
     juce::AudioFormatManager formatManager;
     juce::AudioThumbnailCache thumbCache{100};
     
