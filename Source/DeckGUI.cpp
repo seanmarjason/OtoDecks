@@ -12,7 +12,6 @@
 #include "ColourScheme.h"
 #include "DeckGUI.h"
 
-//==============================================================================
 DeckGUI::DeckGUI(DJAudioPlayer* _player,
                  juce::AudioFormatManager & formatManagerToUse,
                  juce::AudioThumbnailCache & cacheToUse
