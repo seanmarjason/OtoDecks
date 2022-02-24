@@ -5,38 +5,42 @@
               defines="JUCE_MODAL_LOOPS_PERMITTED=1">
   <MAINGROUP id="hMFM76" name="OtoDecks">
     <GROUP id="{1316FCDC-0191-B456-B672-BC565043967C}" name="Source">
-      <FILE id="l3N6VI" name="StopButton.cpp" compile="1" resource="0" file="Source/StopButton.cpp"/>
-      <FILE id="rBTE2n" name="StopButton.h" compile="0" resource="0" file="Source/StopButton.h"/>
-      <FILE id="tcPeoy" name="PlayButton.cpp" compile="1" resource="0" file="Source/PlayButton.cpp"/>
-      <FILE id="Avdw0a" name="PlayButton.h" compile="0" resource="0" file="Source/PlayButton.h"/>
-      <FILE id="SPuZl5" name="TrackNavigator.cpp" compile="1" resource="0"
-            file="Source/TrackNavigator.cpp"/>
-      <FILE id="yvAyJU" name="TrackNavigator.h" compile="0" resource="0"
-            file="Source/TrackNavigator.h"/>
-      <FILE id="cuoa5C" name="TempoAdjuster.cpp" compile="1" resource="0"
-            file="Source/TempoAdjuster.cpp"/>
-      <FILE id="mzZyCh" name="TempoAdjuster.h" compile="0" resource="0" file="Source/TempoAdjuster.h"/>
-      <FILE id="LkacSY" name="VolumeAdjuster.cpp" compile="1" resource="0"
-            file="Source/VolumeAdjuster.cpp"/>
-      <FILE id="JhOrq7" name="VolumeAdjuster.h" compile="0" resource="0"
-            file="Source/VolumeAdjuster.h"/>
-      <FILE id="unvg7k" name="ColourScheme.cpp" compile="1" resource="0"
-            file="Source/ColourScheme.cpp"/>
-      <FILE id="lJYiQZ" name="ColourScheme.h" compile="0" resource="0" file="Source/ColourScheme.h"/>
-      <FILE id="u467Cs" name="PlaylistComponent.cpp" compile="1" resource="0"
-            file="Source/PlaylistComponent.cpp"/>
-      <FILE id="gQJe4V" name="PlaylistComponent.h" compile="0" resource="0"
-            file="Source/PlaylistComponent.h"/>
-      <FILE id="pcGWVn" name="LoopingComponent.cpp" compile="1" resource="0"
-            file="Source/LoopingComponent.cpp"/>
-      <FILE id="gLNSLE" name="LoopingComponent.h" compile="0" resource="0"
-            file="Source/LoopingComponent.h"/>
-      <FILE id="rSwU57" name="WaveformDisplay.cpp" compile="1" resource="0"
-            file="Source/WaveformDisplay.cpp"/>
-      <FILE id="ufDeLt" name="WaveformDisplay.h" compile="0" resource="0"
-            file="Source/WaveformDisplay.h"/>
-      <FILE id="ayE2Gy" name="DeckGUI.cpp" compile="1" resource="0" file="Source/DeckGUI.cpp"/>
-      <FILE id="VMHJx8" name="DeckGUI.h" compile="0" resource="0" file="Source/DeckGUI.h"/>
+      <GROUP id="{5F46036D-0548-B015-82E7-B06C9E663304}" name="GUI">
+        <GROUP id="{FB9FAC88-F842-C765-1987-2DBCEFCCCDFD}" name="Elements">
+          <FILE id="rSwU57" name="WaveformDisplay.cpp" compile="1" resource="0"
+                file="Source/WaveformDisplay.cpp"/>
+          <FILE id="ufDeLt" name="WaveformDisplay.h" compile="0" resource="0"
+                file="Source/WaveformDisplay.h"/>
+          <FILE id="l3N6VI" name="StopButton.cpp" compile="1" resource="0" file="Source/StopButton.cpp"/>
+          <FILE id="rBTE2n" name="StopButton.h" compile="0" resource="0" file="Source/StopButton.h"/>
+          <FILE id="tcPeoy" name="PlayButton.cpp" compile="1" resource="0" file="Source/PlayButton.cpp"/>
+          <FILE id="Avdw0a" name="PlayButton.h" compile="0" resource="0" file="Source/PlayButton.h"/>
+          <FILE id="SPuZl5" name="TrackNavigator.cpp" compile="1" resource="0"
+                file="Source/TrackNavigator.cpp"/>
+          <FILE id="yvAyJU" name="TrackNavigator.h" compile="0" resource="0"
+                file="Source/TrackNavigator.h"/>
+          <FILE id="cuoa5C" name="TempoAdjuster.cpp" compile="1" resource="0"
+                file="Source/TempoAdjuster.cpp"/>
+          <FILE id="mzZyCh" name="TempoAdjuster.h" compile="0" resource="0" file="Source/TempoAdjuster.h"/>
+          <FILE id="LkacSY" name="VolumeAdjuster.cpp" compile="1" resource="0"
+                file="Source/VolumeAdjuster.cpp"/>
+          <FILE id="JhOrq7" name="VolumeAdjuster.h" compile="0" resource="0"
+                file="Source/VolumeAdjuster.h"/>
+        </GROUP>
+        <FILE id="unvg7k" name="ColourScheme.cpp" compile="1" resource="0"
+              file="Source/ColourScheme.cpp"/>
+        <FILE id="lJYiQZ" name="ColourScheme.h" compile="0" resource="0" file="Source/ColourScheme.h"/>
+        <FILE id="u467Cs" name="PlaylistComponent.cpp" compile="1" resource="0"
+              file="Source/PlaylistComponent.cpp"/>
+        <FILE id="gQJe4V" name="PlaylistComponent.h" compile="0" resource="0"
+              file="Source/PlaylistComponent.h"/>
+        <FILE id="pcGWVn" name="LoopingComponent.cpp" compile="1" resource="0"
+              file="Source/LoopingComponent.cpp"/>
+        <FILE id="gLNSLE" name="LoopingComponent.h" compile="0" resource="0"
+              file="Source/LoopingComponent.h"/>
+        <FILE id="ayE2Gy" name="DeckGUI.cpp" compile="1" resource="0" file="Source/DeckGUI.cpp"/>
+        <FILE id="VMHJx8" name="DeckGUI.h" compile="0" resource="0" file="Source/DeckGUI.h"/>
+      </GROUP>
       <FILE id="AHQEl2" name="DJAudioPlayer.cpp" compile="1" resource="0"
             file="Source/DJAudioPlayer.cpp"/>
       <FILE id="eI17zQ" name="DJAudioPlayer.h" compile="0" resource="0" file="Source/DJAudioPlayer.h"/>
