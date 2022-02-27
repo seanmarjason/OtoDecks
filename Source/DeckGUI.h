@@ -9,7 +9,6 @@
 #include "StopButton.h"
 #include "WaveformDisplay.h"
 #include "LoopingComponent.h"
-#include "JogWheel.h"
 
 class DeckGUI  :    public juce::Component,
                     public juce::FileDragAndDropTarget,
@@ -72,8 +71,6 @@ class DeckGUI  :    public juce::Component,
         WaveformDisplay waveformDisplay;
         
         LoopingComponent loopingComponent{player};
-    
-        JogWheel jogWheel{player};
-        
+            
         JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (DeckGUI)
 };

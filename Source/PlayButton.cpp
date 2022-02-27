@@ -23,7 +23,8 @@ void PlayButton::paint (juce::Graphics& g)
 
 void PlayButton::resized()
 {
-    playButton.setBounds(0, 0, getWidth(), getHeight());
+    double margin = 5;
+    playButton.setBounds(margin, margin, getWidth() - (margin * 2), getHeight() - (margin * 2));
 }
 
 

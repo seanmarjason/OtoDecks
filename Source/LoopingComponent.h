@@ -2,6 +2,7 @@
 
 #include <JuceHeader.h>
 #include "DJAudioPlayer.h"
+#include "JogWheel.h"
 
 class LoopingComponent  :   public juce::Component,
                             public juce::Button::Listener
@@ -27,12 +28,14 @@ class LoopingComponent  :   public juce::Component,
 
     
     private:
+        DJAudioPlayer* player;
+        
+        JogWheel jogWheel{player};
+
         juce::TextButton loop2{"-2s"};
         juce::TextButton loop4{"-4s"};
         juce::TextButton loop8{"-8s"};
         juce::TextButton loopManual{"M"};
-        
-        DJAudioPlayer* player;
         
         double manualLoopStart;
         double manualLoopEnd;

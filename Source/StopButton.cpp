@@ -23,7 +23,8 @@ void StopButton::paint (juce::Graphics& g)
 
 void StopButton::resized()
 {
-    stopButton.setBounds(0, 0, getWidth(), getHeight());
+    double margin = 5;
+    stopButton.setBounds(margin, margin, getWidth() - (margin * 2), getHeight() - (margin * 2));
 }
 
 
