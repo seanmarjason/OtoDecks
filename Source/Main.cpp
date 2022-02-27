@@ -10,97 +10,86 @@
 #include "ColourScheme.h"
 #include "MainComponent.h"
 
-//==============================================================================
 class OtoDecksApplication  : public juce::JUCEApplication
 {
-public:
-    //==============================================================================
-    OtoDecksApplication() {}
-
-    const juce::String getApplicationName() override       { return ProjectInfo::projectName; }
-    const juce::String getApplicationVersion() override    { return ProjectInfo::versionString; }
-    bool moreThanOneInstanceAllowed() override             { return true; }
-
-    //==============================================================================
-    void initialise (const juce::String& commandLine) override
-    {
-        // This method is where you should put your application's initialisation code..
-
-        mainWindow.reset (new MainWindow (getApplicationName()));
-    }
-
-    void shutdown() override
-    {
-        // Add your application's shutdown code here..
-
-        mainWindow = nullptr; // (deletes our window)
-    }
-
-    //==============================================================================
-    void systemRequestedQuit() override
-    {
-        // This is called when the app is being asked to quit: you can ignore this
-        // request and let the app carry on running, or call quit() to allow the app to close.
-        quit();
-    }
-
-    void anotherInstanceStarted (const juce::String& commandLine) override
-    {
-        // When another instance of the app is launched while this one is running,
-        // this method is invoked, and the commandLine parameter tells you what
-        // the other instance's command-line arguments were.
-    }
-
-    //==============================================================================
-    /*
-        This class implements the desktop window that contains an instance of
-        our MainComponent class.
-    */
-    class MainWindow    : public juce::DocumentWindow
-    {
     public:
-        MainWindow (juce::String name)
-            : DocumentWindow (name,
-                              juce::Desktop::getInstance().getDefaultLookAndFeel()
-                                                          .findColour (juce::ResizableWindow::backgroundColourId),
-                              DocumentWindow::allButtons)
-        {
-            setUsingNativeTitleBar (true);
-            setContentOwned (new MainComponent(), true);
+        OtoDecksApplication() {}
 
-           #if JUCE_IOS || JUCE_ANDROID
-            setFullScreen (true);
-           #else
-            setResizable (true, true);
-            centreWithSize (getWidth(), getHeight());
-           #endif
-
-            setVisible (true);
-        }
-
-        void closeButtonPressed() override
-        {
-            // This is called when the user tries to close this window. Here, we'll just
-            // ask the app to quit when this happens, but you can change this to do
-            // whatever you need.
-            JUCEApplication::getInstance()->systemRequestedQuit();
-        }
-
-        /* Note: Be careful if you override any DocumentWindow methods - the base
-           class uses a lot of them, so by overriding you might break its functionality.
-           It's best to do all your work in your content component instead, but if
-           you really have to override any DocumentWindow methods, make sure your
-           subclass also calls the superclass's method.
+    
+        /** Get the name of the juce application */
+        const juce::String getApplicationName() override    { return ProjectInfo::projectName; }
+    
+        /** Get the version of the juce application */
+        const juce::String getApplicationVersion() override     { return ProjectInfo::versionString; }
+    
+        /** Confirm if more than one instance of the application can be running at the same time
+         * @return boolean representing if more than one instance of the application can run
         */
+        bool moreThanOneInstanceAllowed() override      { return true; }
 
+        /** Initialise the juce application
+         *  @param commandLine the command line parameter list passed in when initialising the application
+        */
+        void initialise (const juce::String& commandLine) override  { mainWindow.reset (new MainWindow (getApplicationName())); }
+
+        /** Shut down the juce application by deleting window */
+        void shutdown() override    { mainWindow = nullptr; }
+
+        /** Callback for when the app is being asked to quit. Call quit() to allow the app to close. */
+        void systemRequestedQuit() override     { quit(); }
+
+        /** Callback for when an additional instance of the application is requested
+         * @param commandLine the command line parameter list of the currently running instance of the application
+        */
+        void anotherInstanceStarted (const juce::String& commandLine) override
+        {
+        }
+
+    
+        /** -------------------------------------------------------------------------------
+         *  Implement the desktop window that contains an instance of MainComponent class.
+         *  -------------------------------------------------------------------------------
+        */
+        class MainWindow    : public juce::DocumentWindow
+        {
+            public:
+                MainWindow (juce::String name) : DocumentWindow (name,
+                                                                 juce::Desktop::getInstance().getDefaultLookAndFeel()
+                                                                  .findColour (juce::ResizableWindow::backgroundColourId),
+                                                                 DocumentWindow::allButtons)
+                {
+                    setUsingNativeTitleBar (true);
+                    setContentOwned (new MainComponent(), true);
+
+                   #if JUCE_IOS || JUCE_ANDROID
+                    setFullScreen (true);
+                   #else
+                    setResizable (true, true);
+                    centreWithSize (getWidth(), getHeight());
+                   #endif
+
+                    setVisible (true);
+                }
+
+                /** Callback for when user tries to close this window.
+                 *  Requests app to quit.
+                */
+                void closeButtonPressed() override
+                {
+                    JUCEApplication::getInstance()->systemRequestedQuit();
+                }
+
+            
+            private:
+                JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MainWindow)
+        };
+        /** ------------------------------------------------------------------------------- */
+
+
+    
     private:
-        JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MainWindow)
-    };
-
-private:
-    std::unique_ptr<MainWindow> mainWindow;
+        std::unique_ptr<MainWindow> mainWindow;
 };
 
-//==============================================================================
 // This macro generates the main() routine that launches the app.
 START_JUCE_APPLICATION (OtoDecksApplication)
