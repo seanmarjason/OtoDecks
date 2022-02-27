@@ -43,7 +43,8 @@ class DeckGUI  :    public juce::Component,
         void resized() override;
         
         /** Callback to check whether this target is interested in the set of files being offered
-         @param files the set of (absolute) pathnames of the files that the user is dragging
+         * @param files the set of (absolute) pathnames of the files that the user is dragging
+         * @return boolean representing whether component listens to file drag
          */
         bool isInterestedInFileDrag(const juce::StringArray &files) override;
     

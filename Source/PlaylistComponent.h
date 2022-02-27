@@ -34,6 +34,7 @@ public:
     void resized() override;
     
     /** Get the number of rows currently in the playlist table
+     * @return integer representing number of rows in the table
      */
     int getNumRows() override;
     
@@ -63,6 +64,7 @@ public:
      * @param rowIsSelected boolean reflecting if the row is selected
      * @param existingComponentToUpdate if component is null, then method must create and return a new component,
      * if not then this method must update the component and return it
+     * @return juce component to be used in the cell
      */
     juce::Component* refreshComponentForCell (  int rowNumber,
                                                 int columnId,

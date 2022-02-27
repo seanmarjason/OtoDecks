@@ -66,10 +66,12 @@ class DJAudioPlayer : public juce::AudioSource {
         void stop();
     
         /** Get the relative position of the playhead
+         * @return double representing relative position of the playhead
         */
         double getPositionRelative();
     
         /** Get the position in seconds of the playhead
+         * @return double containing position in seconds of the playhead
         */
         double getCurrentPosition();
     
