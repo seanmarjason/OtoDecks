@@ -32,6 +32,6 @@ void PlayButton::buttonClicked(juce::Button* button)
 {
     if (button == &playButton)
     {
-        player->start();
+        player->play();
     }
 }

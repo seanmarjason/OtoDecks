@@ -32,6 +32,6 @@ void StopButton::buttonClicked(juce::Button* button)
 {
     if (button == &stopButton)
     {
-        player->stop();
+        player->pause();
     }
 }

@@ -34,8 +34,8 @@ void JogWheel::paint (juce::Graphics& g)
     
     if (player->isPlaying())
     {
-        p.x = center + radius * std::cos((float) getFrameCounter() * 0.04f);
-        p.y = center + radius * std::sin((float) getFrameCounter() * 0.04f);
+        p.x = center + radius * std::cos((float) player->getCurrentPosition());
+        p.y = center + radius * std::sin((float) player->getCurrentPosition());
     }
     
     g.setColour (ColourScheme::greyAscent);
@@ -49,4 +49,17 @@ void JogWheel::resized()
 
 void JogWheel::update()
 {
+}
+
+void JogWheel::mouseDown(const juce::MouseEvent &event)
+{
+    std::cout << "Mouse Down" << std::endl;
+    player->pause();
+}
+
+
+void JogWheel::mouseUp(const juce::MouseEvent &event)
+{
+    std::cout << "Mouse Up" << std::endl;
+    player->play();
 }

@@ -84,13 +84,13 @@ void DJAudioPlayer::setPositionRelative(double pos)
 }
 
 
-void DJAudioPlayer::start()
+void DJAudioPlayer::play()
 {
     transportSource.start();
 }
 
 
-void DJAudioPlayer::stop()
+void DJAudioPlayer::pause()
 {
     transportSource.stop();
 }

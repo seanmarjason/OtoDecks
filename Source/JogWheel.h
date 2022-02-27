@@ -13,6 +13,10 @@ class JogWheel  : public juce::AnimatedAppComponent
         void resized() override;
     
         void update() override;
+    
+        void mouseDown(const juce::MouseEvent &event) override;
+    
+        void mouseUp(const juce::MouseEvent &event) override;
 
     
     private:

@@ -51,11 +51,11 @@ class DJAudioPlayer : public juce::AudioSource
         
         /** Start the audio source
         */
-        void start();
+        void pause();
     
         /** Stop the audio source
         */
-        void stop();
+        void play();
     
         /** Check if the audio source is playing
          * @return boolean representing if the audio source is playing
