@@ -1,40 +1,38 @@
-/*
-  ==============================================================================
-
-    DJAudioPlayer.cpp
-    Created: 30 Jan 2022 6:16:37pm
-    Author:  Sean Marjason
-
-  ==============================================================================
-*/
-
 #include "DJAudioPlayer.h"
+
 
 DJAudioPlayer::DJAudioPlayer(juce::AudioFormatManager& _formatManager
                              ) : formatManager(_formatManager)
 {
-    
 }
 
-DJAudioPlayer::~DJAudioPlayer(){
-    
+DJAudioPlayer::~DJAudioPlayer()
+{
 }
 
-void DJAudioPlayer::prepareToPlay (int samplesPerBlockExpected, double sampleRate) {
+
+void DJAudioPlayer::prepareToPlay (int samplesPerBlockExpected, double sampleRate)
+{
     transportSource.prepareToPlay(samplesPerBlockExpected, sampleRate);
     resampleSource.prepareToPlay(samplesPerBlockExpected, sampleRate);
 }
 
-void DJAudioPlayer::getNextAudioBlock (const juce::AudioSourceChannelInfo& bufferToFill) {
+
+void DJAudioPlayer::getNextAudioBlock (const juce::AudioSourceChannelInfo& bufferToFill)
+{
     resampleSource.getNextAudioBlock(bufferToFill);
 }
 
-void DJAudioPlayer::releaseResources() {
+
+void DJAudioPlayer::releaseResources()
+{
     transportSource.releaseResources();
     resampleSource.releaseResources();
 }
 
-void DJAudioPlayer::loadURL(juce::URL audioURL) {
+
+void DJAudioPlayer::loadURL(juce::URL audioURL)
+{
     auto* reader = formatManager.createReaderFor(audioURL.createInputStream(false));
     if (reader != nullptr) // good file
     {
@@ -44,7 +42,9 @@ void DJAudioPlayer::loadURL(juce::URL audioURL) {
     }
 }
 
-void DJAudioPlayer::setGain(double gain) {
+
+void DJAudioPlayer::setGain(double gain)
+{
     if (gain < 0.1 || gain > 2.0) {
         std::cout << "DJAudioPlayer::setGain gain should be between 0 and 2" << std::endl;
     }
@@ -53,7 +53,9 @@ void DJAudioPlayer::setGain(double gain) {
     }
 }
 
-void DJAudioPlayer::setSpeed(double ratio) {
+
+void DJAudioPlayer::setSpeed(double ratio)
+{
     if (ratio < 0.1 || ratio > 2.0) {
         std::cout << "DJAudioPlayer::setSpeed ratio should be between 0 and 10" << std::endl;
     }
@@ -63,11 +65,15 @@ void DJAudioPlayer::setSpeed(double ratio) {
     }
 }
 
-void DJAudioPlayer::setPosition(double posInSecs) {
+
+void DJAudioPlayer::setPosition(double posInSecs)
+{
     transportSource.setPosition(posInSecs);
 }
 
-void DJAudioPlayer::setPositionRelative(double pos) {
+
+void DJAudioPlayer::setPositionRelative(double pos)
+{
     if (pos < 0.0 || pos > 1.0) {
         std::cout << "DJAudioPlayer::setPositionRelative pos should be between 0 and 1" << std::endl;
     }
@@ -77,15 +83,21 @@ void DJAudioPlayer::setPositionRelative(double pos) {
     }
 }
 
-void DJAudioPlayer::start() {
+
+void DJAudioPlayer::start()
+{
     transportSource.start();
 }
 
-void DJAudioPlayer::stop() {
+
+void DJAudioPlayer::stop()
+{
     transportSource.stop();
 }
 
-double DJAudioPlayer::getPositionRelative(){
+
+double DJAudioPlayer::getPositionRelative()
+{
     if (transportSource.getCurrentPosition() == 0) {
         return 0;
     }
@@ -94,10 +106,14 @@ double DJAudioPlayer::getPositionRelative(){
     }
 }
 
-double DJAudioPlayer::getCurrentPosition(){
+
+double DJAudioPlayer::getCurrentPosition()
+{
     return transportSource.getCurrentPosition();
 }
 
-void DJAudioPlayer::startAudioLoop(double startPos, double endPos) {
+
+void DJAudioPlayer::startAudioLoop(double startPos, double endPos)
+{
     transportSource.setPosition(startPos);
 }

@@ -1,18 +1,8 @@
-/*
-  ==============================================================================
-
-    TrackNavigator.cpp
-    Created: 23 Feb 2022 11:14:48pm
-    Author:  Sean Marjason
-
-  ==============================================================================
-*/
-
 #include <JuceHeader.h>
 #include "TrackNavigator.h"
 #include "ColourScheme.h"
 
-//==============================================================================
+
 TrackNavigator::TrackNavigator(DJAudioPlayer* _player) : player(_player)
 {
     addAndMakeVisible(trackSlider);
@@ -22,9 +12,11 @@ TrackNavigator::TrackNavigator(DJAudioPlayer* _player) : player(_player)
     trackSlider.setTextBoxStyle(juce::Slider::TextEntryBoxPosition::NoTextBox, false, 0, 0);
 }
 
+
 TrackNavigator::~TrackNavigator()
 {
 }
+
 
 void TrackNavigator::paint (juce::Graphics& g)
 {
@@ -34,10 +26,12 @@ void TrackNavigator::paint (juce::Graphics& g)
     trackSlider.setColour(juce::Slider::textBoxOutlineColourId, ColourScheme::backgroundColour);
 }
 
+
 void TrackNavigator::resized()
 {
     trackSlider.setBounds(0, 0, getWidth(), getHeight());
 }
+
 
 void TrackNavigator::sliderValueChanged (juce::Slider *slider)
 {
@@ -47,6 +41,8 @@ void TrackNavigator::sliderValueChanged (juce::Slider *slider)
     }
 }
 
-void TrackNavigator::setValue(double value) {
+
+void TrackNavigator::setValue(double value)
+{
     trackSlider.setValue(value);
 }

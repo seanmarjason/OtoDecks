@@ -1,25 +1,18 @@
-/*
-  ==============================================================================
-
-    PlaylistComponent.cpp
-    Created: 2 Feb 2022 2:25:05pm
-    Author:  Sean Marjason
-
-  ==============================================================================
-*/
-
 #include <JuceHeader.h>
 #include <regex>
-#include "ColourScheme.h"
 #include "PlaylistComponent.h"
+#include "ColourScheme.h"
 
-//==============================================================================
-PlaylistComponent::PlaylistComponent(   DeckGUI* _deckGUI1,
-                                        DeckGUI* _deckGUI2,
-                                        DeckGUI* _deckGUI3,
-                                        DeckGUI* _deckGUI4
-                                     ) : deckGUI1(_deckGUI1), deckGUI2(_deckGUI2),
-                                         deckGUI3(_deckGUI3), deckGUI4(_deckGUI4)
+
+PlaylistComponent::PlaylistComponent(
+                                      DeckGUI* _deckGUI1,
+                                      DeckGUI* _deckGUI2,
+                                      DeckGUI* _deckGUI3,
+                                      DeckGUI* _deckGUI4
+                                    ) : deckGUI1(_deckGUI1),
+                                        deckGUI2(_deckGUI2),
+                                        deckGUI3(_deckGUI3),
+                                        deckGUI4(_deckGUI4)
 {
     tableComponent.setRowHeight(50);
     tableComponent.getHeader().addColumn("Track title", 1, 300);
@@ -45,12 +38,13 @@ PlaylistComponent::PlaylistComponent(   DeckGUI* _deckGUI1,
     searchBar.setJustification(juce::Justification::centred);
     searchBar.setTextToShowWhenEmpty("Search for track", juce::Colours::lightgrey);
     searchBar.addListener(this);
-
 }
+
 
 PlaylistComponent::~PlaylistComponent()
 {
 }
+
 
 void PlaylistComponent::paint (juce::Graphics& g)
 {
@@ -63,8 +57,8 @@ void PlaylistComponent::paint (juce::Graphics& g)
     tableComponent.getHeader().setColour(juce::TableHeaderComponent::backgroundColourId, ColourScheme::backgroundColour);
     tableComponent.getHeader().setColour(juce::TableHeaderComponent::outlineColourId , ColourScheme::backgroundColour);
     tableComponent.getHeader().setColour(juce::TableHeaderComponent::textColourId , ColourScheme::primaryAscent);
-
 }
+
 
 void PlaylistComponent::resized()
 {
@@ -75,11 +69,15 @@ void PlaylistComponent::resized()
     loadButton.setBounds(0, rowH * 47.5, getWidth(), rowH * 2.5);
 }
 
-int PlaylistComponent::getNumRows(){
+
+int PlaylistComponent::getNumRows()
+{
     return filteredTracks.getNumChildElements();
 };
 
-void PlaylistComponent::paintRowBackground(juce::Graphics & g, int rowNumber, int width, int height, bool rowIsSelected){
+
+void PlaylistComponent::paintRowBackground(juce::Graphics & g, int rowNumber, int width, int height, bool rowIsSelected)
+{
     if (rowIsSelected) {
         g.fillAll(ColourScheme::primaryAscent);
     }
@@ -88,16 +86,21 @@ void PlaylistComponent::paintRowBackground(juce::Graphics & g, int rowNumber, in
     }
 }
 
-void PlaylistComponent::paintCell(juce::Graphics & g, int rowNumber, int columnId, int width, int height, bool rowIsSelected) {
+
+void PlaylistComponent::paintCell(juce::Graphics & g, int rowNumber, int columnId, int width, int height, bool rowIsSelected)
+{
     g.setColour (juce::Colours::white);
     g.drawText(filteredTracks.getChildElement(rowNumber)->getStringAttribute("name"), 2, 0, width-4, height, juce::Justification::centredLeft, true);
 }
 
 
 juce::Component* PlaylistComponent::refreshComponentForCell ( int rowNumber, int columnId, bool isRowSelected,
-                                                             juce::Component *existingComponentToUpdate) {
-    if (columnId == 3) {
-        if (existingComponentToUpdate == nullptr) {
+                                                             juce::Component *existingComponentToUpdate)
+{
+    if (columnId == 3)
+    {
+        if (existingComponentToUpdate == nullptr)
+        {
             juce::TextButton* btn = new juce::TextButton{"1"};
             juce::String id{std::to_string(rowNumber)};
             btn->setColour(juce::TextButton::buttonColourId, ColourScheme::secondaryColour);
@@ -107,8 +110,10 @@ juce::Component* PlaylistComponent::refreshComponentForCell ( int rowNumber, int
             existingComponentToUpdate = btn;
         }
     }
-    if (columnId == 4) {
-        if (existingComponentToUpdate == nullptr) {
+    if (columnId == 4)
+    {
+        if (existingComponentToUpdate == nullptr)
+        {
             juce::TextButton* btn = new juce::TextButton{"2"};
             juce::String id{std::to_string(rowNumber)};
             btn->setColour(juce::TextButton::buttonColourId, ColourScheme::secondaryColour);
@@ -118,8 +123,10 @@ juce::Component* PlaylistComponent::refreshComponentForCell ( int rowNumber, int
             existingComponentToUpdate = btn;
         }
     }
-    if (columnId == 5) {
-        if (existingComponentToUpdate == nullptr) {
+    if (columnId == 5)
+    {
+        if (existingComponentToUpdate == nullptr)
+        {
             juce::TextButton* btn = new juce::TextButton{"3"};
             juce::String id{std::to_string(rowNumber)};
             btn->setColour(juce::TextButton::buttonColourId, ColourScheme::secondaryColour);
@@ -129,8 +136,10 @@ juce::Component* PlaylistComponent::refreshComponentForCell ( int rowNumber, int
             existingComponentToUpdate = btn;
         }
     }
-    if (columnId == 6) {
-        if (existingComponentToUpdate == nullptr) {
+    if (columnId == 6)
+    {
+        if (existingComponentToUpdate == nullptr)
+        {
             juce::TextButton* btn = new juce::TextButton{"4"};
             juce::String id{std::to_string(rowNumber)};
             btn->setColour(juce::TextButton::buttonColourId, ColourScheme::secondaryColour);
@@ -144,12 +153,13 @@ juce::Component* PlaylistComponent::refreshComponentForCell ( int rowNumber, int
 }
 
 
-void PlaylistComponent::buttonClicked(juce::Button* button){
-    if (button == &loadButton) {
-        std::cout << "Load button was clicked" << std::endl;
-        
+void PlaylistComponent::buttonClicked(juce::Button* button)
+{
+    if (button == &loadButton)
+    {
         juce::FileChooser chooser{"Select a file..."};
-        if (chooser.browseForFileToOpen()){
+        if (chooser.browseForFileToOpen())
+        {
             juce::String trackName = juce::URL{chooser.getResult()}.getFileName();
             juce::URL trackURL = juce::URL{chooser.getResult()};
             addTrack(trackName, trackURL);
@@ -161,40 +171,47 @@ void PlaylistComponent::buttonClicked(juce::Button* button){
         juce::String trackName = tracks.getChildElement(id)->getStringAttribute("name");
         juce::URL trackURL = tracks.getChildElement(id)->getStringAttribute("url");
         
-        if (action == "1") {
+        if (action == "1")
+        {
             deckGUI1->loadTrack(trackName, trackURL);
         }
-        else if (action == "2") {
+        else if (action == "2")
+        {
             deckGUI2->loadTrack(trackName, trackURL);
         }
-        else if (action == "3") {
+        else if (action == "3")
+        {
             deckGUI3->loadTrack(trackName, trackURL);
         }
-        else if (action == "4") {
+        else if (action == "4")
+        {
             deckGUI4->loadTrack(trackName, trackURL);
         }
-        else {
+        else
+        {
             std::cout << "buttonClicked: '" << action << "' but no action." << std::endl;
         }
     }
 }
 
-void PlaylistComponent::addTrack(juce::String trackName, juce::URL trackURL) {
-    juce::String trackIdentifier = std::regex_replace(trackName.toStdString(), std::regex("\%20"),"_");
-    juce::String trackDisplayName = std::regex_replace(trackName.toStdString(), std::regex("\%20")," ");
+
+void PlaylistComponent::addTrack(juce::String trackName, juce::URL trackURL)
+{
+    // handle unsupported file names
+    juce::String trackIdentifier = std::regex_replace(trackName.toStdString(), std::regex("\%20"),"_"); // replace space chars in id
+    juce::String trackDisplayName = std::regex_replace(trackName.toStdString(), std::regex("\%20")," "); // replace space chars in name
     juce::String trackUrlString = trackURL.toString(false).toStdString();
     
     juce::XmlElement* newTrack = new juce::XmlElement (trackIdentifier);
     newTrack->setAttribute("name", trackDisplayName);
     newTrack->setAttribute("url", trackUrlString);
     tracks.addChildElement(newTrack);
-    
-    std::cout << tracks.toString() << std::endl;
-    
+        
     juce::File directory = juce::File::getSpecialLocation(juce::File::userMusicDirectory);
     juce::File tracksFile = directory.getChildFile("tracks.xml");
     
-    if (!tracksFile.existsAsFile()) {
+    if (!tracksFile.existsAsFile())
+    {
         tracksFile.create();
     }
         
@@ -205,7 +222,9 @@ void PlaylistComponent::addTrack(juce::String trackName, juce::URL trackURL) {
     repaint();
 }
 
-juce::XmlElement PlaylistComponent::loadTrackPlaylist() {
+
+juce::XmlElement PlaylistComponent::loadTrackPlaylist()
+{
     juce::File directory = juce::File::getSpecialLocation(juce::File::userMusicDirectory);
     juce::File tracksFile = directory.getChildFile("tracks.xml");
 
@@ -221,24 +240,31 @@ juce::XmlElement PlaylistComponent::loadTrackPlaylist() {
     }
 }
 
-void PlaylistComponent::textEditorTextChanged(juce::TextEditor& searchBar) {
+
+void PlaylistComponent::textEditorTextChanged(juce::TextEditor& searchBar)
+{
     juce::String searchValue = searchBar.getText();
     filterTable(searchValue);
 };
 
-void PlaylistComponent::filterTable(juce::String& searchValue) {
-    if (searchValue != "") {
-        filteredTracks.deleteAllChildElements();
+
+void PlaylistComponent::filterTable(juce::String& searchValue)
+{
+    if (searchValue != "")
+    {
+        filteredTracks.deleteAllChildElements(); // clear filtered tracks
                 
-        for (auto* element : tracks.getChildIterator()) {
+        for (auto* element : tracks.getChildIterator()) // get new filtered tracks
+        {
             if (element->getStringAttribute("name").containsIgnoreCase(searchValue)) {
                 juce::XmlElement* newElement = new juce::XmlElement(*element);
                 filteredTracks.addChildElement(newElement);
             }
         }
     }
-    else {
-        filteredTracks = tracks;
+    else
+    {
+        filteredTracks = tracks; // reset filtered tracks to all tracks
     }
     tableComponent.updateContent();
     repaint();

@@ -5,6 +5,9 @@
 class ColourScheme
 {
     public:
+        ColourScheme();
+        ~ColourScheme();
+
         /** Base colour for the application, to be used as borders around components */
         static juce::Colour borderColour;
         

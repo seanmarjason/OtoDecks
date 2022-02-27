@@ -1,18 +1,8 @@
-/*
-  ==============================================================================
-
-    LoopingComponent.cpp
-    Created: 17 Feb 2022 10:44:44pm
-    Author:  Sean Marjason
-
-  ==============================================================================
-*/
-
 #include <JuceHeader.h>
-#include "ColourScheme.h"
 #include "LoopingComponent.h"
+#include "ColourScheme.h"
 
-//==============================================================================
+
 LoopingComponent::LoopingComponent(DJAudioPlayer* _player) : player(_player)
 {
     addAndMakeVisible(loop2);
@@ -26,12 +16,13 @@ LoopingComponent::LoopingComponent(DJAudioPlayer* _player) : player(_player)
     loop4.addListener(this);
     loop8.addListener(this);
     loopManual.addListener(this);
-
 }
+
 
 LoopingComponent::~LoopingComponent()
 {
 }
+
 
 void LoopingComponent::paint (juce::Graphics& g)
 {
@@ -45,6 +36,7 @@ void LoopingComponent::paint (juce::Graphics& g)
     loopManual.setColour(juce::TextButton::buttonColourId, ColourScheme::secondaryColour);
 }
 
+
 void LoopingComponent::resized()
 {
     double colW = getWidth() / 4;
@@ -55,24 +47,31 @@ void LoopingComponent::resized()
     loopManual.setBounds(colW * 3, 0, colW, getHeight());
 }
 
+
 void LoopingComponent::buttonClicked(juce::Button* button)
 {
     double currentPosition = player->getCurrentPosition();
 
-    if (button == &loop2) {
+    if (button == &loop2)
+    {
         player->startAudioLoop(currentPosition - 2.0, currentPosition);
     }
-    if (button == &loop4) {
+    if (button == &loop4)
+    {
         player->startAudioLoop(currentPosition - 4.0, currentPosition);
     }
-    if (button == &loop8) {
+    if (button == &loop8)
+    {
         player->startAudioLoop(currentPosition - 8.0, currentPosition);
     }
-    if (button == &loopManual) {
-        if (loopManual.getToggleState() == true) {
+    if (button == &loopManual)
+    {
+        if (loopManual.getToggleState() == true)
+        {
             manualLoopStart = currentPosition;
         }
-        else {
+        else
+        {
             manualLoopEnd = currentPosition;
         }
         player->startAudioLoop(manualLoopStart, manualLoopEnd);

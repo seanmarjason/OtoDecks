@@ -1,23 +1,13 @@
-/*
-  ==============================================================================
-
-    DeckGUI.cpp
-    Created: 31 Jan 2022 8:16:11pm
-    Author:  Sean Marjason
-
-  ==============================================================================
-*/
-
 #include <JuceHeader.h>
-#include "ColourScheme.h"
 #include "DeckGUI.h"
+#include "ColourScheme.h"
+
 
 DeckGUI::DeckGUI(DJAudioPlayer* _player,
                  juce::AudioFormatManager & formatManagerToUse,
                  juce::AudioThumbnailCache & cacheToUse
-                 ) : player(_player), waveformDisplay(formatManagerToUse, cacheToUse) // initialisation list
+                 ) : player(_player), waveformDisplay(formatManagerToUse, cacheToUse)
 {
-    
     trackTitle.setText("---", juce::dontSendNotification);
     trackTitle.setColour (juce::Label::textColourId, juce::Colours::lightgreen);
     trackTitle.setJustificationType (juce::Justification::centred);
@@ -34,10 +24,12 @@ DeckGUI::DeckGUI(DJAudioPlayer* _player,
     startTimer(500);
 }
 
+
 DeckGUI::~DeckGUI()
 {
     stopTimer();
 }
+
 
 void DeckGUI::paint (juce::Graphics& g)
 {
@@ -49,6 +41,7 @@ void DeckGUI::paint (juce::Graphics& g)
     g.setFont (14.0f);
         
 }
+
 
 void DeckGUI::resized()
 {
@@ -68,24 +61,33 @@ void DeckGUI::resized()
     loopingComponent.setBounds( colW * 8, rowH / 4 * 2, colW * 2, rowH / 4 * 1);
 }
 
-void DeckGUI::loadTrack(juce::String trackName, juce::URL trackURL){
+
+void DeckGUI::loadTrack(juce::String trackName, juce::URL trackURL)
+{
     player->loadURL(trackURL);
     waveformDisplay.loadURL(trackURL);
     trackTitle.setText(trackName, juce::dontSendNotification);
 }
 
-bool DeckGUI::isInterestedInFileDrag(const juce::StringArray &files){
+
+bool DeckGUI::isInterestedInFileDrag(const juce::StringArray &files)
+{
     return true;
 }
 
-void DeckGUI::filesDropped (const juce::StringArray &files, int x, int y){
-    if (files.size() == 1) {
+
+void DeckGUI::filesDropped (const juce::StringArray &files, int x, int y)
+{
+    if (files.size() == 1)
+    {
         juce::URL file = juce::URL{juce::File{files[0]}};
         loadTrack(file.getFileName(), file);
     }
 }
 
-void DeckGUI::timerCallback() {
+
+void DeckGUI::timerCallback()
+{
     waveformDisplay.setPositionRelative(player->getPositionRelative());
     trackNavigator.setValue(player->getPositionRelative());
 }

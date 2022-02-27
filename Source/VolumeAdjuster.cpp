@@ -1,18 +1,8 @@
-/*
-  ==============================================================================
-
-    VolumeAdjuster.cpp
-    Created: 23 Feb 2022 10:24:05pm
-    Author:  Sean Marjason
-
-  ==============================================================================
-*/
-
 #include <JuceHeader.h>
 #include "VolumeAdjuster.h"
 #include "ColourScheme.h"
 
-//==============================================================================
+
 VolumeAdjuster::VolumeAdjuster(DJAudioPlayer* _player) : player(_player)
 {
     addAndMakeVisible(volSlider);
@@ -26,9 +16,11 @@ VolumeAdjuster::VolumeAdjuster(DJAudioPlayer* _player) : player(_player)
     volSlider.setTextValueSuffix(" v");
 }
 
+
 VolumeAdjuster::~VolumeAdjuster()
 {
 }
+
 
 void VolumeAdjuster::paint (juce::Graphics& g)
 {
@@ -37,10 +29,12 @@ void VolumeAdjuster::paint (juce::Graphics& g)
     volSlider.setColour(juce::Slider::textBoxOutlineColourId, ColourScheme::backgroundColour);
 }
 
+
 void VolumeAdjuster::resized()
 {
     volSlider.setBounds(0, 0, getWidth(), getHeight());
 }
+
 
 void VolumeAdjuster::sliderValueChanged (juce::Slider *slider)
 {

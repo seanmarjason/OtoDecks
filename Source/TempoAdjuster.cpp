@@ -1,18 +1,8 @@
-/*
-  ==============================================================================
-
-    TempoAdjuster.cpp
-    Created: 23 Feb 2022 10:45:18pm
-    Author:  Sean Marjason
-
-  ==============================================================================
-*/
-
 #include <JuceHeader.h>
 #include "TempoAdjuster.h"
 #include "ColourScheme.h"
 
-//==============================================================================
+
 TempoAdjuster::TempoAdjuster(DJAudioPlayer* _player) : player(_player)
 {
     addAndMakeVisible(tempoSlider);
@@ -26,6 +16,7 @@ TempoAdjuster::TempoAdjuster(DJAudioPlayer* _player) : player(_player)
     tempoSlider.setTextValueSuffix("x");
 }
 
+
 TempoAdjuster::~TempoAdjuster()
 {
 }
@@ -37,10 +28,12 @@ void TempoAdjuster::paint (juce::Graphics& g)
     tempoSlider.setColour(juce::Slider::textBoxOutlineColourId, ColourScheme::backgroundColour);
 }
 
+
 void TempoAdjuster::resized()
 {
     tempoSlider.setBounds(0, 0, getWidth(), getHeight());
 }
+
 
 void TempoAdjuster::sliderValueChanged (juce::Slider *slider)
 {

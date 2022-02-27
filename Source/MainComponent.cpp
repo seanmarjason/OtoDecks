@@ -1,10 +1,9 @@
 #include "MainComponent.h"
 
-//==============================================================================
+
 MainComponent::MainComponent()
 {
-    // Set the size of the component
-    setSize (1280, 800);
+    setSize (1280, 800); // Set the size of the component
 
     // Request permissions to open input channels
     // (some platforms require permissions)
@@ -16,8 +15,7 @@ MainComponent::MainComponent()
     }
     else
     {
-        // Specify number of input and output channels to open
-        setAudioChannels (0, 8);
+        setAudioChannels (0, 8); // Specify number of input and output channels to open
     }
     
     addAndMakeVisible(deckGUI1);
@@ -30,12 +28,13 @@ MainComponent::MainComponent()
     formatManager.registerBasicFormats();
 }
 
+
 MainComponent::~MainComponent()
 {
     shutdownAudio();
 }
 
-//==============================================================================
+
 void MainComponent::prepareToPlay (int samplesPerBlockExpected, double sampleRate)
 {
     player1.prepareToPlay(samplesPerBlockExpected, sampleRate);
@@ -49,10 +48,12 @@ void MainComponent::prepareToPlay (int samplesPerBlockExpected, double sampleRat
     mixerSource.addInputSource(&player4, false);
 }
 
+
 void MainComponent::getNextAudioBlock (const juce::AudioSourceChannelInfo& bufferToFill)
 {
     mixerSource.getNextAudioBlock(bufferToFill);
 }
+
 
 void MainComponent::releaseResources()
 {
@@ -64,11 +65,12 @@ void MainComponent::releaseResources()
     mixerSource.releaseResources();
 }
 
-//==============================================================================
+
 void MainComponent::paint (juce::Graphics& g)
 {
     g.fillAll(ColourScheme::backgroundColour);
 }
+
 
 void MainComponent::resized()
 {
