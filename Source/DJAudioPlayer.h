@@ -57,6 +57,11 @@ class DJAudioPlayer : public juce::AudioSource
         */
         void stop();
     
+        /** Check if the audio source is playing
+         * @return boolean representing if the audio source is playing
+        */
+        bool isPlaying();
+    
         /** Get the relative position of the playhead
          * @return double representing relative position of the playhead
         */

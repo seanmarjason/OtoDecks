@@ -7,6 +7,8 @@
     <GROUP id="{1316FCDC-0191-B456-B672-BC565043967C}" name="Source">
       <GROUP id="{5F46036D-0548-B015-82E7-B06C9E663304}" name="GUI">
         <GROUP id="{FB9FAC88-F842-C765-1987-2DBCEFCCCDFD}" name="Elements">
+          <FILE id="OHQGPb" name="JogWheel.cpp" compile="1" resource="0" file="Source/JogWheel.cpp"/>
+          <FILE id="S0pXy8" name="JogWheel.h" compile="0" resource="0" file="Source/JogWheel.h"/>
           <FILE id="rSwU57" name="WaveformDisplay.cpp" compile="1" resource="0"
                 file="Source/WaveformDisplay.cpp"/>
           <FILE id="ufDeLt" name="WaveformDisplay.h" compile="0" resource="0"

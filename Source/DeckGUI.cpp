@@ -20,6 +20,8 @@ DeckGUI::DeckGUI(DJAudioPlayer* _player,
     addAndMakeVisible(loopingComponent);
     addAndMakeVisible(waveformDisplay);
     addAndMakeVisible(trackTitle);
+    
+    addAndMakeVisible(jogWheel);
         
     startTimer(500);
 }
@@ -46,7 +48,8 @@ void DeckGUI::paint (juce::Graphics& g)
 void DeckGUI::resized()
 {
     double rowH = getHeight();
-    double colW = getWidth() / 10;
+//    double colW = getWidth() / 10;
+    double colW = getWidth() / 12;
     
     trackTitle.setBounds(   colW * 0, rowH / 4 * 0, colW * 3, rowH / 4 * 2);
     
@@ -59,6 +62,9 @@ void DeckGUI::resized()
     playButton.setBounds(       colW * 8, rowH / 4 * 0, colW * 1, rowH / 4 * 2);
     stopButton.setBounds(       colW * 9, rowH / 4 * 0, colW * 1, rowH / 4 * 2);
     loopingComponent.setBounds( colW * 8, rowH / 4 * 2, colW * 2, rowH / 4 * 1);
+    
+    jogWheel.setBounds( colW * 10, rowH * 0, colW * 2, rowH);
+
 }
 
 

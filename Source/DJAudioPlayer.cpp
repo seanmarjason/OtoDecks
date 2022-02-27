@@ -96,6 +96,12 @@ void DJAudioPlayer::stop()
 }
 
 
+bool DJAudioPlayer::isPlaying()
+{
+    return transportSource.isPlaying();
+}
+
+
 double DJAudioPlayer::getPositionRelative()
 {
     if (transportSource.getCurrentPosition() == 0) {
