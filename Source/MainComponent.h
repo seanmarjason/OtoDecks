@@ -6,20 +6,18 @@
 #include "DeckGUI.h"
 #include "PlaylistComponent.h"
 
-//==============================================================================
 class MainComponent  :  public juce::AudioAppComponent
 {
     public:
         MainComponent();
         ~MainComponent() override;
         
-        
+    
         /** Prepare the audio app component for playback
          * @param samplesPerBlockExpected number of samples source will supply for each audio block
          * @param sampleRate sample rate for output
         */
         void prepareToPlay (int samplesPerBlockExpected, double sampleRate) override;
-        
         
         /** Called repeatedly to fetch subsequent blocks of audio data
          * @param bufferToFill The destination buffer to fill with audio data
@@ -29,13 +27,11 @@ class MainComponent  :  public juce::AudioAppComponent
         /** Allows the source to release anything it no longer needs after playback has stopped
         */
         void releaseResources() override;
-
         
         /** Callback called by the operating system to render component on screen
          * @param g graphics context used for drawing a component or image
         */
         void paint (juce::Graphics& g) override;
-        
         
         /** Callback called when this component's size has been changed
          */

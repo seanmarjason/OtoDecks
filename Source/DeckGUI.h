@@ -1,24 +1,12 @@
-/*
-  ==============================================================================
-
-    DeckGUI.h
-    Created: 31 Jan 2022 8:16:11pm
-    Author:  Sean Marjason
-
-  ==============================================================================
-*/
-
 #pragma once
 
 #include <JuceHeader.h>
 #include "DJAudioPlayer.h"
-
 #include "VolumeAdjuster.h"
 #include "TempoAdjuster.h"
 #include "TrackNavigator.h"
 #include "PlayButton.h"
 #include "StopButton.h"
-
 #include "WaveformDisplay.h"
 #include "LoopingComponent.h"
 
@@ -33,6 +21,7 @@ class DeckGUI  :    public juce::Component,
     
         ~DeckGUI();
 
+    
         /** Callback called by the operating system to render component on screen
          * @param g graphics context used for drawing a component or image
         */
@@ -65,6 +54,7 @@ class DeckGUI  :    public juce::Component,
          */
         void loadTrack(juce::String trackName, juce::URL trackURL);
 
+    
     private:
         DJAudioPlayer* player;
         

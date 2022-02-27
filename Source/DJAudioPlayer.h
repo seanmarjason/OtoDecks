@@ -1,17 +1,9 @@
-/*
-  ==============================================================================
-
-    DJAudioPlayer.h
-    Created: 30 Jan 2022 6:16:37pm
-    Author:  Sean Marjason
-
-  ==============================================================================
-*/
-
 #pragma once
+
 #include <JuceHeader.h>
 
-class DJAudioPlayer : public juce::AudioSource {
+class DJAudioPlayer : public juce::AudioSource
+{
     public:
         DJAudioPlayer(juce::AudioFormatManager& _formatManager);
         ~DJAudioPlayer();
