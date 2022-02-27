@@ -27,7 +27,7 @@ LoopingComponent::~LoopingComponent()
 void LoopingComponent::paint (juce::Graphics& g)
 {
     g.fillAll(ColourScheme::backgroundColour);
-    g.setColour (juce::Colours::white);
+    g.setColour (ColourScheme::primaryFont);
     g.setFont (14.0f);
     
     loop2.setColour(juce::TextButton::buttonColourId, ColourScheme::secondaryColour);

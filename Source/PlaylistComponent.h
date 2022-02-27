@@ -82,7 +82,7 @@ class PlaylistComponent  :  public juce::Component,
         juce::XmlElement filteredTracks{"Tracks"};
         juce::XmlElement loadTrackPlaylist();
 
-        juce::TextButton loadButton{"Add Track"};
+        juce::TextButton addButton{"Add Track"};
         
         DeckGUI* deckGUI1;
         DeckGUI* deckGUI2;
@@ -94,6 +94,10 @@ class PlaylistComponent  :  public juce::Component,
         void textEditorTextChanged(juce::TextEditor& searchBar) override;
 
         void filterTable(juce::String& searchValue);
+    
+        juce::TextButton* createPlaylistRowButton(juce::String buttonText, juce::String buttonId);
+    
+        juce::File getTracksFile();
 
         JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PlaylistComponent)
 };

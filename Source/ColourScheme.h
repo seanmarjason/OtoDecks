@@ -16,6 +16,9 @@ class ColourScheme
         
         /** Colour for actionable elements of components */
         static juce::Colour secondaryColour;
+    
+        /** Primary Font colour */
+        static juce::Colour primaryFont;
         
         /** Primary ascent colour for key features of application */
         static juce::Colour primaryAscent;

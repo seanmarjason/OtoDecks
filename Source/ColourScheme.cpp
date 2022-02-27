@@ -13,6 +13,7 @@ ColourScheme::~ColourScheme()
 juce::Colour ColourScheme::borderColour = juce::Colour(19,19,26); // app background
 juce::Colour ColourScheme::backgroundColour = juce::Colour(28,28,36); // component containers
 juce::Colour ColourScheme::secondaryColour = juce::Colour(41,41,50); // actionable components (buttons/sliders/etc)
+juce::Colour ColourScheme::primaryFont = juce::Colour(255, 255, 255); // primary font
 
 // Ascent colours
 juce::Colour ColourScheme::primaryAscent = juce::Colour(80,181,255); // blue

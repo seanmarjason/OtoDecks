@@ -9,7 +9,7 @@ DeckGUI::DeckGUI(DJAudioPlayer* _player,
                  ) : player(_player), waveformDisplay(formatManagerToUse, cacheToUse)
 {
     trackTitle.setText("---", juce::dontSendNotification);
-    trackTitle.setColour (juce::Label::textColourId, juce::Colours::lightgreen);
+    trackTitle.setColour (juce::Label::textColourId, ColourScheme::greenAscent);
     trackTitle.setJustificationType (juce::Justification::centred);
     
     addAndMakeVisible(playButton);
@@ -37,7 +37,7 @@ void DeckGUI::paint (juce::Graphics& g)
     g.setColour (ColourScheme::borderColour);
     g.drawRect (getLocalBounds(), 1);   // draw an outline around the component
 
-    g.setColour (juce::Colours::white);
+    g.setColour (ColourScheme::primaryFont);
     g.setFont (14.0f);
         
 }

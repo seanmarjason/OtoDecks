@@ -26,7 +26,7 @@ void WaveformDisplay::paint (juce::Graphics& g)
     if (fileLoaded)
     {
         audioThumb.drawChannel(g, getLocalBounds(), 0, audioThumb.getTotalLength(), 0, 1.0f);
-        g.setColour(juce::Colours::lightgreen);
+        g.setColour(ColourScheme::greenAscent);
         g.drawRect(position * getWidth(), 0, getWidth() / 100, getHeight());
     }
     else

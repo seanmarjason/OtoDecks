@@ -26,17 +26,17 @@ PlaylistComponent::PlaylistComponent(
     tableComponent.setModel(this);
     
     addAndMakeVisible(tableComponent);
-    addAndMakeVisible(loadButton);
+    addAndMakeVisible(addButton);
     addAndMakeVisible(searchBar);
     
-    loadButton.addListener(this);
-    addAndMakeVisible(loadButton);
+    addButton.addListener(this);
+    addAndMakeVisible(addButton);
     
     tracks = loadTrackPlaylist();
     filteredTracks = tracks;
     
     searchBar.setJustification(juce::Justification::centred);
-    searchBar.setTextToShowWhenEmpty("Search for track", juce::Colours::lightgrey);
+    searchBar.setTextToShowWhenEmpty("Search for track", ColourScheme::primaryFont);
     searchBar.addListener(this);
 }
 
@@ -52,8 +52,8 @@ void PlaylistComponent::paint (juce::Graphics& g)
     tableComponent.setColour(juce::ListBox::backgroundColourId, ColourScheme::backgroundColour);
     searchBar.setColour(juce::TextEditor::backgroundColourId, ColourScheme::secondaryColour);
     searchBar.setColour(juce::TextEditor::outlineColourId, ColourScheme::secondaryColour);
-    loadButton.setColour(juce::TextButton::buttonColourId, ColourScheme::secondaryColour);
-    loadButton.setColour(juce::ComboBox::outlineColourId, ColourScheme::backgroundColour);
+    addButton.setColour(juce::TextButton::buttonColourId, ColourScheme::secondaryColour);
+    addButton.setColour(juce::ComboBox::outlineColourId, ColourScheme::backgroundColour);
     tableComponent.getHeader().setColour(juce::TableHeaderComponent::backgroundColourId, ColourScheme::backgroundColour);
     tableComponent.getHeader().setColour(juce::TableHeaderComponent::outlineColourId , ColourScheme::backgroundColour);
     tableComponent.getHeader().setColour(juce::TableHeaderComponent::textColourId , ColourScheme::primaryAscent);
@@ -66,7 +66,7 @@ void PlaylistComponent::resized()
     
     searchBar.setBounds(0, rowH * 0, getWidth(), rowH * 2.5);
     tableComponent.setBounds(0, rowH * 2.5, getWidth(), rowH * 45);
-    loadButton.setBounds(0, rowH * 47.5, getWidth(), rowH * 2.5);
+    addButton.setBounds(0, rowH * 47.5, getWidth(), rowH * 2.5);
 }
 
 
@@ -89,7 +89,7 @@ void PlaylistComponent::paintRowBackground(juce::Graphics & g, int rowNumber, in
 
 void PlaylistComponent::paintCell(juce::Graphics & g, int rowNumber, int columnId, int width, int height, bool rowIsSelected)
 {
-    g.setColour (juce::Colours::white);
+    g.setColour (ColourScheme::primaryFont);
     g.drawText(filteredTracks.getChildElement(rowNumber)->getStringAttribute("name"), 2, 0, width-4, height, juce::Justification::centredLeft, true);
 }
 
@@ -101,52 +101,28 @@ juce::Component* PlaylistComponent::refreshComponentForCell ( int rowNumber, int
     {
         if (existingComponentToUpdate == nullptr)
         {
-            juce::TextButton* btn = new juce::TextButton{"1"};
-            juce::String id{std::to_string(rowNumber)};
-            btn->setColour(juce::TextButton::buttonColourId, ColourScheme::secondaryColour);
-            btn->setColour(juce::ComboBox::outlineColourId, ColourScheme::backgroundColour);
-            btn->setComponentID(id);
-            btn->addListener(this);
-            existingComponentToUpdate = btn;
+            existingComponentToUpdate = createPlaylistRowButton("1", std::to_string(rowNumber));
         }
     }
     if (columnId == 4)
     {
         if (existingComponentToUpdate == nullptr)
         {
-            juce::TextButton* btn = new juce::TextButton{"2"};
-            juce::String id{std::to_string(rowNumber)};
-            btn->setColour(juce::TextButton::buttonColourId, ColourScheme::secondaryColour);
-            btn->setColour(juce::ComboBox::outlineColourId, ColourScheme::backgroundColour);
-            btn->setComponentID(id);
-            btn->addListener(this);
-            existingComponentToUpdate = btn;
+            existingComponentToUpdate = createPlaylistRowButton("2", std::to_string(rowNumber));
         }
     }
     if (columnId == 5)
     {
         if (existingComponentToUpdate == nullptr)
         {
-            juce::TextButton* btn = new juce::TextButton{"3"};
-            juce::String id{std::to_string(rowNumber)};
-            btn->setColour(juce::TextButton::buttonColourId, ColourScheme::secondaryColour);
-            btn->setColour(juce::ComboBox::outlineColourId, ColourScheme::backgroundColour);
-            btn->setComponentID(id);
-            btn->addListener(this);
-            existingComponentToUpdate = btn;
+            existingComponentToUpdate = createPlaylistRowButton("3", std::to_string(rowNumber));
         }
     }
     if (columnId == 6)
     {
         if (existingComponentToUpdate == nullptr)
         {
-            juce::TextButton* btn = new juce::TextButton{"4"};
-            juce::String id{std::to_string(rowNumber)};
-            btn->setColour(juce::TextButton::buttonColourId, ColourScheme::secondaryColour);
-            btn->setColour(juce::ComboBox::outlineColourId, ColourScheme::backgroundColour);
-            btn->setComponentID(id);
-            btn->addListener(this);
-            existingComponentToUpdate = btn;
+            existingComponentToUpdate = createPlaylistRowButton("4", std::to_string(rowNumber));
         }
     }
     return existingComponentToUpdate;
@@ -155,7 +131,7 @@ juce::Component* PlaylistComponent::refreshComponentForCell ( int rowNumber, int
 
 void PlaylistComponent::buttonClicked(juce::Button* button)
 {
-    if (button == &loadButton)
+    if (button == &addButton)
     {
         juce::FileChooser chooser{"Select a file..."};
         if (chooser.browseForFileToOpen())
@@ -206,14 +182,8 @@ void PlaylistComponent::addTrack(juce::String trackName, juce::URL trackURL)
     newTrack->setAttribute("name", trackDisplayName);
     newTrack->setAttribute("url", trackUrlString);
     tracks.addChildElement(newTrack);
-        
-    juce::File directory = juce::File::getSpecialLocation(juce::File::userMusicDirectory);
-    juce::File tracksFile = directory.getChildFile("tracks.xml");
     
-    if (!tracksFile.existsAsFile())
-    {
-        tracksFile.create();
-    }
+    juce::File tracksFile = getTracksFile();
         
     tracks.writeTo(tracksFile);
         
@@ -225,19 +195,18 @@ void PlaylistComponent::addTrack(juce::String trackName, juce::URL trackURL)
 
 juce::XmlElement PlaylistComponent::loadTrackPlaylist()
 {
-    juce::File directory = juce::File::getSpecialLocation(juce::File::userMusicDirectory);
-    juce::File tracksFile = directory.getChildFile("tracks.xml");
-
-    if (!tracksFile.existsAsFile()) {
+    juce::File tracksFile = getTracksFile();
+    
+    if (!tracksFile.existsAsFile())
+    {
         tracksFile.create();
         juce::XmlElement newTrackList{"Tracks"};
-        return newTrackList;
+        newTrackList.writeTo(tracksFile);
     }
-    else {
-        std::unique_ptr<juce::XmlElement> savedPlaylist = juce::parseXML(tracksFile);
-        juce::XmlElement playlist = *savedPlaylist;
-        return playlist;
-    }
+    std::unique_ptr<juce::XmlElement> savedPlaylist = juce::parseXML(tracksFile);
+    juce::XmlElement playlist = *savedPlaylist;
+    return playlist;
+
 }
 
 
@@ -269,3 +238,22 @@ void PlaylistComponent::filterTable(juce::String& searchValue)
     tableComponent.updateContent();
     repaint();
 };
+
+
+juce::TextButton* PlaylistComponent::createPlaylistRowButton(juce::String buttonText, juce::String buttonId)
+{
+    juce::TextButton* btn = new juce::TextButton{buttonText};
+    btn->setColour(juce::TextButton::buttonColourId, ColourScheme::secondaryColour);
+    btn->setColour(juce::ComboBox::outlineColourId, ColourScheme::backgroundColour);
+    btn->setComponentID(buttonId);
+    btn->addListener(this);
+    
+    return btn;
+}
+
+
+juce::File PlaylistComponent::getTracksFile()
+{
+    juce::File directory = juce::File::getSpecialLocation(juce::File::userMusicDirectory);
+    return directory.getChildFile("OtodecksPlaylist.xml");;
+}
