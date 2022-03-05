@@ -21,34 +21,48 @@ void JogWheel::paint (juce::Graphics& g)
     
     g.setColour (ColourScheme::secondaryColour);
     
-    double width = getWidth();
-    double height = getHeight();
-    double margin = 10;
-    double size = ((width <= height) ? width : height) - (margin * 2);
+    double size = calculateSize();
     double center = size / 2 + margin;
-    g.fillEllipse (margin, margin, size, size);
-    
     int radius = size / 2;
     
-    juce::Point<float> p (center + radius - (margin * 2), center + radius - (margin * 2));
+    g.fillEllipse (margin, margin, size, size);
     
+        
     if (player->isPlaying())
     {
-        p.x = center + radius * std::cos((float) player->getCurrentPosition());
-        p.y = center + radius * std::sin((float) player->getCurrentPosition());
+        point.x = center + radius * std::cos((float) player->getCurrentPosition());
+        point.y = center + radius * std::sin((float) player->getCurrentPosition());
     }
     
     g.setColour (ColourScheme::greyAscent);
-    g.drawLine(p.x, p.y, center, center, 5);
+    g.drawLine(point.x, point.y, center, center, 5);
 
 }
 
 void JogWheel::resized()
 {
+    if (!player->isPlaying())
+    {
+        double size = calculateSize();
+        double center = size / 2 + margin;
+        int radius = size / 2;
+        
+        point.x = center + radius * std::cos((float) 0);
+        point.y = center + radius * std::sin((float) 0);
+    }
 }
 
 void JogWheel::update()
 {
+}
+
+double JogWheel::calculateSize()
+{
+    double width = getWidth();
+    double height = getHeight();
+    double margin = 10;
+    double size = ((width <= height) ? width : height) - (margin * 2);
+    return size;
 }
 
 void JogWheel::mouseDown(const juce::MouseEvent &event)
@@ -62,4 +76,17 @@ void JogWheel::mouseUp(const juce::MouseEvent &event)
 {
     std::cout << "Mouse Up" << std::endl;
     player->play();
+}
+
+void JogWheel::mouseDrag(const juce::MouseEvent &event)
+{
+//    std::cout << "Mouse Drag S | " << "X: " << event.getMouseDownX() << " Y: " << event.getMouseDownY() << " E | " << "X: " << event.getDistanceFromDragStartX() << " Y: " << event.getDistanceFromDragStartY() << std::endl;
+//    std::cout << "X: " << std::cos((float) event.getDistanceFromDragStartX()) << " Y " << std::sin((float) event.getDistanceFromDragStartY()) << std::endl;
+//    double distanceX = event.getDistanceFromDragStartX();
+//    double distanceY = event.getDistanceFromDragStartY();
+//    double relativeDistanceX = (distanceX == 0) ? 0 : distanceX / std::cos((float) player->getCurrentPosition());
+//    double relativeDistanceY = (distanceY == 0) ? 0 : distanceY / std::sin((float) player->getCurrentPosition());
+    
+//    std::cout << "Dist X " << distanceX << " Y " << distanceY << std::endl;
+//    std::cout << "R-Dist X " << relativeDistanceX << " Y " << relativeDistanceY << std::endl;
 }
