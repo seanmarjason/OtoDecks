@@ -62,7 +62,7 @@ void DJAudioPlayer::setSpeed(double ratio)
         std::cout << "DJAudioPlayer::setSpeed ratio should be between 0 and 10" << std::endl;
     }
     else {
-        double rate = ratio; // TODO: scale rate to have greater influence on speed
+        double rate = ratio;
         resampleSource.setResamplingRatio(rate);
     }
 }

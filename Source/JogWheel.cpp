@@ -12,6 +12,7 @@ JogWheel::~JogWheel()
 {
 }
 
+
 void JogWheel::paint (juce::Graphics& g)
 {
     g.fillAll (ColourScheme::backgroundColour);
@@ -39,6 +40,7 @@ void JogWheel::paint (juce::Graphics& g)
 
 }
 
+
 void JogWheel::resized()
 {
     if (player->getCurrentPosition() == 0)
@@ -52,9 +54,11 @@ void JogWheel::resized()
     }
 }
 
+
 void JogWheel::update()
 {
 }
+
 
 double JogWheel::calculateSize()
 {
@@ -64,6 +68,7 @@ double JogWheel::calculateSize()
     double size = ((width <= height) ? width : height) - (margin * 2);
     return size;
 }
+
 
 void JogWheel::mouseDown(const juce::MouseEvent &event)
 {
@@ -77,6 +82,7 @@ void JogWheel::mouseUp(const juce::MouseEvent &event)
     std::cout << "Mouse Up" << std::endl;
     player->play();
 }
+
 
 void JogWheel::mouseDrag(const juce::MouseEvent &event)
 {

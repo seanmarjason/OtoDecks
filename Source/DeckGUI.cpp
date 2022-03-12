@@ -47,7 +47,7 @@ void DeckGUI::paint (juce::Graphics& g)
 {
     g.fillAll(ColourScheme::backgroundColour);
     g.setColour (ColourScheme::borderColour);
-    g.drawRect (getLocalBounds(), 1);   // draw an outline around the component
+    g.drawRect (getLocalBounds(), 1);
 
     g.setColour (ColourScheme::primaryFont);
     g.setFont (14.0f);
