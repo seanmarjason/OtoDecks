@@ -87,6 +87,8 @@ class DJAudioPlayer :   public juce::AudioSource,
         */
         void endAudioLoop();
     
+        std::string getTrackLengthString();
+    
     
     private:
         juce::AudioFormatManager& formatManager;
@@ -98,3 +100,4 @@ class DJAudioPlayer :   public juce::AudioSource,
         double startLoop;
         double endLoop;
 };
+

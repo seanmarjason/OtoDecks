@@ -16,7 +16,7 @@ PlaylistComponent::PlaylistComponent(
 {
     tableComponent.setRowHeight(50);
     tableComponent.getHeader().addColumn("Track title", 1, 300);
-    tableComponent.getHeader().addColumn("Length", 2, 100);
+    tableComponent.getHeader().addColumn("Length", 2, 75);
     tableComponent.getHeader().addColumn("", 3, 50);
     tableComponent.getHeader().addColumn("", 4, 50);
     tableComponent.getHeader().addColumn("", 5, 50);
@@ -78,10 +78,12 @@ int PlaylistComponent::getNumRows()
 
 void PlaylistComponent::paintRowBackground(juce::Graphics & g, int rowNumber, int width, int height, bool rowIsSelected)
 {
-    if (rowIsSelected) {
+    if (rowIsSelected)
+    {
         g.fillAll(ColourScheme::primaryAscent);
     }
-    else {
+    else
+    {
         g.fillAll(ColourScheme::backgroundColour);
     }
 }
@@ -90,7 +92,15 @@ void PlaylistComponent::paintRowBackground(juce::Graphics & g, int rowNumber, in
 void PlaylistComponent::paintCell(juce::Graphics & g, int rowNumber, int columnId, int width, int height, bool rowIsSelected)
 {
     g.setColour (ColourScheme::primaryFont);
-    g.drawText(filteredTracks.getChildElement(rowNumber)->getStringAttribute("name"), 2, 0, width-4, height, juce::Justification::centredLeft, true);
+    
+    if (columnId == 1)
+    {
+        g.drawText(filteredTracks.getChildElement(rowNumber)->getStringAttribute("name"), 2, 0, width-4, height, juce::Justification::centredLeft, true);
+    }
+    if (columnId == 2)
+    {
+        g.drawText("-:--", 2, 0, width, height, juce::Justification::centred, true);
+    }
 }
 
 

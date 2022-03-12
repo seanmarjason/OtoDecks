@@ -12,6 +12,10 @@ DeckGUI::DeckGUI(DJAudioPlayer* _player,
     trackTitle.setColour (juce::Label::textColourId, ColourScheme::greenAscent);
     trackTitle.setJustificationType (juce::Justification::centred);
     
+    trackLength.setText("-:--", juce::dontSendNotification);
+    trackLength.setColour (juce::Label::textColourId, ColourScheme::greyAscent);
+    trackLength.setJustificationType (juce::Justification::centred);
+
     addAndMakeVisible(playButton);
     addAndMakeVisible(stopButton);
     addAndMakeVisible(volSlider);
@@ -20,6 +24,7 @@ DeckGUI::DeckGUI(DJAudioPlayer* _player,
     addAndMakeVisible(loopingComponent);
     addAndMakeVisible(waveformDisplay);
     addAndMakeVisible(trackTitle);
+    addAndMakeVisible(trackLength);
             
     startTimer(500);
 }
@@ -48,13 +53,14 @@ void DeckGUI::resized()
     double rowH = getHeight();
     double colW = getWidth() / 12;
     
-    trackTitle.setBounds(   colW * 0, rowH / 4 * 0, colW * 3, rowH / 4 * 2);
+    trackTitle.setBounds(   colW * 0, rowH / 4 * 0, colW * 3, rowH / 4 * 1);
+    trackLength.setBounds(   colW * 0, rowH / 4 * 1, colW * 3, rowH / 4 * 1);
     
     volSlider.setBounds(    colW * 3 / 2 * 0, rowH / 4 * 2, colW * 3 / 2 * 1, rowH / 4 * 2);
     tempoSlider.setBounds(  colW * 3 / 2 * 1, rowH / 4 * 2, colW * 3 / 2 * 1, rowH / 4 * 2);
 
     waveformDisplay.setBounds(  colW * 3, rowH / 4 * 0, colW * 5, rowH / 4 * 3);
-    trackNavigator.setBounds(        colW * 3, rowH / 4 * 3, colW * 5, rowH / 4 * 1);
+    trackNavigator.setBounds(   colW * 3, rowH / 4 * 3, colW * 5, rowH / 4 * 1);
     
     loopingComponent.setBounds( colW * 8, rowH * 0, colW * 3, rowH * 1);
     
@@ -69,6 +75,7 @@ void DeckGUI::loadTrack(juce::String trackName, juce::URL trackURL)
     player->loadURL(trackURL);
     waveformDisplay.loadURL(trackURL);
     trackTitle.setText(trackName, juce::dontSendNotification);
+    trackLength.setText(player->getTrackLengthString(), juce::dontSendNotification);
 }
 
 

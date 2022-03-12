@@ -147,3 +147,13 @@ void DJAudioPlayer::endAudioLoop()
     startLoop = 0;
     endLoop = 0;
 }
+
+
+std::string DJAudioPlayer::getTrackLengthString()
+{
+    double length = transportSource.getLengthInSeconds() / 60;
+    std::stringstream stream;
+    stream << std::fixed << std::setprecision(2) << length;
+    std::string s = stream.str();
+    return s;
+}
