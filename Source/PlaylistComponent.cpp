@@ -38,6 +38,8 @@ PlaylistComponent::PlaylistComponent(
     searchBar.setJustification(juce::Justification::centred);
     searchBar.setTextToShowWhenEmpty("Search for track", ColourScheme::primaryFont);
     searchBar.addListener(this);
+    
+    formatManager.registerBasicFormats();
 }
 
 
@@ -91,15 +93,15 @@ void PlaylistComponent::paintRowBackground(juce::Graphics & g, int rowNumber, in
 
 void PlaylistComponent::paintCell(juce::Graphics & g, int rowNumber, int columnId, int width, int height, bool rowIsSelected)
 {
-    g.setColour (ColourScheme::primaryFont);
-    
     if (columnId == 1)
     {
+        g.setColour (ColourScheme::primaryFont);
         g.drawText(filteredTracks.getChildElement(rowNumber)->getStringAttribute("name"), 2, 0, width-4, height, juce::Justification::centredLeft, true);
     }
     if (columnId == 2)
     {
-        g.drawText("-:--", 2, 0, width, height, juce::Justification::centred, true);
+        g.setColour (ColourScheme::darkgreyAscent);
+        g.drawText(filteredTracks.getChildElement(rowNumber)->getStringAttribute("length"), 2, 0, width, height, juce::Justification::centred, true);
     }
 }
 
@@ -146,9 +148,14 @@ void PlaylistComponent::buttonClicked(juce::Button* button)
         juce::FileChooser chooser{"Select a file..."};
         if (chooser.browseForFileToOpen())
         {
-            juce::String trackName = juce::URL{chooser.getResult()}.getFileName();
-            juce::URL trackURL = juce::URL{chooser.getResult()};
-            addTrack(trackName, trackURL);
+            juce::File result = chooser.getResult();
+            
+            juce::String trackName = juce::URL{result}.getFileName();
+            juce::URL trackURL = juce::URL{result};
+            
+            juce::String trackLength = getTrackLength(result);
+                        
+            addTrack(trackName, trackURL, trackLength);
         }
     }
     else {
@@ -181,7 +188,7 @@ void PlaylistComponent::buttonClicked(juce::Button* button)
 }
 
 
-void PlaylistComponent::addTrack(juce::String trackName, juce::URL trackURL)
+void PlaylistComponent::addTrack(juce::String trackName, juce::URL trackURL, juce::String trackLength)
 {
     // handle unsupported file names
     juce::String trackIdentifier = std::regex_replace(trackName.toStdString(), std::regex("\%20"),"_"); // replace space chars in id
@@ -191,6 +198,7 @@ void PlaylistComponent::addTrack(juce::String trackName, juce::URL trackURL)
     juce::XmlElement* newTrack = new juce::XmlElement (trackIdentifier);
     newTrack->setAttribute("name", trackDisplayName);
     newTrack->setAttribute("url", trackUrlString);
+    newTrack->setAttribute("length", trackLength);
     tracks.addChildElement(newTrack);
     
     juce::File tracksFile = getTracksFile();
@@ -266,4 +274,24 @@ juce::File PlaylistComponent::getTracksFile()
 {
     juce::File directory = juce::File::getSpecialLocation(juce::File::userMusicDirectory);
     return directory.getChildFile("OtodecksPlaylist.xml");;
+}
+
+juce::String PlaylistComponent::getTrackLength(juce::File result)
+{
+    auto* reader = formatManager.createReaderFor(result);
+    
+    if (reader)
+    {
+        double trackLength = reader->lengthInSamples / reader->sampleRate / 60;
+        
+        std::stringstream stream;
+        stream << std::fixed << std::setprecision(2) << trackLength;
+        std::string s = stream.str();
+        return s;
+    }
+    else
+    {
+        std::cout << "Can't retrieve audio file length. Reader could not be created." << std::endl;
+        return "-:--";
+    }
 }

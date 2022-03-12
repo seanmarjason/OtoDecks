@@ -72,7 +72,7 @@ class PlaylistComponent  :  public juce::Component,
          * @param trackName the name of the track to be added
          * @param trackURL the location of the track as a url
          */
-        void addTrack(juce::String trackName, juce::URL trackURL);
+        void addTrack(juce::String trackName, juce::URL trackURL, juce::String trackLength);
 
         
     private:
@@ -98,6 +98,10 @@ class PlaylistComponent  :  public juce::Component,
         juce::TextButton* createPlaylistRowButton(juce::String buttonText, juce::String buttonId);
     
         juce::File getTracksFile();
+    
+        juce::String getTrackLength(juce::File result);
+    
+        juce::AudioFormatManager formatManager;
 
         JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PlaylistComponent)
 };

@@ -2,7 +2,7 @@
 
 <JUCERPROJECT id="AwKGLU" name="OtoDecks" projectType="guiapp" useAppConfig="0"
               addUsingNamespaceToJuceHeader="0" displaySplashScreen="1" jucerFormatVersion="1"
-              defines="JUCE_MODAL_LOOPS_PERMITTED=1">
+              defines="JUCE_MODAL_LOOPS_PERMITTED=1&#10;JUCE_USE_MP3AUDIOFORMAT=1">
   <MAINGROUP id="hMFM76" name="OtoDecks">
     <GROUP id="{1316FCDC-0191-B456-B672-BC565043967C}" name="Source">
       <GROUP id="{5F46036D-0548-B015-82E7-B06C9E663304}" name="GUI">
