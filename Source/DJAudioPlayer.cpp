@@ -135,18 +135,9 @@ void DJAudioPlayer::timerCallback()
 
 void DJAudioPlayer::startAudioLoop(double startPos, double endPos)
 {
-    if (startPos < 0)
-    {
-        looping = true;
-        startLoop = 0;
-        endLoop = endPos;
-    }
-    else
-    {
-        looping = true;
-        startLoop = startPos;
-        endLoop = endPos;
-    }
+    looping = true;
+    startLoop = startPos < 0 ? 0 : startPos;
+    endLoop = endPos;
 }
 
 

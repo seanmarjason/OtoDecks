@@ -71,63 +71,42 @@ void LoopingComponent::buttonClicked(juce::Button* button)
 {
     double currentPosition = player->getCurrentPosition();
     
-    if (button == &loop1)
+    if (button->getToggleState() == false)
     {
-        if (loop1.getToggleState() == true)
+        player->endAudioLoop();
+    }
+    else {
+        
+        if (button == &loop1)
         {
             player->startAudioLoop(currentPosition - 1.0, currentPosition);
+            loop2.setToggleState(false, juce::NotificationType::dontSendNotification);
+            loop4.setToggleState(false, juce::NotificationType::dontSendNotification);
+            loop8.setToggleState(false, juce::NotificationType::dontSendNotification);
         }
-        else
-        {
-            player->endAudioLoop();
-        }
-        loop2.setToggleState(false, false);
-        loop4.setToggleState(false, false);
-        loop8.setToggleState(false, false);
-    }
-    
-    if (button == &loop2)
-    {
-        if (loop2.getToggleState() == true)
+        
+        if (button == &loop2)
         {
             player->startAudioLoop(currentPosition - 2.0, currentPosition);
+            loop1.setToggleState(false, juce::NotificationType::dontSendNotification);
+            loop4.setToggleState(false, juce::NotificationType::dontSendNotification);
+            loop8.setToggleState(false, juce::NotificationType::dontSendNotification);
         }
-        else
-        {
-            player->endAudioLoop();
-        }
-        loop1.setToggleState(false, false);
-        loop4.setToggleState(false, false);
-        loop8.setToggleState(false, false);
-    }
-    
-    if (button == &loop4)
-    {
-        if (loop4.getToggleState() == true)
+        
+        if (button == &loop4)
         {
             player->startAudioLoop(currentPosition - 4.0, currentPosition);
+            loop1.setToggleState(false, juce::NotificationType::dontSendNotification);
+            loop2.setToggleState(false, juce::NotificationType::dontSendNotification);
+            loop8.setToggleState(false, juce::NotificationType::dontSendNotification);
         }
-        else
-        {
-            player->endAudioLoop();
-        }
-        loop1.setToggleState(false, false);
-        loop2.setToggleState(false, false);
-        loop8.setToggleState(false, false);
-    }
-    
-    if (button == &loop8)
-    {
-        if (loop8.getToggleState() == true)
+        
+        if (button == &loop8)
         {
             player->startAudioLoop(currentPosition - 8.0, currentPosition);
+            loop1.setToggleState(false, juce::NotificationType::dontSendNotification);
+            loop2.setToggleState(false, juce::NotificationType::dontSendNotification);
+            loop4.setToggleState(false, juce::NotificationType::dontSendNotification);
         }
-        else
-        {
-            player->endAudioLoop();
-        }
-        loop1.setToggleState(false, false);
-        loop2.setToggleState(false, false);
-        loop4.setToggleState(false, false);
     }
 }
