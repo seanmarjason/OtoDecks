@@ -297,11 +297,13 @@ juce::File PlaylistComponent::getTracksFile()
 
 juce::String PlaylistComponent::getTrackLength(juce::File result)
 {
-    auto* reader = formatManager.createReaderFor(result);
+    juce::AudioFormatReader* reader = formatManager.createReaderFor(result);
     
-    if (reader)
+    if (reader && reader != nullptr)
     {
         double trackLength = reader->lengthInSamples / reader->sampleRate / 60;
+        
+        delete reader;
         
         std::stringstream stream;
         stream << std::fixed << std::setprecision(2) << trackLength;
