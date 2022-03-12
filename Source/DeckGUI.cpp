@@ -12,9 +12,14 @@ DeckGUI::DeckGUI(DJAudioPlayer* _player,
     trackTitle.setColour (juce::Label::textColourId, ColourScheme::greenAscent);
     trackTitle.setJustificationType (juce::Justification::centred);
     
-    trackLength.setText("-:--", juce::dontSendNotification);
+    trackPosition.setText("0.00", juce::dontSendNotification);
+    trackPosition.setColour (juce::Label::textColourId, ColourScheme::darkgreyAscent);
+    trackPosition.setJustificationType (juce::Justification::centredRight);
+
+    trackLength.setText("0.00", juce::dontSendNotification);
     trackLength.setColour (juce::Label::textColourId, ColourScheme::greyAscent);
-    trackLength.setJustificationType (juce::Justification::centred);
+    trackLength.setJustificationType (juce::Justification::centredLeft);
+    
 
     addAndMakeVisible(playButton);
     addAndMakeVisible(stopButton);
@@ -23,10 +28,12 @@ DeckGUI::DeckGUI(DJAudioPlayer* _player,
     addAndMakeVisible(trackNavigator);
     addAndMakeVisible(loopingComponent);
     addAndMakeVisible(waveformDisplay);
+    
     addAndMakeVisible(trackTitle);
+    addAndMakeVisible(trackPosition);
     addAndMakeVisible(trackLength);
             
-    startTimer(500);
+    startTimer(100);
 }
 
 
@@ -53,8 +60,9 @@ void DeckGUI::resized()
     double rowH = getHeight();
     double colW = getWidth() / 12;
     
-    trackTitle.setBounds(   colW * 0, rowH / 4 * 0, colW * 3, rowH / 4 * 1);
-    trackLength.setBounds(   colW * 0, rowH / 4 * 1, colW * 3, rowH / 4 * 1);
+    trackTitle.setBounds(    colW * 0, rowH / 4 * 0, colW * 3, rowH / 4 * 1);
+    trackPosition.setBounds( colW * 3 / 2 * 0, rowH / 4 * 1, colW * 3 / 2, rowH / 4 * 1);
+    trackLength.setBounds(   colW * 3 / 2 * 1, rowH / 4 * 1, colW * 3 / 2, rowH / 4 * 1);
     
     volSlider.setBounds(    colW * 3 / 2 * 0, rowH / 4 * 2, colW * 3 / 2 * 1, rowH / 4 * 2);
     tempoSlider.setBounds(  colW * 3 / 2 * 1, rowH / 4 * 2, colW * 3 / 2 * 1, rowH / 4 * 2);
@@ -99,4 +107,5 @@ void DeckGUI::timerCallback()
 {
     waveformDisplay.setPositionRelative(player->getPositionRelative());
     trackNavigator.setValue(player->getPositionRelative());
+    trackPosition.setText(player->getTrackPositionString(), juce::dontSendNotification);
 }

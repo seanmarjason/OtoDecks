@@ -157,3 +157,13 @@ std::string DJAudioPlayer::getTrackLengthString()
     std::string s = stream.str();
     return s;
 }
+
+
+std::string DJAudioPlayer::getTrackPositionString()
+{
+    double length = getCurrentPosition() / 60;
+    std::stringstream stream;
+    stream << std::fixed << std::setprecision(2) << length;
+    std::string s = stream.str();
+    return s;
+}

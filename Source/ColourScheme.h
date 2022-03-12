@@ -31,6 +31,9 @@ class ColourScheme
         
         /** Grey secondary ascent colour */
         static juce::Colour greyAscent;
+    
+        /** Dark Grey secondary ascent colour */
+        static juce::Colour darkgreyAscent;
         
     
     private:

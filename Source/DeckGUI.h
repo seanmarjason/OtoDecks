@@ -67,6 +67,7 @@ class DeckGUI  :    public juce::Component,
         TrackNavigator trackNavigator{player};
         
         juce::Label trackTitle;
+        juce::Label trackPosition;
         juce::Label trackLength;
         
         WaveformDisplay waveformDisplay;

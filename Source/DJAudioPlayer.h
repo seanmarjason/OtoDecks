@@ -87,7 +87,15 @@ class DJAudioPlayer :   public juce::AudioSource,
         */
         void endAudioLoop();
     
+        /** Get the length in seconds of the track as a string
+         * @return string representing length in seconds of the playhead (M.SS)
+        */
         std::string getTrackLengthString();
+    
+        /** Get the position in seconds of the playhead as a string
+         * @return string representing position in seconds of the playhead (M.SS)
+        */
+        std::string getTrackPositionString();
     
     
     private:

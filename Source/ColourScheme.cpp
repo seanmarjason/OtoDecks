@@ -20,3 +20,4 @@ juce::Colour ColourScheme::primaryAscent = juce::Colour(80,181,255); // blue
 juce::Colour ColourScheme::redAscent = juce::Colour(252,90,90); // red
 juce::Colour ColourScheme::greenAscent = juce::Colour(50,151,113); // green
 juce::Colour ColourScheme::greyAscent = juce::Colour(211, 211, 211); // light grey
+juce::Colour ColourScheme::darkgreyAscent = juce::Colour(150, 150, 150); // dark grey
