@@ -82,7 +82,7 @@ void PlaylistComponent::paintRowBackground(juce::Graphics & g, int rowNumber, in
 {
     if (rowIsSelected)
     {
-        g.fillAll(ColourScheme::primaryAscent);
+        g.fillAll(ColourScheme::borderColour);
     }
     else
     {
@@ -187,6 +187,11 @@ void PlaylistComponent::buttonClicked(juce::Button* button)
     }
 }
 
+void PlaylistComponent::deleteKeyPressed (int lastRowSelected)
+{
+    deleteTrack(filteredTracks.getChildElement(lastRowSelected));
+}
+
 
 void PlaylistComponent::addTrack(juce::String trackName, juce::URL trackURL, juce::String trackLength)
 {
@@ -206,6 +211,20 @@ void PlaylistComponent::addTrack(juce::String trackName, juce::URL trackURL, juc
     tracks.writeTo(tracksFile);
         
     filteredTracks = tracks;
+    tableComponent.updateContent();
+    repaint();
+}
+
+
+void PlaylistComponent::deleteTrack(juce::XmlElement* track)
+{
+    tracks.removeChildElement(tracks.getChildByName(track->getTagName()), true);
+
+    filteredTracks.removeChildElement(filteredTracks.getChildByName(track->getTagName()), true);
+
+    juce::File tracksFile = getTracksFile();
+    tracks.writeTo(tracksFile);
+    
     tableComponent.updateContent();
     repaint();
 }

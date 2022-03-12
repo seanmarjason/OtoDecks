@@ -67,12 +67,19 @@ class PlaylistComponent  :  public juce::Component,
          * @param button pointer to the button that was clicked
          */
         void buttonClicked(juce::Button* button) override;
+    
+        void deleteKeyPressed (int lastRowSelected) override;
         
         /** Add a new track to the playlist and write it to a local file to persist across sessions
          * @param trackName the name of the track to be added
          * @param trackURL the location of the track as a url
          */
         void addTrack(juce::String trackName, juce::URL trackURL, juce::String trackLength);
+    
+        /** Delete track from the playlist
+         * @param track pointer to track to be removed from the playlist
+         */
+        void deleteTrack(juce::XmlElement* track);
 
         
     private:
