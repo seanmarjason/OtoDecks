@@ -32,10 +32,10 @@ class LoopingComponent  :   public juce::Component,
         
         JogWheel jogWheel{player};
 
+        juce::TextButton loop1{"-1s"};
         juce::TextButton loop2{"-2s"};
         juce::TextButton loop4{"-4s"};
         juce::TextButton loop8{"-8s"};
-        juce::TextButton loopManual{"M"};
         
         double manualLoopStart;
         double manualLoopEnd;

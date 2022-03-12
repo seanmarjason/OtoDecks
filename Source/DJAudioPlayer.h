@@ -2,7 +2,8 @@
 
 #include <JuceHeader.h>
 
-class DJAudioPlayer : public juce::AudioSource
+class DJAudioPlayer :   public juce::AudioSource,
+                        public juce::Timer
 {
     public:
         DJAudioPlayer(juce::AudioFormatManager& _formatManager);
@@ -72,11 +73,19 @@ class DJAudioPlayer : public juce::AudioSource
         */
         double getCurrentPosition();
     
+        /** Callback routine that gets called periodically based on timer
+         */
+        void timerCallback() override;
+    
         /** Trigger a loop of the audio source
          * @param startPos the position in the track to start the loop in seconds
          * @param endPos the position in the track to end the loop in seconds
         */
         void startAudioLoop(double startPos, double endPos);
+    
+        /** End looping of the audio source
+        */
+        void endAudioLoop();
     
     
     private:
@@ -84,4 +93,8 @@ class DJAudioPlayer : public juce::AudioSource
         std::unique_ptr<juce::AudioFormatReaderSource> readerSource;
         juce::AudioTransportSource transportSource;
         juce::ResamplingAudioSource resampleSource{&transportSource, false, 2};
+    
+        bool looping;
+        double startLoop;
+        double endLoop;
 };

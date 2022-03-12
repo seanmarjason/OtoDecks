@@ -4,10 +4,12 @@
 DJAudioPlayer::DJAudioPlayer(juce::AudioFormatManager& _formatManager
                              ) : formatManager(_formatManager)
 {
+    startTimer(25);
 }
 
 DJAudioPlayer::~DJAudioPlayer()
 {
+    stopTimer();
 }
 
 
@@ -119,7 +121,38 @@ double DJAudioPlayer::getCurrentPosition()
 }
 
 
+void DJAudioPlayer::timerCallback()
+{
+    if (looping == true)
+    {
+        if (transportSource.getCurrentPosition() >= endLoop)
+        {
+            setPosition(startLoop);
+        }
+    }
+}
+
+
 void DJAudioPlayer::startAudioLoop(double startPos, double endPos)
 {
-    transportSource.setPosition(startPos);
+    if (startPos < 0)
+    {
+        looping = true;
+        startLoop = 0;
+        endLoop = endPos;
+    }
+    else
+    {
+        looping = true;
+        startLoop = startPos;
+        endLoop = endPos;
+    }
+}
+
+
+void DJAudioPlayer::endAudioLoop()
+{
+    looping = false;
+    startLoop = 0;
+    endLoop = 0;
 }

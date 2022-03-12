@@ -7,17 +7,20 @@ LoopingComponent::LoopingComponent(DJAudioPlayer* _player) : player(_player)
 {
     addAndMakeVisible(jogWheel);
 
+    addAndMakeVisible(loop1);
     addAndMakeVisible(loop2);
     addAndMakeVisible(loop4);
     addAndMakeVisible(loop8);
-    addAndMakeVisible(loopManual);
     
-    loopManual.setClickingTogglesState(true);
+    loop1.setClickingTogglesState(true);
+    loop2.setClickingTogglesState(true);
+    loop4.setClickingTogglesState(true);
+    loop8.setClickingTogglesState(true);
     
+    loop1.addListener(this);
     loop2.addListener(this);
     loop4.addListener(this);
     loop8.addListener(this);
-    loopManual.addListener(this);
 }
 
 
@@ -31,18 +34,22 @@ void LoopingComponent::paint (juce::Graphics& g)
     g.fillAll(ColourScheme::backgroundColour);
     g.setColour (ColourScheme::primaryFont);
     g.setFont (14.0f);
+
+    loop1.setColour(juce::TextButton::buttonColourId, ColourScheme::secondaryColour);
+    loop1.setColour(juce::TextButton::buttonOnColourId, ColourScheme::greenAscent);
+    loop1.setColour(juce::ComboBox::outlineColourId, ColourScheme::backgroundColour);
     
     loop2.setColour(juce::TextButton::buttonColourId, ColourScheme::secondaryColour);
+    loop2.setColour(juce::TextButton::buttonOnColourId, ColourScheme::greenAscent);
     loop2.setColour(juce::ComboBox::outlineColourId, ColourScheme::backgroundColour);
 
     loop4.setColour(juce::TextButton::buttonColourId, ColourScheme::secondaryColour);
+    loop4.setColour(juce::TextButton::buttonOnColourId, ColourScheme::greenAscent);
     loop4.setColour(juce::ComboBox::outlineColourId, ColourScheme::backgroundColour);
 
     loop8.setColour(juce::TextButton::buttonColourId, ColourScheme::secondaryColour);
+    loop8.setColour(juce::TextButton::buttonOnColourId, ColourScheme::greenAscent);
     loop8.setColour(juce::ComboBox::outlineColourId, ColourScheme::backgroundColour);
-
-    loopManual.setColour(juce::TextButton::buttonColourId, ColourScheme::secondaryColour);
-    loopManual.setColour(juce::ComboBox::outlineColourId, ColourScheme::backgroundColour);
 }
 
 
@@ -53,39 +60,74 @@ void LoopingComponent::resized()
     
     jogWheel.setBounds(0, 0, getWidth(), rowH * 3);
 
-    loop2.setBounds(     colW * 0, rowH * 3, colW, rowH * 1);
-    loop4.setBounds(     colW * 1, rowH * 3, colW, rowH * 1);
-    loop8.setBounds(     colW * 2, rowH * 3, colW, rowH * 1);
-    loopManual.setBounds(colW * 3, rowH * 3, colW, rowH * 1);
+    loop1.setBounds(colW * 0, rowH * 3, colW, rowH * 1);
+    loop2.setBounds(colW * 1, rowH * 3, colW, rowH * 1);
+    loop4.setBounds(colW * 2, rowH * 3, colW, rowH * 1);
+    loop8.setBounds(colW * 3, rowH * 3, colW, rowH * 1);
 }
 
 
 void LoopingComponent::buttonClicked(juce::Button* button)
 {
     double currentPosition = player->getCurrentPosition();
-
-    if (button == &loop2)
+    
+    if (button == &loop1)
     {
-        player->startAudioLoop(currentPosition - 2.0, currentPosition);
-    }
-    if (button == &loop4)
-    {
-        player->startAudioLoop(currentPosition - 4.0, currentPosition);
-    }
-    if (button == &loop8)
-    {
-        player->startAudioLoop(currentPosition - 8.0, currentPosition);
-    }
-    if (button == &loopManual)
-    {
-        if (loopManual.getToggleState() == true)
+        if (loop1.getToggleState() == true)
         {
-            manualLoopStart = currentPosition;
+            player->startAudioLoop(currentPosition - 1.0, currentPosition);
         }
         else
         {
-            manualLoopEnd = currentPosition;
+            player->endAudioLoop();
         }
-        player->startAudioLoop(manualLoopStart, manualLoopEnd);
+        loop2.setToggleState(false, false);
+        loop4.setToggleState(false, false);
+        loop8.setToggleState(false, false);
+    }
+    
+    if (button == &loop2)
+    {
+        if (loop2.getToggleState() == true)
+        {
+            player->startAudioLoop(currentPosition - 2.0, currentPosition);
+        }
+        else
+        {
+            player->endAudioLoop();
+        }
+        loop1.setToggleState(false, false);
+        loop4.setToggleState(false, false);
+        loop8.setToggleState(false, false);
+    }
+    
+    if (button == &loop4)
+    {
+        if (loop4.getToggleState() == true)
+        {
+            player->startAudioLoop(currentPosition - 4.0, currentPosition);
+        }
+        else
+        {
+            player->endAudioLoop();
+        }
+        loop1.setToggleState(false, false);
+        loop2.setToggleState(false, false);
+        loop8.setToggleState(false, false);
+    }
+    
+    if (button == &loop8)
+    {
+        if (loop8.getToggleState() == true)
+        {
+            player->startAudioLoop(currentPosition - 8.0, currentPosition);
+        }
+        else
+        {
+            player->endAudioLoop();
+        }
+        loop1.setToggleState(false, false);
+        loop2.setToggleState(false, false);
+        loop4.setToggleState(false, false);
     }
 }
